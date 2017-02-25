@@ -19,11 +19,13 @@
     "eslint-watch": "^3.0.0",
     "husky": "^0.13.1",
     "jest": "^19.0.2",
+    "mock-fs": "^4.0.0",
     "semantic-release": "^6.3.2",
     "webpack": "^2.2.1"
   },
   "dependencies": {
     "colors": "^1.1.2",
+    "findup": "^0.1.5",
     "glob": "^7.1.1"
   },
   "scripts": {
@@ -34,6 +36,7 @@
     "start": "babel-node src/index.js",
     "pretest:sample": "yarn run build",
     "test:sample": "babel-node ./sample/index.js",
+    "prebuild": "rm -rf dist && mkdir dist",
     "build": "./node_modules/.bin/webpack --config ./src/build/webpack.config.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "precommit": "yarn run lint && yarn run test"
