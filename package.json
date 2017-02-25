@@ -1,0 +1,8 @@
+{
+  "name": "storybook-config-writer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/elderfo/storybook-config-writer.git",
+  "author": "Freddy <cgetsfred@gmail.com>",
+  "license": "MIT"
+}
