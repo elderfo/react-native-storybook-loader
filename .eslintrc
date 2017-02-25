@@ -1,0 +1,25 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "plugins": [
+        "import"
+    ],
+    "rules": {
+        "no-underscore-dangle": "off",
+        "max-len": ["error", {
+          "ignoreTrailingComments": true,
+          "code": 100,
+          "ignoreStrings": true
+          }]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".android.js", ".ios.js"]
+            }
+        }
+    },
+    "env": {
+      "jest":true
+    }
+}
