@@ -1,16 +1,35 @@
 {
   "name": "storybook-config-writer",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.0-development",
+  "main": "src/index.js",
   "repository": "https://github.com/elderfo/storybook-config-writer.git",
   "author": "Freddy <cgetsfred@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-loader": "^6.3.2",
     "eslint": "^3.16.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0"
+    "eslint-plugin-react": "^6.10.0",
+    "eslint-watch": "^3.0.0",
+    "webpack": "^2.2.1",
+    "semantic-release": "^6.3.2"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "glob": "^7.1.1"
+  },
+  "scripts": {
+    "lint": "esw ./",
+    "lint:watch": "yarn run lint -- --watch",
+    "start": "babel-node src/index.js",
+    "test": "babel-node test/test.js",
+    "build": "./node_modules/.bin/webpack --config ./src/build/webpack.config.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   }
 }
