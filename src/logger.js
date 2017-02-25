@@ -3,7 +3,7 @@ import 'colors';
 const logger = console;
 
 export function info(message, value) {
-  const outputValue = value ? value : '';
+  const outputValue = value || '';
   logger.log(message.blue, outputValue.white);
 }
 
