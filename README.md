@@ -45,10 +45,10 @@ Story loading is controlled by the `storybook-config-writer` section of the proj
 
 ### Options
 
-| Setting | Description | Default |
-|---|---|---|
-| **searchDir** | This is the directory, relative to the project root, to search for files in. | The root of the project same directory of the `package.json` |
-| **pattern** | This is a glob pattern of files to search. | `./storybook/index.js`. Note: this is the default storybook file, and chosen for this component to be able to be dropped in to a new project and work, only requiring and update to the `index.android.js` and `index.ios.js` files. |
+| Setting | Description | Default | Notes |
+|---|---|---| --- |
+| **searchDir** | This is the directory, relative to the project root, to search for files in. | Project root | |
+| **pattern** | This is the pattern of files to look at. It can be a specific file, or any valid glob | `./storybook/index.js` | This is the default storybook file, and chosen for this component to be able to be dropped in to a new project and work, only requiring and update to the `index.android.js` and `index.ios.js` files. |
 
 #### Example:
 
@@ -66,3 +66,9 @@ Story loading is controlled by the `storybook-config-writer` section of the proj
 ```
 
 This configuration will search `src` recursively for files that end with `.stories.js`.
+
+## Support
+Please log issues
+
+## Contributing
+Coming Soon
