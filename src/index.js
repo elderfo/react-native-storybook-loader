@@ -1,18 +1,16 @@
 // import fs from 'fs';
 // import glob from 'glob';
-import path from 'path';
 import * as logger from './logger';
+import resolvePaths from './paths';
 
-const storybookPath = path.resolve(__dirname, '../');
-const baseDir = path.resolve(__dirname, '../../src');
-const pattern = path.join(baseDir, '**/*.stories.js');
-const outputFile = path.resolve(__dirname, '../loadStories.js');
+const paths = resolvePaths();
 
 logger.info('\nGenerating Dynamic Storybook File List\n');
-logger.info('Base Directory:   ', baseDir);
-logger.info('Search Pattern:   ', pattern);
-logger.info('Storybook Path:   ', storybookPath);
-logger.info('Output File:      ', outputFile);
+logger.info('package.json:     ', paths.packageJsonFile);
+logger.info('Base Directory:   ', paths.baseDir);
+logger.info('Search Pattern:   ', paths.pattern);
+logger.info('Storybook Path:   ', paths.storybookPath);
+logger.info('Output File:      ', paths.outputFile);
 
 // Get the files
 // let files = glob.sync(pattern);
