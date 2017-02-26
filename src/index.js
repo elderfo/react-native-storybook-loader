@@ -1,33 +1,42 @@
-// import fs from 'fs';
-// import glob from 'glob';
+import glob from 'glob';
+
 import * as logger from './logger';
-import resolvePaths from './paths';
+import pathResolver from './pathResolver';
+import fileLoader from './fileLoader';
 
-const paths = resolvePaths();
+function loadStories() {
+  const paths = pathResolver.resolvePaths();
 
-logger.info('\nGenerating Dynamic Storybook File List\n');
-logger.info('package.json:     ', paths.packageJsonFile);
-logger.info('Base Directory:   ', paths.baseDir);
-logger.info('Search Pattern:   ', paths.pattern);
-logger.info('Storybook Path:   ', paths.storybookPath);
-logger.info('Output File:      ', paths.outputFile);
+  logger.info('\nGenerating Dynamic Storybook File List\n');
+  logger.info('package.json:     ', paths.packageJsonFile);
+  logger.info('Base Directory:   ', paths.baseDir);
+  logger.info('Search Pattern:   ', paths.pattern);
 
-// Get the files
-// let files = glob.sync(pattern);
+  // Get the files
+  const files = glob.sync(paths.pattern);
 
-// Map files relative to storybookPath
-logger.info('\nWriting Configuration:\n');
+  let loaded = 0;
+  let errors = 0;
 
-// if (fs.existsSync(outputFile)) {
-//   fs.unlinkSync(outputFile);
-// }
+  files.forEach((file) => {
+    try {
+      fileLoader.loadFile(file);
+      loaded += 1;
+    } catch (error) {
+      logger.error(`Failed to load file '${file}'`, error);
+      errors += 1;
+    }
+  });
 
-// fs.appendFileSync(outputFile, 'export function loadStories() {\n');
-// files.map(f=> {
-//   const relative = path.relative(storybookPath, f);
-//   info('  ', `${f}->${relative}`);
-//   fs.appendFileSync(outputFile, `  require('${relative}');\n`);
-// });
-// fs.appendFileSync(outputFile, '}');
+  if (errors && loaded === 0) {
+    throw new Error('No files were loaded, see log for more information.');
+  } else if (errors) {
+    logger.warn(`Loaded ${loaded} of ${files.length} files with ${errors} errors. See above for errored files.`); // eslint-disable-line max-len
+  } else if (loaded === 0) {
+    logger.warn(`No files matched the pattern '${paths.pattern}'`);
+  } else {
+    logger.info(`Loaded ${loaded} of ${files.length} files`);
+  }
+}
 
-logger.info('\nFile list successfully written!\n');
+export default loadStories;

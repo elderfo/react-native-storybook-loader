@@ -1,25 +1,31 @@
 {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "plugins": [
-        "import"
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+    "no-underscore-dangle": "off",
+    "max-len": [
+      "error",
+      {
+        "ignoreTrailingComments": true,
+        "code": 100,
+        "ignoreStrings": true
+      }
     ],
-    "rules": {
-        "no-underscore-dangle": "off",
-        "max-len": ["error", {
-          "ignoreTrailingComments": true,
-          "code": 100,
-          "ignoreStrings": true
-          }]
-    },
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "extensions": [".js"]
-            }
-        }
-    },
-    "env": {
-      "jest":true
+    "import/prefer-default-export": ["off"]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js"
+        ]
+      }
     }
+  },
+  "env": {
+    "jest": true
+  }
 }

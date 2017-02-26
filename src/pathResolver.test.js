@@ -1,7 +1,7 @@
 import path from 'path';
 import mock from 'mock-fs';
 
-import resolvePaths from './paths';
+import pathResolver from './pathResolver';
 import { appName } from './constants';
 
 const packageJsonFilePath = path.resolve(process.cwd(), 'package.json');
@@ -23,7 +23,7 @@ function mockResolveAndValidate(setting) {
   mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
 
   const expected = path.resolve(process.cwd(), packageJsonContents.config[appName][setting]);
-  const actual = resolvePaths(process.cwd());
+  const actual = pathResolver.resolvePaths(process.cwd());
 
   expect(actual[setting]).toBe(expected);
 }
@@ -35,7 +35,7 @@ function mockNoSettingsResolveAndValidate(setting, expected) {
     }),
   });
 
-  const actual = resolvePaths(process.cwd());
+  const actual = pathResolver.resolvePaths(process.cwd());
   expect(actual[setting]).toBe(expected);
 }
 
@@ -65,14 +65,14 @@ test('resolvePaths should resolve "pattern" to the default fully qualified path 
 
 test('resolvePaths should resolve expected "baseDir"', () => {
   const expected = path.dirname(packageJsonFilePath);
-  const actual = resolvePaths(process.cwd());
+  const actual = pathResolver.resolvePaths(process.cwd());
 
   expect(actual.baseDir).toBe(expected);
 });
 
 test('resolvePaths should find the package.json', () => {
   const expected = packageJsonFilePath;
-  const actual = resolvePaths(process.cwd());
+  const actual = pathResolver.resolvePaths(process.cwd());
 
   expect(actual.packageJsonFile).toBe(expected);
 });
