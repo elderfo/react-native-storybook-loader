@@ -31,10 +31,10 @@ Update `index.android.js` and `index.ios.js` files in the `./storybook` director
 ```javascript
 import { AppRegistry } from 'react-native';
 import { getStorybookUI, configure } from '@kadira/react-native-storybook';
-import storyLoader from 'react-native-storybook-loader';
+import { loadStories } from 'react-native-storybook-loader';
 
 // import stories
-configure(storyLoader.loadStories, module);
+configure(loadStories, module);
 
 const StorybookUI = getStorybookUI({port: 7007, host: 'localhost'});
 AppRegistry.registerComponent('ReactNative', () => StorybookUI);
