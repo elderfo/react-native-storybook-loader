@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import findup from 'findup';
-import { appName } from './constants';
+import { appName } from '../constants';
 
 const settings = [
   'pattern',

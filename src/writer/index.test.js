@@ -1,7 +1,7 @@
 import mock from 'mock-fs';
 import path from 'path';
 import fs from 'fs';
-import { writeFile, outputPath, templatePath } from './storyWriter';
+import { writeFile, outputPath, templatePath } from './';
 
 const template = fs.readFileSync(templatePath, 'utf-8');
 const baseDir = path.resolve(__dirname, '../../');

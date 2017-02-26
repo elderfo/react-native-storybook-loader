@@ -1,8 +1,8 @@
 import path from 'path';
 import mock from 'mock-fs';
 
-import { resolvePaths } from './pathResolver';
-import { appName } from './constants';
+import { resolvePaths } from './';
+import { appName } from '../constants';
 
 const packageJsonFilePath = path.resolve(process.cwd(), 'package.json');
 const packageJsonContents = {
