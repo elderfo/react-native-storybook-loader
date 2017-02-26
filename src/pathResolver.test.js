@@ -8,9 +8,8 @@ const packageJsonFilePath = path.resolve(process.cwd(), 'package.json');
 const packageJsonContents = {
   config: {
     [appName]: { // match name of the project
-      storybookPath: './src/storybook',
+      searchDir: './src/storybook',
       pattern: '**/*.stories.js',
-      outputFile: 'storieslist.js',
     },
   },
 };
@@ -19,13 +18,14 @@ afterEach(() => {
   mock.restore();
 });
 
-function mockResolveAndValidate(setting) {
+function mockResolveAndValidate(setting, expected) {
   mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
+  const defaultPath = path.resolve(process.cwd(), packageJsonContents.config[appName][setting]);
+  const expectedValue = expected || defaultPath;
 
-  const expected = path.resolve(process.cwd(), packageJsonContents.config[appName][setting]);
   const actual = resolvePaths(process.cwd());
 
-  expect(actual[setting]).toBe(expected);
+  expect(actual[setting]).toBe(expectedValue);
 }
 
 function mockNoSettingsResolveAndValidate(setting, expected) {
@@ -39,24 +39,16 @@ function mockNoSettingsResolveAndValidate(setting, expected) {
   expect(actual[setting]).toBe(expected);
 }
 
-test('resolvePaths should resolve "outputFile" to the expected fully qualified path when specified in the package.json', () => {
-  mockResolveAndValidate('outputFile');
-});
-
-test('resolvePaths should resolve "storybookPath" to the expected fully qualified path when specified in the package.json', () => {
-  mockResolveAndValidate('storybookPath');
+test('resolvePaths should resolve "searchDir" to the expected fully qualified path when specified in the package.json', () => {
+  mockResolveAndValidate('searchDir');
 });
 
 test('resolvePaths should resolve "pattern" to the expected fully qualified path when specified in the package.json', () => {
-  mockResolveAndValidate('pattern');
+  mockResolveAndValidate('pattern', path.resolve(process.cwd(), packageJsonContents.config[appName].searchDir, packageJsonContents.config[appName].pattern));
 });
 
-test('resolvePaths should resolve "outputFile" to the default fully qualified path when not specified in the package.json', () => {
-  mockNoSettingsResolveAndValidate('outputFile', path.resolve(process.cwd(), './storybook/config/index.js'));
-});
-
-test('resolvePaths should resolve "storybookPath" to the default fully qualified path when not specified in the package.json', () => {
-  mockNoSettingsResolveAndValidate('storybookPath', path.resolve(process.cwd(), './storybook'));
+test('resolvePaths should resolve "searchDir" to the default fully qualified path when not specified in the package.json', () => {
+  mockNoSettingsResolveAndValidate('searchDir', path.resolve(process.cwd()));
 });
 
 test('resolvePaths should resolve "pattern" to the default fully qualified path when not specified in the package.json', () => {
