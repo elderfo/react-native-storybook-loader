@@ -52,7 +52,7 @@ test('resolvePaths should resolve "searchDir" to the default fully qualified pat
 });
 
 test('resolvePaths should resolve "pattern" to the default fully qualified path when not specified in the package.json', () => {
-  mockNoSettingsResolveAndValidate('pattern', path.resolve(process.cwd(), './storybook/index.js'));
+  mockNoSettingsResolveAndValidate('pattern', path.resolve(process.cwd(), './storybook/stories/index.js'));
 });
 
 test('resolvePaths should resolve expected "baseDir"', () => {

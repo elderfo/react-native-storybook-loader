@@ -48,7 +48,7 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 | Setting | Description | Default | Notes |
 |---|---|---| --- |
 | **searchDir** | This is the directory, relative to the project root, to search for files in. | Project root | |
-| **pattern** | This is the pattern of files to look at. It can be a specific file, or any valid glob | `./storybook/index.js` | This is the default storybook file, and chosen for this component to be able to be dropped in to a new project and work, only requiring and update to the `index.android.js` and `index.ios.js` files. |
+| **pattern** | This is the pattern of files to look at. It can be a specific file, or any valid glob | `./storybook/stories/index.js` | This is the default storybook file, and chosen for this component to be able to be dropped in to a new project and work, only requiring and update to the `index.android.js` and `index.ios.js` files. |
 
 #### Example:
 

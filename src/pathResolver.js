@@ -10,7 +10,7 @@ const settings = [
 function getDefaultValue(baseDir, setting) {
   switch (setting) {
     case 'pattern':
-      return path.resolve(baseDir, './storybook/index.js');
+      return path.resolve(baseDir, './storybook/stories/index.js');
     default:
       return baseDir;
   }
