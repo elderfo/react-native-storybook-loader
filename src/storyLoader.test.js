@@ -3,12 +3,12 @@ import faker from 'faker';
 
 // mocked imports
 import glob from 'glob';
-import pathResolver from './pathResolver';
-import fileLoader from './fileLoader';
+import * as pathResolver from './pathResolver';
+import * as fileLoader from './fileLoader';
 import * as logger from './logger';
 
 // test file import
-import loadStories from './index';
+import { loadStories } from './storyLoader';
 
 jest.mock('glob');
 jest.mock('./pathResolver.js');
