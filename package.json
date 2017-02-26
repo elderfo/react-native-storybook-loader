@@ -1,8 +1,53 @@
 {
-  "name": "storybook-config-writer",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/elderfo/storybook-config-writer.git",
+  "name": "react-native-storybook-loader",
+  "version": "0.0.0-development",
+  "main": "src/index.js",
+  "repository": "https://github.com/elderfo/react-native-storybook-loader.git",
   "author": "Freddy <cgetsfred@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "eslint-watch": "^3.0.0",
+    "faker": "^4.1.0",
+    "husky": "^0.13.1",
+    "jest": "^19.0.2",
+    "mock-fs": "^4.0.0",
+    "semantic-release": "^6.3.2",
+    "uuid": "^3.0.1",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "findup": "^0.1.5",
+    "glob": "^7.1.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "esw ./",
+    "lint:watch": "yarn run lint -- --watch",
+    "start": "babel-node src/index.js",
+    "pretest:sample": "yarn run build",
+    "test:sample": "babel-node ./sample/index.js",
+    "prebuild": "rm -rf dist && mkdir dist",
+    "build": "./node_modules/.bin/webpack --config ./src/build/webpack.config.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "precommit": "yarn run lint && yarn run test"
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "storybookPath": "./storybook",
+      "pattern": "*.stories.js",
+      "outputFile": "storieslist.js"
+    }
+  }
 }
