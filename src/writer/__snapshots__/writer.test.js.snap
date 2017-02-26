@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it should do what I think it should do 1`] = `
+"// template for doT (https://github.com/olado/doT)
+
+function loadStories() {
+  
+  require('../src/file1.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/file1.js
+  require('../src/sub/file2.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/sub/file2.js
+  require('../parent/file3.js'); // /Users/Freddy/Developer/react-native-storybook-loader/parent/file3.js
+  require('../src/writer/sub/file4.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/writer/sub/file4.js
+  require('../src/writer/sub/sub/file5.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/writer/sub/sub/file5.js
+  
+}
+
+module.exports = {
+  loadStories,
+};
+"
+`;

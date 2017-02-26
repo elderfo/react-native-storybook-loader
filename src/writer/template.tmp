@@ -1,0 +1,11 @@
+// template for doT (https://github.com/olado/doT)
+
+function loadStories() {
+  
+  {{~it.files :value:index}}require('{{=value.relative}}'); // {{=value.full}}
+  {{~}}
+}
+
+module.exports = {
+  loadStories,
+};
