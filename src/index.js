@@ -1,3 +1,7 @@
-import { loadStories } from './storyLoader';
+import storyLoader from '../output/storyLoader';
 
-export { loadStories };
+export function loadStories() {
+  if (storyLoader && storyLoader.loadStories) {
+    storyLoader.loadStories();
+  }
+}
