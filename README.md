@@ -1,16 +1,16 @@
-# storybook-config-writer
-[![Build Status](https://travis-ci.org/elderfo/storybook-config-writer.svg?branch=master)](https://travis-ci.org/elderfo/storybook-config-writer)
+# react-native-storybook-loader
+[![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader)
 
 A component for dynamically import stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
 
 ## Installation
 
 ```bash
-yarn add storybook-config-writer -D
+yarn add react-native-storybook-loader -D
 ```
 Or
 ```bash
-npm install storybook-config-writer --save-dev
+npm install react-native-storybook-loader --save-dev
 ```
 
 ## Quick Start
@@ -31,7 +31,7 @@ Update `index.android.js` and `index.ios.js` files in the `./storybook` director
 ```javascript
 import { AppRegistry } from 'react-native';
 import { getStorybookUI, configure } from '@kadira/react-native-storybook';
-import storyLoader from 'storybook-config-writer';
+import storyLoader from 'react-native-storybook-loader';
 
 // import stories
 configure(storyLoader.loadStories, module);
@@ -41,7 +41,7 @@ AppRegistry.registerComponent('ReactNative', () => StorybookUI);
 ```
 
 ## Configuration
-Story loading is controlled by the `storybook-config-writer` section of the project's `package.json`. 
+Story loading is controlled by the `react-native-storybook-loader` section of the project's `package.json`. 
 
 ### Options
 
@@ -57,7 +57,7 @@ Story loading is controlled by the `storybook-config-writer` section of the proj
   "name": "AwesomeProject",
   ...
   "config": {
-    "storybook-config-writer": {
+    "react-native-storybook-loader": {
       "searchDir": "./src",
       "pattern": "**/*.stories.js"
     }

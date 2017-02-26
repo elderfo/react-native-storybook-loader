@@ -1,1 +1,1 @@
-export const appName = 'storybook-config-writer';
+export const appName = 'react-native-storybook-loader';

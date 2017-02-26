@@ -1,8 +1,8 @@
 {
-  "name": "storybook-config-writer",
+  "name": "react-native-storybook-loader",
   "version": "0.0.0-development",
   "main": "src/index.js",
-  "repository": "https://github.com/elderfo/storybook-config-writer.git",
+  "repository": "https://github.com/elderfo/react-native-storybook-loader.git",
   "author": "Freddy <cgetsfred@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -44,7 +44,7 @@
     "precommit": "yarn run lint && yarn run test"
   },
   "config": {
-    "storybook-config-writer": {
+    "react-native-storybook-loader": {
       "storybookPath": "./storybook",
       "pattern": "*.stories.js",
       "outputFile": "storieslist.js"
