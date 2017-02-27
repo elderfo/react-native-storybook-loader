@@ -6,11 +6,11 @@ exports[`writeFile should perform expected work 1`] = `
 
 function loadStories() {
   
-  require('../src/file1.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/file1.js
-  require('../src/sub/file2.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/sub/file2.js
-  require('../parent/file3.js'); // /Users/Freddy/Developer/react-native-storybook-loader/parent/file3.js
-  require('../src/writer/sub/file4.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/writer/sub/file4.js
-  require('../src/writer/sub/sub/file5.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/writer/sub/sub/file5.js
+  require('src/file1.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/file1.js
+  require('src/sub/file2.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/sub/file2.js
+  require('parent/file3.js'); // /Users/Freddy/Developer/react-native-storybook-loader/parent/file3.js
+  require('src/writer/sub/file4.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/writer/sub/file4.js
+  require('src/writer/sub/sub/file5.js'); // /Users/Freddy/Developer/react-native-storybook-loader/src/writer/sub/sub/file5.js
   
 }
 

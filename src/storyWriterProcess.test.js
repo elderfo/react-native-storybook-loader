@@ -23,6 +23,7 @@ test('writeOutStoryLoader should perform expected work', () => {
     packageJsonFile: faker.system.fileName(),
     searchDir: faker.system.fileName(),
     pattern: faker.system.fileName(),
+    outputFile: faker.system.fileName(),
   };
   const files = generateArray(faker.system.fileName);
 
@@ -32,5 +33,5 @@ test('writeOutStoryLoader should perform expected work', () => {
 
   expect(paths.resolvePaths).toHaveBeenCalled();
   expect(storyFinder.loadStories).toHaveBeenCalledWith(config.pattern);
-  expect(writer.writeFile).toHaveBeenCalledWith(config.baseDir, files);
+  expect(writer.writeFile).toHaveBeenCalledWith(config.baseDir, files, config.outputFile);
 });

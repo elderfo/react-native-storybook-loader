@@ -22,8 +22,6 @@ function ensureFileDirectoryExists(filePath) {
   }
 }
 
-export const outputPath = path.resolve(__dirname, '../../output/storyLoader.js');
-
 export const templateContents = `
 // template for doT (https://github.com/olado/doT)
 
@@ -38,7 +36,7 @@ module.exports = {
 };
 `;
 
-export function writeFile(baseDir, files) {
+export function writeFile(baseDir, files, outputPath) {
   const template = dot.template(templateContents);
   const relativePaths = getRelativePaths(path.dirname(outputPath), files);
 
