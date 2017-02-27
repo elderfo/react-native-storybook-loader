@@ -2502,7 +2502,7 @@ function writeOutStoryLoader() {
 
   logger.info('\nGenerating Dynamic Storybook File List\n');
   logger.info('package.json:     ', paths.packageJsonFile);
-  logger.info('Base Directory:   ', paths.baseDir);
+  logger.info('Base directory:   ', paths.baseDir);
   logger.info('Pattern:          ', paths.pattern);
 
   var storyFiles = (0, _storyFinder.loadStories)(paths.pattern);
@@ -2511,10 +2511,10 @@ function writeOutStoryLoader() {
 
   if (storyFiles.length > 0) {
     (0, _writer.writeFile)(paths.baseDir, storyFiles);
-    logger.info('Compiled story loader for ' + storyFiles.length + ' files: \n\n ' + storyFiles);
+    logger.info('Compiled story loader for ' + storyFiles.length + ' files:\n', ' ' + storyFiles.join('\n  '));
+  } else {
+    logger.warn('No files were found matching the specified pattern. Story loader was not written.');
   }
-
-  logger.warn('No files were found matching the specified pattern. Story loader was not written.');
 }
 
 /***/ }),
@@ -2659,7 +2659,7 @@ function loadStories(pattern) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.templatePath = exports.outputPath = undefined;
+exports.templateContents = exports.outputPath = undefined;
 exports.writeFile = writeFile;
 
 var _fs = __webpack_require__(0);
@@ -2692,33 +2692,28 @@ function getRelativePaths(fromDir, files) {
 function ensureFileDirectoryExists(filePath) {
   var directory = _path2.default.dirname(filePath);
 
-  if (!_fs2.default.existsSync(directory)) {
+  var stats = _fs2.default.lstatSync(directory);
+
+  if (!stats.isDirectory()) {
     _fs2.default.mkdirSync(directory);
   }
 }
 
-function ensureCanWriteFile(outputPath) {
-  if (_fs2.default.existsSync(outputPath)) {
-    _fs2.default.unlinkSync(outputPath);
-  }
-}
-
 var outputPath = exports.outputPath = _path2.default.resolve(__dirname, '../../output/storyLoader.js');
-var templatePath = exports.templatePath = _path2.default.resolve(__dirname, './template.tmp');
+
+var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\'); // {{=value.full}}\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
 
 function writeFile(baseDir, files) {
-  var templateContents = _fs2.default.readFileSync(templatePath, _constants.encoding);
   var template = _dot2.default.template(templateContents);
   var relativePaths = getRelativePaths(_path2.default.dirname(outputPath), files);
 
   var output = template({ files: relativePaths });
 
   ensureFileDirectoryExists(outputPath);
-  ensureCanWriteFile(outputPath);
 
   _fs2.default.writeFileSync(outputPath, output, { encoding: _constants.encoding });
 }
-/* WEBPACK VAR INJECTION */}.call(exports, "/"))
+/* WEBPACK VAR INJECTION */}.call(exports, "src/writer"))
 
 /***/ }),
 /* 20 */

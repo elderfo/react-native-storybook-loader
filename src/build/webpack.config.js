@@ -7,6 +7,9 @@ module.exports = {
     path: path.resolve(__dirname, '../../dist'),
   },
   target: 'node',
+  node: {
+    __dirname: true,
+  },
   module: {
     rules: [
       {

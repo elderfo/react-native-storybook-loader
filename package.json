@@ -42,11 +42,18 @@
     "lint:watch": "yarn run lint -- --watch",
     "prestart": "yarn run build",
     "start": "babel-node src/rnstl-cli.js",
+    "prestart:dist": "yarn run build",
+    "start:dist": "node dist/rnstl-cli.js",
     "prebuild": "rm -rf dist && mkdir dist",
     "build": "webpack --config ./src/build/webpack.config.js",
-    "postbuild": "babel-node ./src/build/postbuild.js",
-    "build:precommit": "git add ./dist/rnstl-cli.js && git add ./dist/template.tmp",
+    "build:precommit": "git add ./dist/rnstl-cli.js && git checkout ./output/storyLoader.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "precommit": "yarn run lint && yarn run test && yarn run build && yarn run build:precommit"
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": "./src",
+      "pattern": "**/*.test.js"
+    }
   }
 }

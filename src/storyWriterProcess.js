@@ -17,7 +17,7 @@ export function writeOutStoryLoader() {
 
   if (storyFiles.length > 0) {
     writeFile(paths.baseDir, storyFiles);
-    logger.info(`Compiled story loader for ${storyFiles.length} files: \n\n ${storyFiles}`);
+    logger.info(`Compiled story loader for ${storyFiles.length} files:\n`, ` ${storyFiles.join('\n  ')}`);
   } else {
     logger.warn('No files were found matching the specified pattern. Story loader was not written.');
   }
