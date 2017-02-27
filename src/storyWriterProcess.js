@@ -8,7 +8,7 @@ export function writeOutStoryLoader() {
 
   logger.info('\nGenerating Dynamic Storybook File List\n');
   logger.info('package.json:     ', paths.packageJsonFile);
-  logger.info('Base Directory:   ', paths.baseDir);
+  logger.info('Base directory:   ', paths.baseDir);
   logger.info('Pattern:          ', paths.pattern);
 
   const storyFiles = loadStories(paths.pattern);
@@ -18,7 +18,7 @@ export function writeOutStoryLoader() {
   if (storyFiles.length > 0) {
     writeFile(paths.baseDir, storyFiles);
     logger.info(`Compiled story loader for ${storyFiles.length} files: \n\n ${storyFiles}`);
+  } else {
+    logger.warn('No files were found matching the specified pattern. Story loader was not written.');
   }
-
-  logger.warn('No files were found matching the specified pattern. Story loader was not written.');
 }
