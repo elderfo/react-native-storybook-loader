@@ -1,7 +1,9 @@
-import storyLoader from '../output/storyLoader';
+var storyLoader = require('../output/storyLoader'); // eslint-disable-line no-var
 
-export function loadStories() {
+function loadStories() {
   if (storyLoader && storyLoader.loadStories) {
     storyLoader.loadStories();
   }
 }
+
+module.exports = loadStories;

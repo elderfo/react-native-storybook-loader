@@ -1,11 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, '../index.js'),
+  entry: path.resolve(__dirname, '../rnstl-cli.js'),
   output: {
-    filename: 'index.js',
+    filename: 'rnstl-cli.js',
     path: path.resolve(__dirname, '../../dist'),
   },
+  target: 'node',
   module: {
     rules: [
       {

@@ -3,8 +3,12 @@
   "version": "0.0.0-development",
   "main": "src/index.js",
   "repository": "https://github.com/elderfo/react-native-storybook-loader.git",
-  "author": "Freddy <cgetsfred@gmail.com>",
+  "bugs": "https://github.com/elderfo/react-native-storybook-loader/issues",
+  "author": "Chris Gestred <cgetsfred@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "rnstl": "./src/rnstl-cli.js"
+  },
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
@@ -36,19 +40,13 @@
     "test:watch": "jest --watch",
     "lint": "esw ./",
     "lint:watch": "yarn run lint -- --watch",
-    "start": "babel-node src/index.js",
-    "pretest:sample": "yarn run build",
-    "test:sample": "babel-node ./sample/index.js",
+    "prestart": "yarn run build",
+    "start": "babel-node src/rnstl-cli.js",
     "prebuild": "rm -rf dist && mkdir dist",
-    "build": "./node_modules/.bin/webpack --config ./src/build/webpack.config.js",
+    "build": "webpack --config ./src/build/webpack.config.js",
+    "postbuild": "babel-node ./src/build/postbuild.js",
+    "build:precommit": "git add ./dist/rnstl-cli.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "precommit": "yarn run lint && yarn run test"
-  },
-  "config": {
-    "react-native-storybook-loader": {
-      "storybookPath": "./storybook",
-      "pattern": "*.stories.js",
-      "outputFile": "storieslist.js"
-    }
   }
 }
