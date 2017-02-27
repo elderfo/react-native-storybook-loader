@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it should do what I think it should do 1`] = `
-"// template for doT (https://github.com/olado/doT)
+exports[`writeFile should perform expected work 1`] = `
+"
+// template for doT (https://github.com/olado/doT)
 
 function loadStories() {
   

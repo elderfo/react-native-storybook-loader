@@ -15,29 +15,36 @@ function getRelativePaths(fromDir, files) {
 function ensureFileDirectoryExists(filePath) {
   const directory = path.dirname(filePath);
 
-  if (!fs.existsSync(directory)) {
+  const stats = fs.lstatSync(directory);
+
+  if (!stats.isDirectory()) {
     fs.mkdirSync(directory);
   }
 }
 
-function ensureCanWriteFile(outputPath) {
-  if (fs.existsSync(outputPath)) {
-    fs.unlinkSync(outputPath);
-  }
+export const outputPath = path.resolve(__dirname, '../../output/storyLoader.js');
+
+export const templateContents = `
+// template for doT (https://github.com/olado/doT)
+
+function loadStories() {
+  
+  {{~it.files :value:index}}require('{{=value.relative}}'); // {{=value.full}}
+  {{~}}
 }
 
-export const outputPath = path.resolve(__dirname, '../../output/storyLoader.js');
-export const templatePath = path.resolve(__dirname, './template.tmp');
+module.exports = {
+  loadStories,
+};
+`;
 
 export function writeFile(baseDir, files) {
-  const templateContents = fs.readFileSync(templatePath, encoding);
   const template = dot.template(templateContents);
   const relativePaths = getRelativePaths(path.dirname(outputPath), files);
 
   const output = template({ files: relativePaths });
 
   ensureFileDirectoryExists(outputPath);
-  ensureCanWriteFile(outputPath);
 
   fs.writeFileSync(outputPath, output, { encoding });
 }
