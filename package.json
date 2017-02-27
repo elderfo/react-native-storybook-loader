@@ -7,7 +7,7 @@
   "author": "Chris Gestred <cgetsfred@gmail.com>",
   "license": "MIT",
   "bin": {
-    "rnstl": "./src/rnstl-cli.js"
+    "rnstl": "./dist/rnstl-cli.js"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
