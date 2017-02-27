@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import dot from 'dot';
-
-const encoding = 'utf-8';
+import { encoding } from '../constants';
 
 dot.templateSettings.strip = false;
 

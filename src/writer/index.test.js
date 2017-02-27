@@ -2,8 +2,9 @@ import mock from 'mock-fs';
 import path from 'path';
 import fs from 'fs';
 import { writeFile, outputPath, templatePath } from './';
+import { encoding } from '../constants';
 
-const template = fs.readFileSync(templatePath, 'utf-8');
+const template = fs.readFileSync(templatePath, encoding);
 const baseDir = path.resolve(__dirname, '../../');
 
 beforeEach(() => {
@@ -27,7 +28,7 @@ test('it should do what I think it should do', () => {
   ];
   writeFile(baseDir, files);
 
-  const contents = fs.readFileSync(outputPath, 'utf-8');
+  const contents = fs.readFileSync(outputPath, encoding);
 
   expect(contents).toMatchSnapshot();
 });
