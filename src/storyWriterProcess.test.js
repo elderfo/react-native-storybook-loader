@@ -31,6 +31,6 @@ test('writeOutStoryLoader should perform expected work', () => {
   writeOutStoryLoader();
 
   expect(paths.resolvePaths).toHaveBeenCalled();
-  expect(storyFinder.loadStories).toHaveBeenCalledWith(config.baseDir, config.pattern);
+  expect(storyFinder.loadStories).toHaveBeenCalledWith(config.pattern);
   expect(writer.writeFile).toHaveBeenCalledWith(config.baseDir, files);
 });
