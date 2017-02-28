@@ -13,7 +13,7 @@ function getDefaultValue(baseDir, setting) {
     case 'pattern':
       return path.resolve(baseDir, './storybook/stories/index.js');
     case 'outputFile':
-      return path.resolve(baseDir, './storybook/stories/storyLoader.js');
+      return path.resolve(baseDir, './storybook/storyLoader.js');
     default:
       return baseDir;
   }

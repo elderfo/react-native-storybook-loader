@@ -2584,7 +2584,7 @@ function getDefaultValue(baseDir, setting) {
     case 'pattern':
       return _path2.default.resolve(baseDir, './storybook/stories/index.js');
     case 'outputFile':
-      return _path2.default.resolve(baseDir, './storybook/stories/storyLoader.js');
+      return _path2.default.resolve(baseDir, './storybook/storyLoader.js');
     default:
       return baseDir;
   }

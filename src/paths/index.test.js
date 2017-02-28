@@ -61,7 +61,7 @@ test('resolvePaths should resolve "pattern" to the default fully qualified path 
 });
 
 test('resolvePaths should resolve "outputFile" to the default fully qualified path when not specified in the package.json', () => {
-  mockNoSettingsResolveAndValidate('outputFile', path.resolve(process.cwd(), './storybook/stories/storyLoader.js'));
+  mockNoSettingsResolveAndValidate('outputFile', path.resolve(process.cwd(), './storybook/storyLoader.js'));
 });
 
 test('resolvePaths should resolve expected "baseDir"', () => {
