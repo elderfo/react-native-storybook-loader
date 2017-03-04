@@ -3,6 +3,10 @@
 
 A component for dynamically import stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
 
+## Purpose
+
+While using storybook for React Native, I repeatedly found myself manually creating this file, so I added an automated way to do it.
+
 ## Installation
 
 ```bash
@@ -26,18 +30,34 @@ cd AwesomeProject
 getstorybook
 ```
 
-Update `index.android.js` and `index.ios.js` files in the `./storybook` directory
+Install react-native-storybook-loader
+
+```bash
+yarn install react-native-storybook-loader -D
+```
+
+Update `index.android.js` and `index.ios.js` files in the `./storybook` directory to point to the `storyLoader.js`
 
 ```javascript
 import { AppRegistry } from 'react-native';
 import { getStorybookUI, configure } from '@kadira/react-native-storybook';
-import { loadStories } from 'react-native-storybook-loader';
+import { loadStories } from './storyLoader';
 
 // import stories
 configure(loadStories, module);
 
 const StorybookUI = getStorybookUI({port: 7007, host: 'localhost'});
 AppRegistry.registerComponent('ReactNative', () => StorybookUI);
+```
+
+Add the `rnstl` cli to the scripts tag of the `package.json`
+
+```json
+{
+  "scripts": {
+    "prestorybook":"rnstl"
+  }
+}
 ```
 
 ## Configuration
@@ -48,7 +68,8 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 | Setting | Description | Default | Notes |
 |---|---|---| --- |
 | **searchDir** | This is the directory, relative to the project root, to search for files in. | Project root | |
-| **pattern** | This is the pattern of files to look at. It can be a specific file, or any valid glob | `./storybook/index.js` | This is the default storybook file, and chosen for this component to be able to be dropped in to a new project and work, only requiring and update to the `index.android.js` and `index.ios.js` files. |
+| **outputFile** | This is the output file that will be written. It is relative to the project directory. | `./storybook/storyLoader.js` |  |
+| **pattern** | This is the pattern of files to look at. It can be a specific file, or any valid glob | `./storybook/stories/index.js` | This is the default storybook file, and chosen for this component to be able to be dropped in to a new project and work, only requiring and update to the `index.android.js` and `index.ios.js` files. |
 
 #### Example:
 
@@ -56,10 +77,15 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 {
   "name": "AwesomeProject",
   ...
+  "scripts": {
+    ...
+    "prestorybook":"rnstl"
+  },
   "config": {
     "react-native-storybook-loader": {
       "searchDir": "./src",
-      "pattern": "**/*.stories.js"
+      "pattern": "**/*.stories.js",
+      "outputFile": "./storybook/storyLoader.js"
     }
   }
 }
