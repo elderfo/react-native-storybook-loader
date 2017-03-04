@@ -2691,8 +2691,14 @@ _dot2.default.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
   return files.map(function (file) {
+    var relativePath = _path2.default.relative(fromDir, file);
+
+    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
+      relativePath = './' + relativePath;
+    }
+
     return {
-      relative: _path2.default.relative(fromDir, file),
+      relative: relativePath,
       full: file
     };
   });
@@ -2710,13 +2716,6 @@ function ensureFileDirectoryExists(filePath) {
 
 var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\'); // {{=value.full}}\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
 
-// function writeConfig(outputPath) {
-//   const config = { outputPath };
-//   const configFile = path.resolve(path.dirname(process.mainModule.filename), '../module.config.json');
-
-//   fs.writeFileSync(configFile, JSON.stringify(config), { encoding });
-// }
-
 function writeFile(baseDir, files, outputPath) {
   var template = _dot2.default.template(templateContents);
   var relativePaths = getRelativePaths(_path2.default.dirname(outputPath), files);
@@ -2726,8 +2725,6 @@ function writeFile(baseDir, files, outputPath) {
   ensureFileDirectoryExists(outputPath);
 
   _fs2.default.writeFileSync(outputPath, output, { encoding: _constants.encoding });
-
-  // writeConfig(outputPath);
 }
 
 /***/ }),

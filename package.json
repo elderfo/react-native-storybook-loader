@@ -1,7 +1,6 @@
 {
   "name": "react-native-storybook-loader",
   "version": "0.0.0-development",
-  "main": "src/index.js",
   "repository": "https://github.com/elderfo/react-native-storybook-loader.git",
   "bugs": "https://github.com/elderfo/react-native-storybook-loader/issues",
   "author": "Chris Gestred <cgetsfred@gmail.com>",
@@ -53,8 +52,8 @@
   "config": {
     "react-native-storybook-loader": {
       "searchDir": "./src",
-      "pattern": "**/*.test.js"
-      
+      "pattern": "**/*.test.js",
+      "outputFile": "./output/storyLoader.js"
     }
   }
 }
