@@ -45,7 +45,7 @@
     "start:dist": "node dist/rnstl-cli.js",
     "prebuild": "rm -rf dist && mkdir dist",
     "build": "webpack --config ./src/build/webpack.config.js",
-    "build:precommit": "git add ./dist/rnstl-cli.js && git reset ./output/storyLoader.js && git checkout ./output/storyLoader.js",
+    "build:precommit": "git add ./dist/rnstl-cli.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "precommit": "yarn run lint && yarn run test && yarn run build && yarn run build:precommit"
   },
