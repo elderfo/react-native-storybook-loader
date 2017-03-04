@@ -1,14 +1,18 @@
 import mock from 'mock-fs';
 import path from 'path';
 import fs from 'fs';
-import { writeFile, outputPath } from './';
+import { writeFile } from './';
 import { encoding } from '../constants';
 
 const baseDir = path.resolve(__dirname, '../../');
+const outputPath = path.resolve(baseDir, 'output.js');
+const moduleDir = path.resolve(baseDir);
+const configFile = path.resolve(moduleDir, './module.config.json');
 
 beforeEach(() => {
   mock({
     [outputPath]: '',
+    [configFile]: '',
   });
 });
 
@@ -24,9 +28,12 @@ test('writeFile should perform expected work', () => {
     path.resolve(__dirname, './sub/file4.js'),
     path.resolve(__dirname, './sub/sub/file5.js'),
   ];
-  writeFile(baseDir, files);
+  writeFile(baseDir, files, outputPath, moduleDir);
 
   const contents = fs.readFileSync(outputPath, encoding);
 
   expect(contents).toMatchSnapshot();
+
+  const configContents = fs.readFileSync(configFile, encoding);
+  expect(configContents).toMatchSnapshot();
 });

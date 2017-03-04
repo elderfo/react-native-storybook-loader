@@ -2503,6 +2503,7 @@ function writeOutStoryLoader() {
   logger.info('\nGenerating Dynamic Storybook File List\n');
   logger.info('package.json:     ', paths.packageJsonFile);
   logger.info('Base directory:   ', paths.baseDir);
+  logger.info('Output file:      ', paths.outputFile);
   logger.info('Pattern:          ', paths.pattern);
 
   var storyFiles = (0, _storyFinder.loadStories)(paths.pattern);
@@ -2510,7 +2511,7 @@ function writeOutStoryLoader() {
   logger.info('Located ' + storyFiles.length + ' files matching pattern \'' + paths.pattern + '\'');
 
   if (storyFiles.length > 0) {
-    (0, _writer.writeFile)(paths.baseDir, storyFiles);
+    (0, _writer.writeFile)(paths.baseDir, storyFiles, paths.outputFile);
     logger.info('Compiled story loader for ' + storyFiles.length + ' files:\n', ' ' + storyFiles.join('\n  '));
   } else {
     logger.warn('No files were found matching the specified pattern. Story loader was not written.');
@@ -2576,12 +2577,14 @@ var _constants = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var settings = ['pattern'];
+var settings = ['pattern', 'outputFile'];
 
 function getDefaultValue(baseDir, setting) {
   switch (setting) {
     case 'pattern':
       return _path2.default.resolve(baseDir, './storybook/stories/index.js');
+    case 'outputFile':
+      return _path2.default.resolve(baseDir, './storybook/storyLoader.js');
     default:
       return baseDir;
   }
@@ -2619,7 +2622,13 @@ function resolvePaths(nodeModulesPath) {
     paths[setting] = getDefaultValue(searchDir, setting);
 
     if (hasConfigSetting(pkg, setting)) {
-      paths[setting] = _path2.default.resolve(searchDir, getConfigSetting(pkg, setting));
+      var actualDir = baseDir;
+
+      if (setting === 'pattern') {
+        actualDir = searchDir;
+      }
+
+      paths[setting] = _path2.default.resolve(actualDir, getConfigSetting(pkg, setting));
     }
   });
 
@@ -2654,12 +2663,12 @@ function loadStories(pattern) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.templateContents = exports.outputPath = undefined;
+exports.templateContents = undefined;
 exports.writeFile = writeFile;
 
 var _fs = __webpack_require__(0);
@@ -2682,8 +2691,14 @@ _dot2.default.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
   return files.map(function (file) {
+    var relativePath = _path2.default.relative(fromDir, file);
+
+    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
+      relativePath = './' + relativePath;
+    }
+
     return {
-      relative: _path2.default.relative(fromDir, file),
+      relative: relativePath,
       full: file
     };
   });
@@ -2699,11 +2714,9 @@ function ensureFileDirectoryExists(filePath) {
   }
 }
 
-var outputPath = exports.outputPath = _path2.default.resolve(__dirname, '../../output/storyLoader.js');
-
 var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\'); // {{=value.full}}\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
 
-function writeFile(baseDir, files) {
+function writeFile(baseDir, files, outputPath) {
   var template = _dot2.default.template(templateContents);
   var relativePaths = getRelativePaths(_path2.default.dirname(outputPath), files);
 
@@ -2713,7 +2726,6 @@ function writeFile(baseDir, files) {
 
   _fs2.default.writeFileSync(outputPath, output, { encoding: _constants.encoding });
 }
-/* WEBPACK VAR INJECTION */}.call(exports, "src/writer"))
 
 /***/ }),
 /* 20 */

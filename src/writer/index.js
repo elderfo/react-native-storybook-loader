@@ -6,10 +6,18 @@ import { encoding } from '../constants';
 dot.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
-  return files.map(file => ({
-    relative: path.relative(fromDir, file),
-    full: file,
-  }));
+  return files.map((file) => {
+    let relativePath = path.relative(fromDir, file);
+
+    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
+      relativePath = `./${relativePath}`;
+    }
+
+    return {
+      relative: relativePath,
+      full: file,
+    };
+  });
 }
 
 function ensureFileDirectoryExists(filePath) {
@@ -21,8 +29,6 @@ function ensureFileDirectoryExists(filePath) {
     fs.mkdirSync(directory);
   }
 }
-
-export const outputPath = path.resolve(__dirname, '../../output/storyLoader.js');
 
 export const templateContents = `
 // template for doT (https://github.com/olado/doT)
@@ -38,7 +44,7 @@ module.exports = {
 };
 `;
 
-export function writeFile(baseDir, files) {
+export function writeFile(baseDir, files, outputPath) {
   const template = dot.template(templateContents);
   const relativePaths = getRelativePaths(path.dirname(outputPath), files);
 

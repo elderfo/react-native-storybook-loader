@@ -10,6 +10,7 @@ const packageJsonContents = {
     [appName]: { // match name of the project
       searchDir: './src/storybook',
       pattern: '**/*.stories.js',
+      outputFile: './storybook/config.js',
     },
   },
 };
@@ -47,12 +48,20 @@ test('resolvePaths should resolve "pattern" to the expected fully qualified path
   mockResolveAndValidate('pattern', path.resolve(process.cwd(), packageJsonContents.config[appName].searchDir, packageJsonContents.config[appName].pattern));
 });
 
+test('resolvePaths should resolve "outputFile" to the expected fully qualified path when specified in the package.json', () => {
+  mockResolveAndValidate('outputFile', path.resolve(process.cwd(), packageJsonContents.config[appName].outputFile));
+});
+
 test('resolvePaths should resolve "searchDir" to the default fully qualified path when not specified in the package.json', () => {
   mockNoSettingsResolveAndValidate('searchDir', path.resolve(process.cwd()));
 });
 
 test('resolvePaths should resolve "pattern" to the default fully qualified path when not specified in the package.json', () => {
   mockNoSettingsResolveAndValidate('pattern', path.resolve(process.cwd(), './storybook/stories/index.js'));
+});
+
+test('resolvePaths should resolve "outputFile" to the default fully qualified path when not specified in the package.json', () => {
+  mockNoSettingsResolveAndValidate('outputFile', path.resolve(process.cwd(), './storybook/storyLoader.js'));
 });
 
 test('resolvePaths should resolve expected "baseDir"', () => {

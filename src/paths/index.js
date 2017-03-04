@@ -5,12 +5,15 @@ import { appName } from '../constants';
 
 const settings = [
   'pattern',
+  'outputFile',
 ];
 
 function getDefaultValue(baseDir, setting) {
   switch (setting) {
     case 'pattern':
       return path.resolve(baseDir, './storybook/stories/index.js');
+    case 'outputFile':
+      return path.resolve(baseDir, './storybook/storyLoader.js');
     default:
       return baseDir;
   }
@@ -48,9 +51,16 @@ export function resolvePaths(nodeModulesPath) {
     paths[setting] = getDefaultValue(searchDir, setting);
 
     if (hasConfigSetting(pkg, setting)) {
-      paths[setting] = path.resolve(searchDir, getConfigSetting(pkg, setting));
+      let actualDir = baseDir;
+
+      if (setting === 'pattern') {
+        actualDir = searchDir;
+      }
+
+      paths[setting] = path.resolve(actualDir, getConfigSetting(pkg, setting));
     }
   });
 
   return paths;
 }
+
