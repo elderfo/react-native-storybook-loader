@@ -23,8 +23,9 @@
     "faker": "^4.1.0",
     "husky": "^0.13.1",
     "jest": "^19.0.2",
-    "mock-fs": "^4.1.0",
+    "mock-fs": "https://github.com/not-an-aardvark/mock-fs.git#update-binding-stat-lstat-fstat",
     "semantic-release": "^6.3.2",
+    "shebang-loader": "^0.0.1",
     "uuid": "^3.0.1",
     "webpack": "^2.2.1"
   },

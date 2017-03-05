@@ -117,10 +117,10 @@ module['exports'] = colors;
 
 colors.themes = {};
 
-var ansiStyles = colors.styles = __webpack_require__(30);
+var ansiStyles = colors.styles = __webpack_require__(26);
 var defineProps = Object.defineProperties;
 
-colors.supportsColor = __webpack_require__(31);
+colors.supportsColor = __webpack_require__(27);
 
 if (typeof colors.enabled === "undefined") {
   colors.enabled = colors.supportsColor;
@@ -250,15 +250,15 @@ var sequencer = function sequencer (map, str) {
 };
 
 // custom formatter methods
-colors.trap = __webpack_require__(22);
-colors.zalgo = __webpack_require__(23);
+colors.trap = __webpack_require__(18);
+colors.zalgo = __webpack_require__(19);
 
 // maps
 colors.maps = {};
-colors.maps.america = __webpack_require__(26);
-colors.maps.zebra = __webpack_require__(29);
-colors.maps.rainbow = __webpack_require__(27);
-colors.maps.random = __webpack_require__(28)
+colors.maps.america = __webpack_require__(22);
+colors.maps.zebra = __webpack_require__(25);
+colors.maps.rainbow = __webpack_require__(23);
+colors.maps.random = __webpack_require__(24)
 
 for (var map in colors.maps) {
   (function(map){
@@ -289,7 +289,7 @@ try {
 } catch (er) {}
 
 var GLOBSTAR = minimatch.GLOBSTAR = Minimatch.GLOBSTAR = {}
-var expand = __webpack_require__(21)
+var expand = __webpack_require__(17)
 
 var plTypes = {
   '!': { open: '(?:(?!(?:', close: '))[^/]*?)'},
@@ -1234,19 +1234,6 @@ module.exports.win32 = win32;
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var appName = exports.appName = 'react-native-storybook-loader';
-var encoding = exports.encoding = 'utf-8';
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -1255,11 +1242,11 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 7;
+webpackEmptyContext.id = 6;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = realpath
@@ -1275,7 +1262,7 @@ var origRealpathSync = fs.realpathSync
 
 var version = process.version
 var ok = /^v[0-5]\./.test(version)
-var old = __webpack_require__(38)
+var old = __webpack_require__(34)
 
 function newError (er) {
   return er && er.syscall === 'realpath' && (
@@ -1331,7 +1318,7 @@ function unmonkeypatch () {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.alphasort = alphasort
@@ -1577,7 +1564,7 @@ function childrenIgnored (self, path) {
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Approach:
@@ -1623,26 +1610,26 @@ function childrenIgnored (self, path) {
 module.exports = glob
 
 var fs = __webpack_require__(0)
-var rp = __webpack_require__(8)
+var rp = __webpack_require__(7)
 var minimatch = __webpack_require__(4)
 var Minimatch = minimatch.Minimatch
-var inherits = __webpack_require__(41)
+var inherits = __webpack_require__(37)
 var EE = __webpack_require__(14).EventEmitter
 var path = __webpack_require__(1)
 var assert = __webpack_require__(13)
 var isAbsolute = __webpack_require__(5)
-var globSync = __webpack_require__(39)
-var common = __webpack_require__(9)
+var globSync = __webpack_require__(35)
+var common = __webpack_require__(8)
 var alphasort = common.alphasort
 var alphasorti = common.alphasorti
 var setopts = common.setopts
 var ownProp = common.ownProp
-var inflight = __webpack_require__(40)
+var inflight = __webpack_require__(36)
 var util = __webpack_require__(3)
 var childrenIgnored = common.childrenIgnored
 var isIgnored = common.isIgnored
 
-var once = __webpack_require__(11)
+var once = __webpack_require__(10)
 
 function glob (pattern, options, cb) {
   if (typeof options === 'function') cb = options, options = {}
@@ -2375,7 +2362,7 @@ Glob.prototype._stat2 = function (f, abs, er, stat, cb) {
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var wrappy = __webpack_require__(12)
@@ -2421,6 +2408,19 @@ function onceStrict (fn) {
   return f
 }
 
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var appName = exports.appName = 'react-native-storybook-loader';
+var encoding = exports.encoding = 'utf-8';
 
 /***/ }),
 /* 12 */
@@ -2485,15 +2485,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.writeOutStoryLoader = writeOutStoryLoader;
 
-var _logger = __webpack_require__(16);
+var _logger = __webpack_require__(39);
 
 var logger = _interopRequireWildcard(_logger);
 
-var _paths = __webpack_require__(17);
+var _paths = __webpack_require__(40);
 
-var _storyFinder = __webpack_require__(18);
+var _storyFinder = __webpack_require__(41);
 
-var _writer = __webpack_require__(19);
+var _writer = __webpack_require__(42);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -2520,215 +2520,6 @@ function writeOutStoryLoader() {
 
 /***/ }),
 /* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.info = info;
-exports.warn = warn;
-exports.error = error;
-
-__webpack_require__(25);
-
-var logger = console;
-
-function info(message, value) {
-  var outputValue = value || '';
-  logger.log(message.blue, outputValue.white);
-}
-
-function warn(message) {
-  logger.log(message.yellow);
-}
-
-function error(message) {
-  logger.log(message.red);
-}
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.resolvePaths = resolvePaths;
-
-var _fs = __webpack_require__(0);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _path = __webpack_require__(1);
-
-var _path2 = _interopRequireDefault(_path);
-
-var _findup = __webpack_require__(35);
-
-var _findup2 = _interopRequireDefault(_findup);
-
-var _constants = __webpack_require__(6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var settings = ['pattern', 'outputFile'];
-
-function getDefaultValue(baseDir, setting) {
-  switch (setting) {
-    case 'pattern':
-      return _path2.default.resolve(baseDir, './storybook/stories/index.js');
-    case 'outputFile':
-      return _path2.default.resolve(baseDir, './storybook/storyLoader.js');
-    default:
-      return baseDir;
-  }
-}
-
-function hasConfigSetting(pkg, setting) {
-  return pkg.config && pkg.config[_constants.appName] && pkg.config[_constants.appName][setting];
-}
-
-function getConfigSetting(pkg, setting) {
-  if (hasConfigSetting(pkg, setting)) {
-    return pkg.config[_constants.appName][setting];
-  }
-  return null;
-}
-
-function resolvePaths(nodeModulesPath) {
-  var packageJsonFile = _path2.default.resolve(_findup2.default.sync(nodeModulesPath, 'package.json'), 'package.json');
-  var baseDir = _path2.default.dirname(packageJsonFile);
-  var searchDir = _path2.default.resolve(baseDir);
-
-  var pkg = JSON.parse(_fs2.default.readFileSync(packageJsonFile));
-
-  if (hasConfigSetting(pkg, 'searchDir')) {
-    searchDir = _path2.default.resolve(baseDir, getConfigSetting(pkg, 'searchDir'));
-  }
-
-  var paths = {
-    packageJsonFile: packageJsonFile,
-    baseDir: baseDir,
-    searchDir: searchDir
-  };
-
-  settings.forEach(function (setting) {
-    paths[setting] = getDefaultValue(searchDir, setting);
-
-    if (hasConfigSetting(pkg, setting)) {
-      var actualDir = baseDir;
-
-      if (setting === 'pattern') {
-        actualDir = searchDir;
-      }
-
-      paths[setting] = _path2.default.resolve(actualDir, getConfigSetting(pkg, setting));
-    }
-  });
-
-  return paths;
-}
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.loadStories = loadStories;
-
-var _glob = __webpack_require__(10);
-
-var _glob2 = _interopRequireDefault(_glob);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function loadStories(pattern) {
-  // Get the files
-  return _glob2.default.sync(pattern);
-}
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.templateContents = undefined;
-exports.writeFile = writeFile;
-
-var _fs = __webpack_require__(0);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _path = __webpack_require__(1);
-
-var _path2 = _interopRequireDefault(_path);
-
-var _dot = __webpack_require__(34);
-
-var _dot2 = _interopRequireDefault(_dot);
-
-var _constants = __webpack_require__(6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_dot2.default.templateSettings.strip = false;
-
-function getRelativePaths(fromDir, files) {
-  return files.map(function (file) {
-    var relativePath = _path2.default.relative(fromDir, file);
-
-    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
-      relativePath = './' + relativePath;
-    }
-
-    return {
-      relative: relativePath,
-      full: file
-    };
-  });
-}
-
-function ensureFileDirectoryExists(filePath) {
-  var directory = _path2.default.dirname(filePath);
-
-  var stats = _fs2.default.lstatSync(directory);
-
-  if (!stats.isDirectory()) {
-    _fs2.default.mkdirSync(directory);
-  }
-}
-
-var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\'); // {{=value.full}}\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
-
-function writeFile(baseDir, files, outputPath) {
-  var template = _dot2.default.template(templateContents);
-  var relativePaths = getRelativePaths(_path2.default.dirname(outputPath), files);
-
-  var output = template({ files: relativePaths });
-
-  ensureFileDirectoryExists(outputPath);
-
-  _fs2.default.writeFileSync(outputPath, output, { encoding: _constants.encoding });
-}
-
-/***/ }),
-/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = balanced;
@@ -2792,11 +2583,11 @@ function range(a, b, str) {
 
 
 /***/ }),
-/* 21 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var concatMap = __webpack_require__(32);
-var balanced = __webpack_require__(20);
+var concatMap = __webpack_require__(28);
+var balanced = __webpack_require__(16);
 
 module.exports = expandTop;
 
@@ -2999,7 +2790,7 @@ function expand(str, isTop) {
 
 
 /***/ }),
-/* 22 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module['exports'] = function runTheTrap (text, options) {
@@ -3050,7 +2841,7 @@ module['exports'] = function runTheTrap (text, options) {
 
 
 /***/ }),
-/* 23 */
+/* 19 */
 /***/ (function(module, exports) {
 
 // please no
@@ -3160,7 +2951,7 @@ module['exports'] = function zalgo(text, options) {
 
 
 /***/ }),
-/* 24 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3278,7 +3069,7 @@ module['exports'] = function () {
 };
 
 /***/ }),
-/* 25 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3292,10 +3083,10 @@ module['exports'] = colors;
 //   colors.red("foo")
 //
 //
-__webpack_require__(24)();
+__webpack_require__(20)();
 
 /***/ }),
-/* 26 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3312,7 +3103,7 @@ module['exports'] = (function() {
 })();
 
 /***/ }),
-/* 27 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3331,7 +3122,7 @@ module['exports'] = (function () {
 
 
 /***/ }),
-/* 28 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3344,7 +3135,7 @@ module['exports'] = (function () {
 })();
 
 /***/ }),
-/* 29 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3354,7 +3145,7 @@ module['exports'] = function (letter, i, exploded) {
 };
 
 /***/ }),
-/* 30 */
+/* 26 */
 /***/ (function(module, exports) {
 
 /*
@@ -3436,7 +3227,7 @@ Object.keys(codes).forEach(function (key) {
 });
 
 /***/ }),
-/* 31 */
+/* 27 */
 /***/ (function(module, exports) {
 
 /*
@@ -3502,7 +3293,7 @@ module.exports = (function () {
 })();
 
 /***/ }),
-/* 32 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = function (xs, fn) {
@@ -3521,7 +3312,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 33 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;// doT.js
@@ -3671,7 +3462,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;// doT.js
 
 
 /***/ }),
-/* 34 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* doT + auto-compilation of doT templates
@@ -3704,7 +3495,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;// doT.js
  */
 
 var fs = __webpack_require__(0),
-	doT = module.exports = __webpack_require__(33);
+	doT = module.exports = __webpack_require__(29);
 
 doT.process = function(options) {
 	//path, destination, global, rendermodule, templateSettings
@@ -3821,13 +3612,13 @@ InstallDots.prototype.compileAll = function() {
 
 
 /***/ }),
-/* 35 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var fs   = __webpack_require__(0),
   Path   = __webpack_require__(1),
   util   = __webpack_require__(3),
-  colors = __webpack_require__(37),
+  colors = __webpack_require__(33),
   EE     = __webpack_require__(14).EventEmitter,
   fsExists = fs.exists ? fs.exists : Path.exists,
   fsExistsSync = fs.existsSync ? fs.existsSync : Path.existsSync;
@@ -3922,7 +3713,7 @@ module.exports.sync = function(dir, iteratorSync){
 
 
 /***/ }),
-/* 36 */
+/* 32 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -3931,11 +3722,11 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 36;
+webpackEmptyContext.id = 32;
 
 
 /***/ }),
-/* 37 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -4283,7 +4074,7 @@ addProperty('zalgo', function () {
 
 
 /***/ }),
-/* 38 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -4592,22 +4383,22 @@ exports.realpath = function realpath(p, cache, cb) {
 
 
 /***/ }),
-/* 39 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = globSync
 globSync.GlobSync = GlobSync
 
 var fs = __webpack_require__(0)
-var rp = __webpack_require__(8)
+var rp = __webpack_require__(7)
 var minimatch = __webpack_require__(4)
 var Minimatch = minimatch.Minimatch
-var Glob = __webpack_require__(10).Glob
+var Glob = __webpack_require__(9).Glob
 var util = __webpack_require__(3)
 var path = __webpack_require__(1)
 var assert = __webpack_require__(13)
 var isAbsolute = __webpack_require__(5)
-var common = __webpack_require__(9)
+var common = __webpack_require__(8)
 var alphasort = common.alphasort
 var alphasorti = common.alphasorti
 var setopts = common.setopts
@@ -5084,12 +4875,12 @@ GlobSync.prototype._makeAbs = function (f) {
 
 
 /***/ }),
-/* 40 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var wrappy = __webpack_require__(12)
 var reqs = Object.create(null)
-var once = __webpack_require__(11)
+var once = __webpack_require__(10)
 
 module.exports = wrappy(inflight)
 
@@ -5144,7 +4935,7 @@ function slice (args) {
 
 
 /***/ }),
-/* 41 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 try {
@@ -5152,12 +4943,12 @@ try {
   if (typeof util.inherits !== 'function') throw '';
   module.exports = util.inherits;
 } catch (e) {
-  module.exports = __webpack_require__(42);
+  module.exports = __webpack_require__(38);
 }
 
 
 /***/ }),
-/* 42 */
+/* 38 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -5184,6 +4975,215 @@ if (typeof Object.create === 'function') {
   }
 }
 
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.info = info;
+exports.warn = warn;
+exports.error = error;
+
+__webpack_require__(21);
+
+var logger = console;
+
+function info(message, value) {
+  var outputValue = value || '';
+  logger.log(message.blue, outputValue.white);
+}
+
+function warn(message) {
+  logger.log(message.yellow);
+}
+
+function error(message) {
+  logger.log(message.red);
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.resolvePaths = resolvePaths;
+
+var _fs = __webpack_require__(0);
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = __webpack_require__(1);
+
+var _path2 = _interopRequireDefault(_path);
+
+var _findup = __webpack_require__(31);
+
+var _findup2 = _interopRequireDefault(_findup);
+
+var _constants = __webpack_require__(11);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var settings = ['pattern', 'outputFile'];
+
+function getDefaultValue(baseDir, setting) {
+  switch (setting) {
+    case 'pattern':
+      return _path2.default.resolve(baseDir, './storybook/stories/index.js');
+    case 'outputFile':
+      return _path2.default.resolve(baseDir, './storybook/storyLoader.js');
+    default:
+      return baseDir;
+  }
+}
+
+function hasConfigSetting(pkg, setting) {
+  return pkg.config && pkg.config[_constants.appName] && pkg.config[_constants.appName][setting];
+}
+
+function getConfigSetting(pkg, setting) {
+  if (hasConfigSetting(pkg, setting)) {
+    return pkg.config[_constants.appName][setting];
+  }
+  return null;
+}
+
+function resolvePaths(nodeModulesPath) {
+  var packageJsonFile = _path2.default.resolve(_findup2.default.sync(nodeModulesPath, 'package.json'), 'package.json');
+  var baseDir = _path2.default.dirname(packageJsonFile);
+  var searchDir = _path2.default.resolve(baseDir);
+
+  var pkg = JSON.parse(_fs2.default.readFileSync(packageJsonFile));
+
+  if (hasConfigSetting(pkg, 'searchDir')) {
+    searchDir = _path2.default.resolve(baseDir, getConfigSetting(pkg, 'searchDir'));
+  }
+
+  var paths = {
+    packageJsonFile: packageJsonFile,
+    baseDir: baseDir,
+    searchDir: searchDir
+  };
+
+  settings.forEach(function (setting) {
+    paths[setting] = getDefaultValue(searchDir, setting);
+
+    if (hasConfigSetting(pkg, setting)) {
+      var actualDir = baseDir;
+
+      if (setting === 'pattern') {
+        actualDir = searchDir;
+      }
+
+      paths[setting] = _path2.default.resolve(actualDir, getConfigSetting(pkg, setting));
+    }
+  });
+
+  return paths;
+}
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadStories = loadStories;
+
+var _glob = __webpack_require__(9);
+
+var _glob2 = _interopRequireDefault(_glob);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function loadStories(pattern) {
+  // Get the files
+  return _glob2.default.sync(pattern);
+}
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.templateContents = undefined;
+exports.writeFile = writeFile;
+
+var _fs = __webpack_require__(0);
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = __webpack_require__(1);
+
+var _path2 = _interopRequireDefault(_path);
+
+var _dot = __webpack_require__(30);
+
+var _dot2 = _interopRequireDefault(_dot);
+
+var _constants = __webpack_require__(11);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_dot2.default.templateSettings.strip = false;
+
+function getRelativePaths(fromDir, files) {
+  return files.map(function (file) {
+    var relativePath = _path2.default.relative(fromDir, file);
+
+    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
+      relativePath = './' + relativePath;
+    }
+
+    return {
+      relative: relativePath,
+      full: file
+    };
+  });
+}
+
+function ensureFileDirectoryExists(filePath) {
+  var directory = _path2.default.dirname(filePath);
+
+  var stats = _fs2.default.lstatSync(directory);
+
+  if (!stats.isDirectory()) {
+    _fs2.default.mkdirSync(directory);
+  }
+}
+
+var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\'); // {{=value.full}}\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
+
+function writeFile(baseDir, files, outputPath) {
+  var template = _dot2.default.template(templateContents);
+  var relativePaths = getRelativePaths(_path2.default.dirname(outputPath), files);
+
+  var output = template({ files: relativePaths });
+
+  ensureFileDirectoryExists(outputPath);
+
+  _fs2.default.writeFileSync(outputPath, output, { encoding: _constants.encoding });
+}
 
 /***/ }),
 /* 43 */
