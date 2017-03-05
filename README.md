@@ -55,7 +55,7 @@ Add the `rnstl` cli to the scripts tag of the `package.json`
 ```json
 {
   "scripts": {
-    "prestorybook":"rnstl"
+    "prestorybook": "node ./node_modules/.bin/rnstl"
   }
 }
 ```
@@ -79,7 +79,7 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
   ...
   "scripts": {
     ...
-    "prestorybook":"rnstl"
+    "prestorybook": "node ./node_modules/.bin/rnstl"
   },
   "config": {
     "react-native-storybook-loader": {
