@@ -2980,10 +2980,6 @@ mock-fs@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-4.1.0.tgz#9c0a5c63ce9261894c5824645baaf95abe163e5e"
 
-"mock-fs@git+https://github.com/not-an-aardvark/mock-fs.git#update-binding-stat-lstat-fstat":
-  version "4.1.0"
-  resolved "git+https://github.com/not-an-aardvark/mock-fs.git#06868bbd7724707f9324b237bdde28f05f7a01d5"
-
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
