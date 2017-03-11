@@ -1335,8 +1335,8 @@ elliptic@^6.0.0:
     minimalistic-crypto-utils "^1.0.0"
 
 emoji-regex@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.1.0.tgz#d14ef743a7dfa6eaf436882bd1920a4aed84dd94"
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.1.3.tgz#ec79a3969b02d2ecf2b72254279bf99bc7a83932"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -1457,14 +1457,26 @@ escope@^3.6.0:
     estraverse "^4.1.1"
 
 eslint-config-airbnb-base@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.1.0.tgz#dc9b3ec70b8c74dcbe6d6257c9da3992c39ca2ca"
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.1.1.tgz#61e9e89e4eb89f474f6913ac817be9fbb59063e0"
 
 eslint-config-airbnb@^14.1.0:
   version "14.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-14.1.0.tgz#355d290040bbf8e00bf8b4b19f4b70cbe7c2317f"
   dependencies:
     eslint-config-airbnb-base "^11.1.0"
+
+eslint-config-elderfo@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-elderfo/-/eslint-config-elderfo-1.0.0.tgz#6b0f24a7f66e7f79be7ab6400db8fcf3d8b6c4f6"
+  dependencies:
+    babel-eslint "^7.1.1"
+    eslint "^3.16.1"
+    eslint-config-airbnb "^14.1.0"
+    eslint-plugin-import "^2.2.0"
+    eslint-plugin-jsx-a11y "^4.0.0"
+    eslint-plugin-react "^6.10.0"
+    eslint-watch "^3.0.0"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
@@ -2976,9 +2988,9 @@ minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-mock-fs@^4.1.0:
+"mock-fs@git://github.com/not-an-aardvark/mock-fs/#06868bbd7724707f9324b237bdde28f05f7a01d5":
   version "4.1.0"
-  resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-4.1.0.tgz#9c0a5c63ce9261894c5824645baaf95abe163e5e"
+  resolved "git://github.com/not-an-aardvark/mock-fs/#06868bbd7724707f9324b237bdde28f05f7a01d5"
 
 ms@0.7.1:
   version "0.7.1"
