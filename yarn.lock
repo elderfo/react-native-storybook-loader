@@ -1466,9 +1466,9 @@ eslint-config-airbnb@^14.1.0:
   dependencies:
     eslint-config-airbnb-base "^11.1.0"
 
-eslint-config-elderfo@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-elderfo/-/eslint-config-elderfo-1.0.0.tgz#6b0f24a7f66e7f79be7ab6400db8fcf3d8b6c4f6"
+eslint-config-elderfo@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-elderfo/-/eslint-config-elderfo-1.0.1.tgz#b733bc2ea014cb7b97916fc85dceb8e577a4d307"
   dependencies:
     babel-eslint "^7.1.1"
     eslint "^3.16.1"
