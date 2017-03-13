@@ -20,7 +20,7 @@
     "faker": "^4.1.0",
     "husky": "^0.13.1",
     "jest": "^19.0.2",
-    "mock-fs": "git://github.com/not-an-aardvark/mock-fs/#06868bbd7724707f9324b237bdde28f05f7a01d5",
+    "mock-fs": "^4.2.0",
     "semantic-release": "^6.3.2",
     "shebang-loader": "^0.0.1",
     "uuid": "^3.0.1",
