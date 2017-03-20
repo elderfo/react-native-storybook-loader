@@ -5172,7 +5172,7 @@ function ensureFileDirectoryExists(filePath) {
   }
 }
 
-var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\'); // {{=value.full}}\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
+var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\');\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
 
 function writeFile(baseDir, files, outputPath) {
   var template = _dot2.default.template(templateContents);

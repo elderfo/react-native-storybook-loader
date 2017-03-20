@@ -35,7 +35,7 @@ export const templateContents = `
 
 function loadStories() {
   
-  {{~it.files :value:index}}require('{{=value.relative}}'); // {{=value.full}}
+  {{~it.files :value:index}}require('{{=value.relative}}');
   {{~}}
 }
 
