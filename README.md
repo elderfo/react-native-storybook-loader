@@ -5,7 +5,7 @@ A component for dynamically import stories into [react-native-storybook](https:/
 
 ## Purpose
 
-While using storybook for React Native, I repeatedly found myself manually creating this file, so I added an automated way to do it.
+While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories. so I added an automated way to do it. This will locate files using configuration in the `package.json` file and create a story loader in the project directories. Search folder/patterns and the output file are all configurable.
 
 ## Installation
 
