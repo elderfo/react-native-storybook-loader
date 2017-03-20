@@ -6,6 +6,7 @@ import { encoding } from '../constants';
 dot.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
+  files.sort();
   return files.map((file) => {
     let relativePath = path.relative(fromDir, file);
 

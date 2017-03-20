@@ -5148,6 +5148,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _dot2.default.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
+  files.sort();
   return files.map(function (file) {
     var relativePath = _path2.default.relative(fromDir, file);
 
