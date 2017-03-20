@@ -6,6 +6,7 @@ import { encoding } from '../constants';
 dot.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
+  files.sort();
   return files.map((file) => {
     let relativePath = path.relative(fromDir, file);
 
@@ -35,7 +36,7 @@ export const templateContents = `
 
 function loadStories() {
   
-  {{~it.files :value:index}}require('{{=value.relative}}'); // {{=value.full}}
+  {{~it.files :value:index}}require('{{=value.relative}}');
   {{~}}
 }
 
