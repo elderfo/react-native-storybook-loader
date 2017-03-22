@@ -24,9 +24,7 @@ function getRelativePaths(fromDir, files) {
 function ensureFileDirectoryExists(filePath) {
   const directory = path.dirname(filePath);
 
-  const stats = fs.lstatSync(directory);
-
-  if (!stats.isDirectory()) {
+  if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory);
   }
 }
@@ -45,7 +43,7 @@ module.exports = {
 };
 `;
 
-export function writeFile(baseDir, files, outputPath) {
+export function writeFile(files, outputPath) {
   const template = dot.template(templateContents);
   const relativePaths = getRelativePaths(path.dirname(outputPath), files);
 

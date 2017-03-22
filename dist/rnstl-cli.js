@@ -5166,16 +5166,14 @@ function getRelativePaths(fromDir, files) {
 function ensureFileDirectoryExists(filePath) {
   var directory = _path2.default.dirname(filePath);
 
-  var stats = _fs2.default.lstatSync(directory);
-
-  if (!stats.isDirectory()) {
+  if (!_fs2.default.existsSync(directory)) {
     _fs2.default.mkdirSync(directory);
   }
 }
 
 var templateContents = exports.templateContents = '\n// template for doT (https://github.com/olado/doT)\n\nfunction loadStories() {\n  \n  {{~it.files :value:index}}require(\'{{=value.relative}}\');\n  {{~}}\n}\n\nmodule.exports = {\n  loadStories,\n};\n';
 
-function writeFile(baseDir, files, outputPath) {
+function writeFile(files, outputPath) {
   var template = _dot2.default.template(templateContents);
   var relativePaths = getRelativePaths(_path2.default.dirname(outputPath), files);
 

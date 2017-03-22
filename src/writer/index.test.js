@@ -28,7 +28,7 @@ test('writeFile should perform expected work', () => {
     path.resolve(__dirname, './sub/file4.js'),
     path.resolve(__dirname, './sub/sub/file5.js'),
   ];
-  writeFile(baseDir, files, outputPath, moduleDir);
+  writeFile(files, outputPath, moduleDir);
 
   const contents = fs.readFileSync(outputPath, encoding);
 
