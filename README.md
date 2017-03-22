@@ -65,11 +65,11 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 
 ### Options
 
-| Setting | Description | Default | Notes |
-|---|---|---| --- |
-| **searchDir** | This is the directory, relative to the project root, to search for files in. | Project root | |
-| **outputFile** | This is the output file that will be written. It is relative to the project directory. | `./storybook/storyLoader.js` |  |
-| **pattern** | This is the pattern of files to look at. It can be a specific file, or any valid glob | `./storybook/stories/index.js` | This is the default storybook file, and chosen for this component to be able to be dropped in to a new project and work, only requiring and update to the `index.android.js` and `index.ios.js` files. |
+| Setting | Type | Description | Default | 
+|---|---|---|---|
+| **searchDir** | `string` or `string[]` | The directory or directories, relative to the project root, to search for files in. | Project root |
+| **outputFile** | `string` | The output file that will be written. It is relative to the project directory. | `./storybook/storyLoader.js` | 
+| **pattern** | `string` | The pattern of files to look at. It can be a specific file, or any valid glob. | `./storybook/stories/index.js` (The default React Native storybook file) | 
 
 #### Example:
 
@@ -83,7 +83,7 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
   },
   "config": {
     "react-native-storybook-loader": {
-      "searchDir": "./src",
+      "searchDir": ["./src", "./packages"],
       "pattern": "**/*.stories.js",
       "outputFile": "./storybook/storyLoader.js"
     }
