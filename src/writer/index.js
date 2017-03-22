@@ -45,7 +45,7 @@ module.exports = {
 };
 `;
 
-export function writeFile(baseDir, files, outputPath) {
+export function writeFile(files, outputPath) {
   const template = dot.template(templateContents);
   const relativePaths = getRelativePaths(path.dirname(outputPath), files);
 
