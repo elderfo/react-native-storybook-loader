@@ -24,9 +24,7 @@ function getRelativePaths(fromDir, files) {
 function ensureFileDirectoryExists(filePath) {
   const directory = path.dirname(filePath);
 
-  const stats = fs.lstatSync(directory);
-
-  if (!stats.isDirectory()) {
+  if (!fs.existsSync(directory)) {
     fs.mkdirSync(directory);
   }
 }

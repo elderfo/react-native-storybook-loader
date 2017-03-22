@@ -5166,9 +5166,7 @@ function getRelativePaths(fromDir, files) {
 function ensureFileDirectoryExists(filePath) {
   var directory = _path2.default.dirname(filePath);
 
-  var stats = _fs2.default.lstatSync(directory);
-
-  if (!stats.isDirectory()) {
+  if (!_fs2.default.existsSync(directory)) {
     _fs2.default.mkdirSync(directory);
   }
 }
