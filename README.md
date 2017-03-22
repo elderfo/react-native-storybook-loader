@@ -1,6 +1,9 @@
 # react-native-storybook-loader
 [![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader)
 
+[![Known Vulnerabilities](https://snyk.io/test/github/elderfo/react-native-storybook-loader/badge.svg)](https://snyk.io/test/github/elderfo/react-native-storybook-loader)
+
+
 A component for dynamically import stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
 
 ## Purpose
