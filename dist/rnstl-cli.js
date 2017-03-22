@@ -117,10 +117,10 @@ module['exports'] = colors;
 
 colors.themes = {};
 
-var ansiStyles = colors.styles = __webpack_require__(26);
+var ansiStyles = colors.styles = __webpack_require__(28);
 var defineProps = Object.defineProperties;
 
-colors.supportsColor = __webpack_require__(27);
+colors.supportsColor = __webpack_require__(29);
 
 if (typeof colors.enabled === "undefined") {
   colors.enabled = colors.supportsColor;
@@ -250,15 +250,15 @@ var sequencer = function sequencer (map, str) {
 };
 
 // custom formatter methods
-colors.trap = __webpack_require__(18);
-colors.zalgo = __webpack_require__(19);
+colors.trap = __webpack_require__(20);
+colors.zalgo = __webpack_require__(21);
 
 // maps
 colors.maps = {};
-colors.maps.america = __webpack_require__(22);
-colors.maps.zebra = __webpack_require__(25);
-colors.maps.rainbow = __webpack_require__(23);
-colors.maps.random = __webpack_require__(24)
+colors.maps.america = __webpack_require__(24);
+colors.maps.zebra = __webpack_require__(27);
+colors.maps.rainbow = __webpack_require__(25);
+colors.maps.random = __webpack_require__(26)
 
 for (var map in colors.maps) {
   (function(map){
@@ -289,7 +289,7 @@ try {
 } catch (er) {}
 
 var GLOBSTAR = minimatch.GLOBSTAR = Minimatch.GLOBSTAR = {}
-var expand = __webpack_require__(17)
+var expand = __webpack_require__(19)
 
 var plTypes = {
   '!': { open: '(?:(?!(?:', close: '))[^/]*?)'},
@@ -1234,6 +1234,37 @@ module.exports.win32 = win32;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.info = info;
+exports.warn = warn;
+exports.error = error;
+
+__webpack_require__(23);
+
+var logger = console;
+
+function info(message, value) {
+  var outputValue = value || '';
+  logger.log(message.blue, outputValue.white);
+}
+
+function warn(message) {
+  logger.log(message.yellow);
+}
+
+function error(message) {
+  logger.log(message.red);
+}
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -1242,11 +1273,11 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 6;
+webpackEmptyContext.id = 7;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = realpath
@@ -1262,7 +1293,7 @@ var origRealpathSync = fs.realpathSync
 
 var version = process.version
 var ok = /^v[0-5]\./.test(version)
-var old = __webpack_require__(34)
+var old = __webpack_require__(36)
 
 function newError (er) {
   return er && er.syscall === 'realpath' && (
@@ -1318,7 +1349,7 @@ function unmonkeypatch () {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.alphasort = alphasort
@@ -1564,7 +1595,7 @@ function childrenIgnored (self, path) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Approach:
@@ -1610,26 +1641,26 @@ function childrenIgnored (self, path) {
 module.exports = glob
 
 var fs = __webpack_require__(0)
-var rp = __webpack_require__(7)
+var rp = __webpack_require__(8)
 var minimatch = __webpack_require__(4)
 var Minimatch = minimatch.Minimatch
-var inherits = __webpack_require__(37)
-var EE = __webpack_require__(14).EventEmitter
+var inherits = __webpack_require__(39)
+var EE = __webpack_require__(15).EventEmitter
 var path = __webpack_require__(1)
-var assert = __webpack_require__(13)
+var assert = __webpack_require__(14)
 var isAbsolute = __webpack_require__(5)
-var globSync = __webpack_require__(35)
-var common = __webpack_require__(8)
+var globSync = __webpack_require__(37)
+var common = __webpack_require__(9)
 var alphasort = common.alphasort
 var alphasorti = common.alphasorti
 var setopts = common.setopts
 var ownProp = common.ownProp
-var inflight = __webpack_require__(36)
+var inflight = __webpack_require__(38)
 var util = __webpack_require__(3)
 var childrenIgnored = common.childrenIgnored
 var isIgnored = common.isIgnored
 
-var once = __webpack_require__(10)
+var once = __webpack_require__(11)
 
 function glob (pattern, options, cb) {
   if (typeof options === 'function') cb = options, options = {}
@@ -2362,10 +2393,10 @@ Glob.prototype._stat2 = function (f, abs, er, stat, cb) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var wrappy = __webpack_require__(12)
+var wrappy = __webpack_require__(13)
 module.exports = wrappy(once)
 module.exports.strict = wrappy(onceStrict)
 
@@ -2410,7 +2441,7 @@ function onceStrict (fn) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2423,7 +2454,7 @@ var appName = exports.appName = 'react-native-storybook-loader';
 var encoding = exports.encoding = 'utf-8';
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 // Returns a wrapper function that returns a wrapped callback
@@ -2462,19 +2493,130 @@ function wrappy (fn, cb) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("assert");
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("events");
 
 /***/ }),
-/* 15 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = resolvePaths;
+
+var _fs = __webpack_require__(0);
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = __webpack_require__(1);
+
+var _path2 = _interopRequireDefault(_path);
+
+var _findup = __webpack_require__(33);
+
+var _findup2 = _interopRequireDefault(_findup);
+
+var _constants = __webpack_require__(12);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getDefaultValue(baseDir, setting) {
+  switch (setting) {
+    case 'pattern':
+      return _path2.default.resolve(baseDir, './storybook/stories/index.js');
+    case 'outputFile':
+      return _path2.default.resolve(baseDir, './storybook/storyLoader.js');
+    default:
+      return baseDir;
+  }
+}
+
+/**
+ * Verifies if the specified setting exists. Returns true if the setting exists, otherwise false.
+ * @param {object} pkg the contents of the package.json in object form.
+ * @param {string} setting Name of the setting to look for
+ */
+function hasConfigSetting(pkg, setting) {
+  return pkg.config && pkg.config[_constants.appName] && pkg.config[_constants.appName][setting];
+}
+
+/**
+ * Gets the value for the specified setting if the setting exists, otherwise null
+ * @param {object} pkg pkg the contents of the package.json in object form.
+ * @param {*} setting setting Name of the setting to look for
+ */
+function getConfigSetting(pkg, setting) {
+  if (hasConfigSetting(pkg, setting)) {
+    return pkg.config[_constants.appName][setting];
+  }
+  return null;
+}
+
+function getResolvedSetting(pkg, rootDir, setting) {
+  var value = getConfigSetting(pkg, setting) || getDefaultValue(rootDir, setting);
+  return _path2.default.resolve(rootDir, value);
+}
+
+function getPatterns(pkg, baseDir) {
+  var searchDirs = getConfigSetting(pkg, 'searchDir') || getDefaultValue(baseDir, 'searchDir');
+  var pattern = getConfigSetting(pkg, 'pattern') || getDefaultValue(baseDir, 'pattern');
+
+  if (!Array.isArray(searchDirs)) {
+    searchDirs = [searchDirs];
+  }
+
+  return searchDirs.map(function (dir) {
+    return _path2.default.resolve(baseDir, dir, pattern);
+  });
+}
+
+/**
+ * Resolves paths and returns the following schema:
+ * {
+ *    "packageJsonFile": "",
+ *    "baseDir": "",
+ *    "outputFiles": [{
+ *      "patterns":[],
+ *      "outputFile": ""
+ *    }, {...}]
+ * }
+ * @param {string} processDirectory directory of the currently running process
+ */
+function resolvePaths(processDirectory) {
+  // Locate and read package.json
+  var packageJsonFile = _path2.default.resolve(_findup2.default.sync(processDirectory, 'package.json'), 'package.json');
+  var pkg = JSON.parse(_fs2.default.readFileSync(packageJsonFile));
+
+  // initialize single entry paths
+  var baseDir = _path2.default.dirname(packageJsonFile);
+  var outputFile = getResolvedSetting(pkg, baseDir, 'outputFile');
+
+  var outputFiles = [{
+    outputFile: outputFile,
+    patterns: getPatterns(pkg, baseDir)
+  }];
+
+  return {
+    packageJsonFile: packageJsonFile,
+    baseDir: baseDir,
+    outputFiles: outputFiles
+  };
+}
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2485,11 +2627,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.writeOutStoryLoader = writeOutStoryLoader;
 
-var _logger = __webpack_require__(39);
+var _logger = __webpack_require__(6);
 
 var logger = _interopRequireWildcard(_logger);
-
-var _paths = __webpack_require__(40);
 
 var _storyFinder = __webpack_require__(41);
 
@@ -2497,29 +2637,30 @@ var _writer = __webpack_require__(42);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function writeOutStoryLoader() {
-  var paths = (0, _paths.resolvePaths)(process.cwd());
+function writeOutStoryLoader(pathConfig) {
+  pathConfig.outputFiles.forEach(function (outputFileConfig) {
+    logger.info('Output file:      ', outputFileConfig.outputFile);
+    logger.info('Patterns:         ', JSON.stringify(outputFileConfig.patterns));
 
-  logger.info('\nGenerating Dynamic Storybook File List\n');
-  logger.info('package.json:     ', paths.packageJsonFile);
-  logger.info('Base directory:   ', paths.baseDir);
-  logger.info('Output file:      ', paths.outputFile);
-  logger.info('Pattern:          ', paths.pattern);
+    var storyFiles = [];
 
-  var storyFiles = (0, _storyFinder.loadStories)(paths.pattern);
+    outputFileConfig.patterns.forEach(function (pattern) {
+      var patternStories = (0, _storyFinder.loadStories)(pattern);
+      Array.prototype.push.apply(storyFiles, patternStories);
+      logger.info('Located ' + patternStories.length + ' files matching pattern \'' + pattern + '\'');
+    });
 
-  logger.info('Located ' + storyFiles.length + ' files matching pattern \'' + paths.pattern + '\'');
-
-  if (storyFiles.length > 0) {
-    (0, _writer.writeFile)(paths.baseDir, storyFiles, paths.outputFile);
-    logger.info('Compiled story loader for ' + storyFiles.length + ' files:\n', ' ' + storyFiles.join('\n  '));
-  } else {
-    logger.warn('No files were found matching the specified pattern. Story loader was not written.');
-  }
+    if (storyFiles.length > 0) {
+      (0, _writer.writeFile)(storyFiles, outputFileConfig.outputFile);
+      logger.info('Compiled story loader for ' + storyFiles.length + ' files:\n', ' ' + storyFiles.join('\n  '));
+    } else {
+      logger.warn('No files were found matching the specified pattern. Story loader was not written.');
+    }
+  });
 }
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = balanced;
@@ -2583,11 +2724,11 @@ function range(a, b, str) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var concatMap = __webpack_require__(28);
-var balanced = __webpack_require__(16);
+var concatMap = __webpack_require__(30);
+var balanced = __webpack_require__(18);
 
 module.exports = expandTop;
 
@@ -2790,7 +2931,7 @@ function expand(str, isTop) {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module['exports'] = function runTheTrap (text, options) {
@@ -2841,7 +2982,7 @@ module['exports'] = function runTheTrap (text, options) {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports) {
 
 // please no
@@ -2951,7 +3092,7 @@ module['exports'] = function zalgo(text, options) {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3069,7 +3210,7 @@ module['exports'] = function () {
 };
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3083,10 +3224,10 @@ module['exports'] = colors;
 //   colors.red("foo")
 //
 //
-__webpack_require__(20)();
+__webpack_require__(22)();
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3103,7 +3244,7 @@ module['exports'] = (function() {
 })();
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3122,7 +3263,7 @@ module['exports'] = (function () {
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3135,7 +3276,7 @@ module['exports'] = (function () {
 })();
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(2);
@@ -3145,7 +3286,7 @@ module['exports'] = function (letter, i, exploded) {
 };
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 /*
@@ -3227,7 +3368,7 @@ Object.keys(codes).forEach(function (key) {
 });
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /*
@@ -3293,7 +3434,7 @@ module.exports = (function () {
 })();
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = function (xs, fn) {
@@ -3312,7 +3453,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;// doT.js
@@ -3462,7 +3603,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;// doT.js
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* doT + auto-compilation of doT templates
@@ -3495,7 +3636,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;// doT.js
  */
 
 var fs = __webpack_require__(0),
-	doT = module.exports = __webpack_require__(29);
+	doT = module.exports = __webpack_require__(31);
 
 doT.process = function(options) {
 	//path, destination, global, rendermodule, templateSettings
@@ -3612,14 +3753,14 @@ InstallDots.prototype.compileAll = function() {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var fs   = __webpack_require__(0),
   Path   = __webpack_require__(1),
   util   = __webpack_require__(3),
-  colors = __webpack_require__(33),
-  EE     = __webpack_require__(14).EventEmitter,
+  colors = __webpack_require__(35),
+  EE     = __webpack_require__(15).EventEmitter,
   fsExists = fs.exists ? fs.exists : Path.exists,
   fsExistsSync = fs.existsSync ? fs.existsSync : Path.existsSync;
 
@@ -3713,7 +3854,7 @@ module.exports.sync = function(dir, iteratorSync){
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -3722,11 +3863,11 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 32;
+webpackEmptyContext.id = 34;
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -4074,7 +4215,7 @@ addProperty('zalgo', function () {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -4383,22 +4524,22 @@ exports.realpath = function realpath(p, cache, cb) {
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = globSync
 globSync.GlobSync = GlobSync
 
 var fs = __webpack_require__(0)
-var rp = __webpack_require__(7)
+var rp = __webpack_require__(8)
 var minimatch = __webpack_require__(4)
 var Minimatch = minimatch.Minimatch
-var Glob = __webpack_require__(9).Glob
+var Glob = __webpack_require__(10).Glob
 var util = __webpack_require__(3)
 var path = __webpack_require__(1)
-var assert = __webpack_require__(13)
+var assert = __webpack_require__(14)
 var isAbsolute = __webpack_require__(5)
-var common = __webpack_require__(8)
+var common = __webpack_require__(9)
 var alphasort = common.alphasort
 var alphasorti = common.alphasorti
 var setopts = common.setopts
@@ -4875,12 +5016,12 @@ GlobSync.prototype._makeAbs = function (f) {
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var wrappy = __webpack_require__(12)
+var wrappy = __webpack_require__(13)
 var reqs = Object.create(null)
-var once = __webpack_require__(10)
+var once = __webpack_require__(11)
 
 module.exports = wrappy(inflight)
 
@@ -4935,7 +5076,7 @@ function slice (args) {
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 try {
@@ -4943,12 +5084,12 @@ try {
   if (typeof util.inherits !== 'function') throw '';
   module.exports = util.inherits;
 } catch (e) {
-  module.exports = __webpack_require__(38);
+  module.exports = __webpack_require__(40);
 }
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -4977,123 +5118,6 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.info = info;
-exports.warn = warn;
-exports.error = error;
-
-__webpack_require__(21);
-
-var logger = console;
-
-function info(message, value) {
-  var outputValue = value || '';
-  logger.log(message.blue, outputValue.white);
-}
-
-function warn(message) {
-  logger.log(message.yellow);
-}
-
-function error(message) {
-  logger.log(message.red);
-}
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.resolvePaths = resolvePaths;
-
-var _fs = __webpack_require__(0);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _path = __webpack_require__(1);
-
-var _path2 = _interopRequireDefault(_path);
-
-var _findup = __webpack_require__(31);
-
-var _findup2 = _interopRequireDefault(_findup);
-
-var _constants = __webpack_require__(11);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var settings = ['pattern', 'outputFile'];
-
-function getDefaultValue(baseDir, setting) {
-  switch (setting) {
-    case 'pattern':
-      return _path2.default.resolve(baseDir, './storybook/stories/index.js');
-    case 'outputFile':
-      return _path2.default.resolve(baseDir, './storybook/storyLoader.js');
-    default:
-      return baseDir;
-  }
-}
-
-function hasConfigSetting(pkg, setting) {
-  return pkg.config && pkg.config[_constants.appName] && pkg.config[_constants.appName][setting];
-}
-
-function getConfigSetting(pkg, setting) {
-  if (hasConfigSetting(pkg, setting)) {
-    return pkg.config[_constants.appName][setting];
-  }
-  return null;
-}
-
-function resolvePaths(nodeModulesPath) {
-  var packageJsonFile = _path2.default.resolve(_findup2.default.sync(nodeModulesPath, 'package.json'), 'package.json');
-  var baseDir = _path2.default.dirname(packageJsonFile);
-  var searchDir = _path2.default.resolve(baseDir);
-
-  var pkg = JSON.parse(_fs2.default.readFileSync(packageJsonFile));
-
-  if (hasConfigSetting(pkg, 'searchDir')) {
-    searchDir = _path2.default.resolve(baseDir, getConfigSetting(pkg, 'searchDir'));
-  }
-
-  var paths = {
-    packageJsonFile: packageJsonFile,
-    baseDir: baseDir,
-    searchDir: searchDir
-  };
-
-  settings.forEach(function (setting) {
-    paths[setting] = getDefaultValue(searchDir, setting);
-
-    if (hasConfigSetting(pkg, setting)) {
-      var actualDir = baseDir;
-
-      if (setting === 'pattern') {
-        actualDir = searchDir;
-      }
-
-      paths[setting] = _path2.default.resolve(actualDir, getConfigSetting(pkg, setting));
-    }
-  });
-
-  return paths;
-}
-
-/***/ }),
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5105,7 +5129,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadStories = loadStories;
 
-var _glob = __webpack_require__(9);
+var _glob = __webpack_require__(10);
 
 var _glob2 = _interopRequireDefault(_glob);
 
@@ -5137,11 +5161,11 @@ var _path = __webpack_require__(1);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _dot = __webpack_require__(30);
+var _dot = __webpack_require__(32);
 
 var _dot2 = _interopRequireDefault(_dot);
 
-var _constants = __webpack_require__(11);
+var _constants = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5191,9 +5215,22 @@ function writeFile(files, outputPath) {
 "use strict";
 
 
-var storyWriterProcess = __webpack_require__(15); // eslint-disable-line no-var
+var _logger = __webpack_require__(6);
 
-storyWriterProcess.writeOutStoryLoader();
+var _storyWriterProcess = __webpack_require__(17);
+
+var _multiResolver = __webpack_require__(16);
+
+var _multiResolver2 = _interopRequireDefault(_multiResolver);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var pathConfig = (0, _multiResolver2.default)(process.cwd());
+(0, _logger.info)('\nGenerating Dynamic Storybook File List\n');
+(0, _logger.info)('package.json:     ', pathConfig.packageJsonFile);
+(0, _logger.info)('Base directory:   ', pathConfig.baseDir);
+
+(0, _storyWriterProcess.writeOutStoryLoader)(pathConfig);
 
 /***/ })
 /******/ ]);
