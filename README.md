@@ -91,7 +91,7 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 }
 ```
 
-This configuration will search `src` recursively for files that end with `.stories.js`.
+This configuration will search `src` and `packages` directories recursively for files that end with `.stories.js` and write the output to `./storybook/storyLoader.js`
 
 ## Support
 Please log issues
