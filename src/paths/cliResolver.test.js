@@ -21,7 +21,7 @@ test('cliResolver should return an empty object when invalid params are specifie
   expect(emptyResult).toEqual({});
 });
 
-test('cliResolver should searchDir when array specified', () => {
+test('cliResolver should return searchDir when array specified', () => {
   const yargv = {
     searchDir: [
       faker.system.fileName(),
@@ -35,7 +35,7 @@ test('cliResolver should searchDir when array specified', () => {
   expect(actual).toEqual(yargv);
 });
 
-test('cliResolver should searchDir when string specified', () => {
+test('cliResolver should return searchDir when string specified', () => {
   const filename = faker.system.fileName();
   const yargv = {
     searchDir: filename,
@@ -47,7 +47,7 @@ test('cliResolver should searchDir when string specified', () => {
   expect(actual).toEqual(expected);
 });
 
-test('cliResolver should outputFile when specified', () => {
+test('cliResolver should return outputFile when specified', () => {
   const filename = faker.system.fileName();
   const yargv = {
     outputFile: filename,
@@ -58,7 +58,7 @@ test('cliResolver should outputFile when specified', () => {
   expect(actual).toEqual(yargv);
 });
 
-test('cliResolver should pattern when specified', () => {
+test('cliResolver should return pattern when specified', () => {
   const filename = faker.system.fileName();
   const yargv = {
     pattern: filename,
@@ -67,4 +67,33 @@ test('cliResolver should pattern when specified', () => {
   const actual = cliResolver(yargv);
 
   expect(actual).toEqual(yargv);
+});
+
+test('cliResolver should return pattern, searchDir (array), and outputFile when specified', () => {
+  const yargv = {
+    pattern: faker.system.fileName(),
+    searchDir: [
+      faker.system.fileName(),
+      faker.system.fileName(),
+      faker.system.fileName(),
+    ],
+    outputFile: faker.system.fileName(),
+  };
+
+  const actual = cliResolver(yargv);
+
+  expect(actual).toEqual(yargv);
+});
+
+test('cliResolver should pattern, outputFile and searchDir (string) when specified', () => {
+  const yargv = {
+    pattern: faker.system.fileName(),
+    searchDir: faker.system.fileName(),
+    outputFile: faker.system.fileName(),
+  };
+  const expected = Object.assign({}, yargv, { searchDir: [yargv.searchDir] });
+
+  const actual = cliResolver(yargv);
+
+  expect(actual).toEqual(expected);
 });
