@@ -3641,12 +3641,13 @@ function getConfigSettings(packageJsonFile) {
  * }
  * @param {string} processDirectory directory of the currently running process
  */
-function resolvePaths(processDirectory) {
+function resolvePaths(processDirectory, cliConfig) {
+  var overrides = cliConfig || {};
   // Locate and read package.json
   var packageJsonFile = _path2.default.resolve(_findup2.default.sync(processDirectory, 'package.json'), 'package.json');
   var baseDir = _path2.default.dirname(packageJsonFile);
 
-  var config = getConfigSettings(packageJsonFile, baseDir);
+  var config = Object.assign({}, getConfigSettings(packageJsonFile, baseDir), overrides);
   var outputFile = _path2.default.resolve(baseDir, config.outputFile);
 
   var outputFiles = [{
@@ -17078,11 +17079,10 @@ var args = _yargs2.default.usage('$0 [options]').options({
 }).help().argv;
 
 var cliConfig = (0, _cliResolver2.default)(args);
-
-var pathConfig = (0, _multiResolver2.default)(process.cwd());
+var pathConfig = (0, _multiResolver2.default)(process.cwd(), cliConfig);
 (0, _logger.info)('\nGenerating Dynamic Storybook File List\n');
 
-(0, _storyWriterProcess.writeOutStoryLoader)(pathConfig, cliConfig);
+(0, _storyWriterProcess.writeOutStoryLoader)(pathConfig);
 
 /***/ })
 /******/ ]);

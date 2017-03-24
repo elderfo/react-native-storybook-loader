@@ -26,8 +26,7 @@ const args = yargs
   .argv;
 
 const cliConfig = cliResolver(args);
-
-const pathConfig = resolvePaths(process.cwd());
+const pathConfig = resolvePaths(process.cwd(), cliConfig);
 info('\nGenerating Dynamic Storybook File List\n');
 
-writeOutStoryLoader(pathConfig, cliConfig);
+writeOutStoryLoader(pathConfig);

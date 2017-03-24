@@ -73,12 +73,13 @@ function getConfigSettings(packageJsonFile) {
  * }
  * @param {string} processDirectory directory of the currently running process
  */
-export default function resolvePaths(processDirectory) {
+export default function resolvePaths(processDirectory, cliConfig) {
+  const overrides = cliConfig || {};
   // Locate and read package.json
   const packageJsonFile = path.resolve(findup.sync(processDirectory, 'package.json'), 'package.json');
   const baseDir = path.dirname(packageJsonFile);
 
-  const config = getConfigSettings(packageJsonFile, baseDir);
+  const config = Object.assign({}, getConfigSettings(packageJsonFile, baseDir), overrides);
   const outputFile = path.resolve(baseDir, config.outputFile);
 
   const outputFiles = [{
