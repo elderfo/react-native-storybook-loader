@@ -30,15 +30,16 @@
     "colors": "^1.1.2",
     "dot": "^1.1.1",
     "findup": "^0.1.5",
-    "glob": "^7.1.1"
+    "glob": "^7.1.1",
+    "yargs": "^7.0.2"
   },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "esw ./",
     "lint:watch": "yarn run lint -- --watch",
-    "prestart": "yarn run build",
     "start": "babel-node src/rnstl-cli.js",
+    "start:help": "babel-node src/rnstl-cli.js --help",
     "prestart:dist": "yarn run build",
     "start:dist": "node dist/rnstl-cli.js",
     "prebuild": "rm -rf dist && mkdir dist",
@@ -49,7 +50,10 @@
   },
   "config": {
     "react-native-storybook-loader": {
-      "searchDir": ["./src/paths", "./src/writer"],
+      "searchDir": [
+        "./src/paths",
+        "./src/writer"
+      ],
       "pattern": "**/*.js",
       "outputFile": "./output/storyLoader.js"
     }

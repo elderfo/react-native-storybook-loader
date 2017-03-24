@@ -11,8 +11,6 @@ jest.mock('./logger');
 
 test('writeOutStoryLoader should perform expected work', () => {
   const config = {
-    baseDir: faker.system.fileName(),
-    packageJsonFile: faker.system.fileName(),
     outputFiles: [{
       outputFile: faker.system.fileName(),
       patterns: [faker.system.fileName(), faker.system.fileName()],

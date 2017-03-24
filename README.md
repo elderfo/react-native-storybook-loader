@@ -1,14 +1,12 @@
 # react-native-storybook-loader
-[![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader)
-
-[![Known Vulnerabilities](https://snyk.io/test/github/elderfo/react-native-storybook-loader/badge.svg)](https://snyk.io/test/github/elderfo/react-native-storybook-loader)
+[![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader) [![Known Vulnerabilities](https://snyk.io/test/github/elderfo/react-native-storybook-loader/badge.svg)](https://snyk.io/test/github/elderfo/react-native-storybook-loader)
 
 
-A component for dynamically import stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
+A CLI for dynamically import stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
 
 ## Purpose
 
-While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories. so I added an automated way to do it. This will locate files using configuration in the `package.json` file and create a story loader in the project directories. Search folder/patterns and the output file are all configurable.
+While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories. So I built an automated way to do it. `react-native-storybook-loader` can be run using configuration in your `package.json` or via the CLI interface.
 
 ## Installation
 
@@ -68,13 +66,17 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 
 ### Options
 
-| Setting | Type | Description | Default | 
-|---|---|---|---|
-| **searchDir** | `string` or `string[]` | The directory or directories, relative to the project root, to search for files in. | Project root |
-| **outputFile** | `string` | The output file that will be written. It is relative to the project directory. | `./storybook/storyLoader.js` | 
-| **pattern** | `string` | The pattern of files to look at. It can be a specific file, or any valid glob. | `./storybook/stories/index.js` (The default React Native storybook file) | 
+| Setting | CLI Option | Type | Description | Default | 
+|---|---|---|---|---|
+| **searchDir** | `--searchDir` | `string` or `string[]` | The directory or directories, relative to the project root, to search for files in. | Project root |
+| **outputFile** | `--outputFile` | `string` | The output file that will be written. It is relative to the project directory. | `./storybook/storyLoader.js` | 
+| **pattern** | `--pattern` | `string` | The pattern of files to look at. It can be a specific file, or any valid glob. | `./storybook/stories/index.js` (The default React Native storybook file) | 
 
-#### Example:
+> Note: When using the CLI, any of option passed will override the values in the `package.json`
+
+#### Examples:
+
+##### `package.json`
 
 ```json
 {
@@ -94,7 +96,13 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 }
 ```
 
-This configuration will search `src` and `packages` directories recursively for files that end with `.stories.js` and write the output to `./storybook/storyLoader.js`
+##### CLI
+
+```bash
+$ node ./node_modules/.bin/rnstl --searchDir ./src ./packages --pattern **/*.stories.js --outputFile ./storybook/storyLoader.js
+```
+
+Both examples will search `src` and `packages` directories recursively for files that end with `.stories.js` and write the output to `./storybook/storyLoader.js`
 
 ## Support
 Please log issues
