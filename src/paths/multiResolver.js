@@ -3,14 +3,20 @@ import path from 'path';
 import findup from 'findup';
 import { appName } from '../constants';
 
-function getDefaultValue(baseDir, setting) {
+/**
+ * Returns the default value for the specified
+ * @param {string} setting Name of the setting
+ */
+function getDefaultValue(setting) {
   switch (setting) {
     case 'pattern':
-      return path.resolve(baseDir, './storybook/stories/index.js');
+      return './storybook/stories/index.js';
     case 'outputFile':
-      return path.resolve(baseDir, './storybook/storyLoader.js');
+      return './storybook/storyLoader.js';
+    case 'searchDir':
+      return ['./'];
     default:
-      return baseDir;
+      return './';
   }
 }
 
@@ -26,36 +32,40 @@ function hasConfigSetting(pkg, setting) {
 /**
  * Gets the value for the specified setting if the setting exists, otherwise null
  * @param {object} pkg pkg the contents of the package.json in object form.
- * @param {*} setting setting Name of the setting to look for
+ * @param {string} setting setting Name of the setting to look for
+ * @param {bool} ensureArray flag denoting whether to ensure the setting is an array
  */
-function getConfigSetting(pkg, setting) {
-  if (hasConfigSetting(pkg, setting)) {
-    return pkg.config[appName][setting];
-  }
-  return null;
-}
-
-function getResolvedSetting(pkg, rootDir, setting) {
-  const value = getConfigSetting(pkg, setting) || getDefaultValue(rootDir, setting);
-  return path.resolve(rootDir, value);
-}
-
-function getPatterns(pkg, baseDir) {
-  let searchDirs = getConfigSetting(pkg, 'searchDir') || getDefaultValue(baseDir, 'searchDir');
-  const pattern = getConfigSetting(pkg, 'pattern') || getDefaultValue(baseDir, 'pattern');
-
-  if (!Array.isArray(searchDirs)) {
-    searchDirs = [searchDirs];
+function getConfigSetting(pkg, setting, ensureArray) {
+  if (!hasConfigSetting(pkg, setting)) {
+    return null;
   }
 
-  return searchDirs.map(dir => path.resolve(baseDir, dir, pattern));
+  const value = pkg.config[appName][setting];
+  if (ensureArray && !Array.isArray(value)) {
+    return [value];
+  }
+
+  return value;
+}
+
+/**
+ * Parses the package.json file and returns a config object
+ * @param {string} packageJsonFile Path to the package.json file
+ */
+function getConfigSettings(packageJsonFile) {
+  // Locate and read package.json
+  const pkg = JSON.parse(fs.readFileSync(packageJsonFile));
+
+  return {
+    searchDir: getConfigSetting(pkg, 'searchDir', true) || getDefaultValue('searchDir'),
+    outputFile: getConfigSetting(pkg, 'outputFile') || getDefaultValue('outputFile'),
+    pattern: getConfigSetting(pkg, 'pattern') || getDefaultValue('pattern'),
+  };
 }
 
 /**
  * Resolves paths and returns the following schema:
  * {
- *    "packageJsonFile": "",
- *    "baseDir": "",
  *    "outputFiles": [{
  *      "patterns":[],
  *      "outputFile": ""
@@ -66,20 +76,18 @@ function getPatterns(pkg, baseDir) {
 export default function resolvePaths(processDirectory) {
   // Locate and read package.json
   const packageJsonFile = path.resolve(findup.sync(processDirectory, 'package.json'), 'package.json');
-  const pkg = JSON.parse(fs.readFileSync(packageJsonFile));
-
-  // initialize single entry paths
   const baseDir = path.dirname(packageJsonFile);
-  const outputFile = getResolvedSetting(pkg, baseDir, 'outputFile');
+
+  const config = getConfigSettings(packageJsonFile, baseDir);
+  const outputFile = path.resolve(baseDir, config.outputFile);
 
   const outputFiles = [{
     outputFile,
-    patterns: getPatterns(pkg, baseDir),
+    patterns: config.searchDir.map(dir => path.resolve(baseDir, dir, config.pattern)),
   }];
 
   return {
-    packageJsonFile,
-    baseDir,
     outputFiles,
   };
 }
+

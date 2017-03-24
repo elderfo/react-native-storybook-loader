@@ -2532,14 +2532,20 @@ var _constants = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function getDefaultValue(baseDir, setting) {
+/**
+ * Returns the default value for the specified
+ * @param {string} setting Name of the setting
+ */
+function getDefaultValue(setting) {
   switch (setting) {
     case 'pattern':
-      return _path2.default.resolve(baseDir, './storybook/stories/index.js');
+      return './storybook/stories/index.js';
     case 'outputFile':
-      return _path2.default.resolve(baseDir, './storybook/storyLoader.js');
+      return './storybook/storyLoader.js';
+    case 'searchDir':
+      return ['./'];
     default:
-      return baseDir;
+      return './';
   }
 }
 
@@ -2555,38 +2561,40 @@ function hasConfigSetting(pkg, setting) {
 /**
  * Gets the value for the specified setting if the setting exists, otherwise null
  * @param {object} pkg pkg the contents of the package.json in object form.
- * @param {*} setting setting Name of the setting to look for
+ * @param {string} setting setting Name of the setting to look for
+ * @param {bool} ensureArray flag denoting whether to ensure the setting is an array
  */
-function getConfigSetting(pkg, setting) {
-  if (hasConfigSetting(pkg, setting)) {
-    return pkg.config[_constants.appName][setting];
-  }
-  return null;
-}
-
-function getResolvedSetting(pkg, rootDir, setting) {
-  var value = getConfigSetting(pkg, setting) || getDefaultValue(rootDir, setting);
-  return _path2.default.resolve(rootDir, value);
-}
-
-function getPatterns(pkg, baseDir) {
-  var searchDirs = getConfigSetting(pkg, 'searchDir') || getDefaultValue(baseDir, 'searchDir');
-  var pattern = getConfigSetting(pkg, 'pattern') || getDefaultValue(baseDir, 'pattern');
-
-  if (!Array.isArray(searchDirs)) {
-    searchDirs = [searchDirs];
+function getConfigSetting(pkg, setting, ensureArray) {
+  if (!hasConfigSetting(pkg, setting)) {
+    return null;
   }
 
-  return searchDirs.map(function (dir) {
-    return _path2.default.resolve(baseDir, dir, pattern);
-  });
+  var value = pkg.config[_constants.appName][setting];
+  if (ensureArray && !Array.isArray(value)) {
+    return [value];
+  }
+
+  return value;
+}
+
+/**
+ * Parses the package.json file and returns a config object
+ * @param {string} packageJsonFile Path to the package.json file
+ */
+function getConfigSettings(packageJsonFile) {
+  // Locate and read package.json
+  var pkg = JSON.parse(_fs2.default.readFileSync(packageJsonFile));
+
+  return {
+    searchDir: getConfigSetting(pkg, 'searchDir', true) || getDefaultValue('searchDir'),
+    outputFile: getConfigSetting(pkg, 'outputFile') || getDefaultValue('outputFile'),
+    pattern: getConfigSetting(pkg, 'pattern') || getDefaultValue('pattern')
+  };
 }
 
 /**
  * Resolves paths and returns the following schema:
  * {
- *    "packageJsonFile": "",
- *    "baseDir": "",
  *    "outputFiles": [{
  *      "patterns":[],
  *      "outputFile": ""
@@ -2597,20 +2605,19 @@ function getPatterns(pkg, baseDir) {
 function resolvePaths(processDirectory) {
   // Locate and read package.json
   var packageJsonFile = _path2.default.resolve(_findup2.default.sync(processDirectory, 'package.json'), 'package.json');
-  var pkg = JSON.parse(_fs2.default.readFileSync(packageJsonFile));
-
-  // initialize single entry paths
   var baseDir = _path2.default.dirname(packageJsonFile);
-  var outputFile = getResolvedSetting(pkg, baseDir, 'outputFile');
+
+  var config = getConfigSettings(packageJsonFile, baseDir);
+  var outputFile = _path2.default.resolve(baseDir, config.outputFile);
 
   var outputFiles = [{
     outputFile: outputFile,
-    patterns: getPatterns(pkg, baseDir)
+    patterns: config.searchDir.map(function (dir) {
+      return _path2.default.resolve(baseDir, dir, config.pattern);
+    })
   }];
 
   return {
-    packageJsonFile: packageJsonFile,
-    baseDir: baseDir,
     outputFiles: outputFiles
   };
 }
@@ -5227,8 +5234,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var pathConfig = (0, _multiResolver2.default)(process.cwd());
 (0, _logger.info)('\nGenerating Dynamic Storybook File List\n');
-(0, _logger.info)('package.json:     ', pathConfig.packageJsonFile);
-(0, _logger.info)('Base directory:   ', pathConfig.baseDir);
 
 (0, _storyWriterProcess.writeOutStoryLoader)(pathConfig);
 
