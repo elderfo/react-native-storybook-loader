@@ -7,8 +7,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceRoot}/src/index.js",
+            "name": "Debug Dist",
+            "program": "${workspaceRoot}/dist/rnstl-cli.js",
             "cwd": "${workspaceRoot}"
         },
         {
