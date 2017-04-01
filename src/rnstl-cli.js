@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import yargs from 'yargs';
+import yargs from 'yargs/yargs';
 
 import cliResolver from './paths/cliResolver';
 import { info } from './logger';
 import { writeOutStoryLoader } from './storyWriterProcess';
 import resolvePaths from './paths/multiResolver';
 
-const args = yargs
+const args = yargs()
   .usage('$0 [options]')
   .options({
     searchDir: {

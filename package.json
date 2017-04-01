@@ -15,7 +15,7 @@
     "babel-loader": "^6.3.2",
     "babel-preset-es2015": "^6.22.0",
     "eslint": "^3.16.1",
-    "eslint-config-elderfo": "^1.0.1",
+    "eslint-config-elderfo": "^1.1.1",
     "eslint-watch": "^3.0.0",
     "faker": "^4.1.0",
     "husky": "^0.13.1",
@@ -34,7 +34,7 @@
     "yargs": "^7.0.2"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest && yarn run start:dist",
     "test:watch": "jest --watch",
     "lint": "esw ./",
     "lint:watch": "yarn run lint -- --watch",

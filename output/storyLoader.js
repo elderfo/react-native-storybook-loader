@@ -3,8 +3,8 @@
 
 function loadStories() {
   
-  require('./../src/paths/index.js');
-  require('./../src/paths/index.test.js');
+  require('./../src/paths/cliResolver.js');
+  require('./../src/paths/cliResolver.test.js');
   require('./../src/paths/multiResolver.js');
   require('./../src/paths/multiResolver.test.js');
   require('./../src/writer/index.js');
