@@ -34,7 +34,7 @@
     "yargs": "^7.0.2"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest && yarn run start:dist",
     "test:watch": "jest --watch",
     "lint": "esw ./",
     "lint:watch": "yarn run lint -- --watch",
@@ -46,7 +46,7 @@
     "build": "webpack --config ./src/build/webpack.config.js",
     "build:precommit": "git add ./dist/rnstl-cli.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "precommit": "yarn run lint && yarn run test && yarn run start:dist && yarn run build:precommit"
+    "precommit": "yarn run lint && yarn run test && yarn run build && yarn run build:precommit"
   },
   "config": {
     "react-native-storybook-loader": {
