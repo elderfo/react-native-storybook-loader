@@ -13,6 +13,7 @@ function getRelativePaths(fromDir, files) {
     if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
       relativePath = `./${relativePath}`;
     }
+    relativePath  = require('os').platform() === 'win32' ? relativePath.replace(/\\/g, '/') : relativePath
 
     return {
       relative: relativePath,
@@ -46,7 +47,7 @@ module.exports = {
 export function writeFile(files, outputPath) {
   const template = dot.template(templateContents);
   const relativePaths = getRelativePaths(path.dirname(outputPath), files);
-
+  
   const output = template({ files: relativePaths });
 
   ensureFileDirectoryExists(outputPath);
