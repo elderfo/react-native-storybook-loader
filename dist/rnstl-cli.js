@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 122);
+/******/ 	return __webpack_require__(__webpack_require__.s = 123);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -7813,7 +7813,7 @@ GlobSync.prototype._makeAbs = function (f) {
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stream = __webpack_require__(121).Stream
+var Stream = __webpack_require__(122).Stream
 
 module.exports = legacy
 
@@ -12516,6 +12516,7 @@ function getRelativePaths(fromDir, files) {
     if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== '.' + separator) {
       relativePath = '.' + separator + relativePath;
     }
+    relativePath = __webpack_require__(121).platform() === 'win32' ? relativePath.replace(/\\/g, '/') : relativePath;
 
     return {
       relative: relativePath,
@@ -17000,10 +17001,16 @@ module.exports = require("constants");
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = require("stream");
+module.exports = require("os");
 
 /***/ }),
 /* 122 */
+/***/ (function(module, exports) {
+
+module.exports = require("stream");
+
+/***/ }),
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

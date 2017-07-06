@@ -33,7 +33,4 @@ test('writeFile should perform expected work', () => {
   const contents = fs.readFileSync(outputPath, encoding);
 
   expect(contents).toMatchSnapshot();
-
-  const configContents = fs.readFileSync(configFile, encoding);
-  expect(configContents).toMatchSnapshot();
 });
