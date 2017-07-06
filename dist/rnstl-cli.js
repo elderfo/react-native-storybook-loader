@@ -12508,12 +12508,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _dot2.default.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
+  var separator = _path2.default.sep;
   files.sort();
   return files.map(function (file) {
     var relativePath = _path2.default.relative(fromDir, file);
 
-    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
-      relativePath = './' + relativePath;
+    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== '.' + separator) {
+      relativePath = '.' + separator + relativePath;
     }
 
     return {
