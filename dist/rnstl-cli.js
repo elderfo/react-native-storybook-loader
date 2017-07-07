@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 123);
+/******/ 	return __webpack_require__(__webpack_require__.s = 122);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -7813,7 +7813,7 @@ GlobSync.prototype._makeAbs = function (f) {
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stream = __webpack_require__(122).Stream
+var Stream = __webpack_require__(121).Stream
 
 module.exports = legacy
 
@@ -12507,16 +12507,42 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _dot2.default.templateSettings.strip = false;
 
+/**
+ * Determines if the path is prefixed or not
+ *
+ * @param {String} relativePath - Relative path to check for directory prefixes
+ * @returns True if path prefix exists, otherwise false
+ */
+function hasPathPrefix(relativePath) {
+  return relativePath.substr(0, 2) === '..' || relativePath.substr(0, 2) === './' || relativePath.substr(0, 2) === '.\\';
+}
+
+/**
+ * Correctly formats path separators
+ *
+ * @param {String} path - Path to format
+ * @returns Path with the correct separators
+ */
+function formatPath(dir) {
+  var oppositeSep = _path2.default.sep === '/' ? '\\' : '/';
+  return dir.replace(new RegExp('\\' + oppositeSep, 'g'), _path2.default.sep);
+}
+
 function getRelativePaths(fromDir, files) {
-  var separator = _path2.default.sep;
-  files.sort();
-  return files.map(function (file) {
+  var workingFiles = files.map(function (file) {
+    return formatPath(file);
+  }).map(function (file) {
+    return _path2.default.resolve(file);
+  });
+
+  workingFiles.sort();
+
+  return workingFiles.map(function (file) {
     var relativePath = _path2.default.relative(fromDir, file);
 
-    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== '.' + separator) {
-      relativePath = '.' + separator + relativePath;
+    if (!hasPathPrefix(relativePath)) {
+      relativePath = '.' + _path2.default.sep + relativePath;
     }
-    relativePath = __webpack_require__(121).platform() === 'win32' ? relativePath.replace(/\\/g, '/') : relativePath;
 
     return {
       relative: relativePath,
@@ -17001,16 +17027,10 @@ module.exports = require("constants");
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = require("os");
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports) {
-
 module.exports = require("stream");
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
