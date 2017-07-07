@@ -27,14 +27,14 @@
     "yargs": "^8.0.2"
   },
   "scripts": {
-    "test": "jest && yarn run start:dist",
+    "test": "jest",
     "test:watch": "jest --watch",
     "lint": "esw ./",
     "lint:watch": "yarn run lint -- --watch",
     "start": "node src/rnstl-cli.js",
     "start:help": "node src/rnstl-cli.js --help",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "precommit": "yarn run lint && yarn run test"
+    "precommit": "yarn run lint && yarn run test && yarn start"
   },
   "config": {
     "react-native-storybook-loader": {
