@@ -74,9 +74,11 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 
 > Note: When using the CLI, any of option passed will override the values in the `package.json`
 
-#### Examples:
+### Examples:
 
-##### `package.json`
+Both examples below will search `src` and `packages` directories recursively for files that end with `.stories.js` and write the output to `./storybook/storyLoader.js`
+
+#### `package.json`
 
 ```json
 {
@@ -96,7 +98,7 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 }
 ```
 
-##### CLI
+#### CLI
 
 **Breaking Change**
 
@@ -121,8 +123,6 @@ There is no longer a need to use `node ./node_modules/.bin/rnstl
 ```bash
 $ ./node_modules/.bin/rnstl --searchDir ./src ./packages --pattern "**/*.stories.js" --outputFile ./storybook/storyLoader.js
 ```
-
-Both examples will search `src` and `packages` directories recursively for files that end with `.stories.js` and write the output to `./storybook/storyLoader.js`
 
 ## Support
 Please log issues
