@@ -1347,10 +1347,7 @@ module.exports = require("assert");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.debug = exports.setLogLevel = exports.logLevels = undefined;
-exports.info = info;
-exports.warn = warn;
-exports.error = error;
+exports.error = exports.warn = exports.info = exports.debug = exports.setLogLevel = exports.logLevels = undefined;
 
 __webpack_require__(44);
 
@@ -1370,34 +1367,46 @@ var setLogLevel = exports.setLogLevel = function setLogLevel(level) {
 
 var logger = console;
 
-var debug = exports.debug = function debug(message) {
+var debug = exports.debug = function debug() {
+  for (var _len = arguments.length, message = Array(_len), _key = 0; _key < _len; _key++) {
+    message[_key] = arguments[_key];
+  }
+
   if (logLevel < logLevels.debug) {
     return;
   }
-  logger.log(message.white);
+  logger.log.apply(null, message);
 };
 
-function info(message, value) {
+var info = exports.info = function info(message, value) {
   if (logLevel < logLevels.info) {
     return;
   }
   var outputValue = value || '';
   logger.log(message.blue, outputValue.white);
-}
+};
 
-function warn(message) {
+var warn = exports.warn = function warn() {
+  for (var _len2 = arguments.length, message = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    message[_key2] = arguments[_key2];
+  }
+
   if (logLevel < logLevels.warn) {
     return;
   }
-  logger.warn(message);
-}
+  logger.warn.apply(null, message);
+};
 
-function error(message) {
+var error = exports.error = function error() {
+  for (var _len3 = arguments.length, message = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    message[_key3] = arguments[_key3];
+  }
+
   if (logLevel < logLevels.error) {
     return;
   }
-  logger.error(message);
-}
+  logger.error.apply(null, message);
+};
 
 /***/ }),
 /* 13 */
@@ -17077,13 +17086,19 @@ var _cliResolver2 = _interopRequireDefault(_cliResolver);
 
 var _logger = __webpack_require__(12);
 
+var logger = _interopRequireWildcard(_logger);
+
 var _storyWriterProcess = __webpack_require__(33);
 
 var _multiResolver = __webpack_require__(32);
 
 var _multiResolver2 = _interopRequireDefault(_multiResolver);
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+logger.setLogLevel(logger.logLevels.debug);
 
 var args = (0, _yargs2.default)().usage('$0 [options]').options({
   searchDir: {
@@ -17100,9 +17115,13 @@ var args = (0, _yargs2.default)().usage('$0 [options]').options({
   }
 }).help().argv;
 
+logger.debug('yargs', args);
+
 var cliConfig = (0, _cliResolver2.default)(args);
+logger.debug('cliConfig', cliConfig);
+
 var pathConfig = (0, _multiResolver2.default)(process.cwd(), cliConfig);
-(0, _logger.info)('\nGenerating Dynamic Storybook File List\n');
+logger.info('\nGenerating Dynamic Storybook File List\n');
 
 (0, _storyWriterProcess.writeOutStoryLoader)(pathConfig);
 

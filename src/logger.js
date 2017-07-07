@@ -16,31 +16,31 @@ export const setLogLevel = (level) => {
 
 const logger = console;
 
-export const debug = (message) => {
+export const debug = (...message) => {
   if (logLevel < logLevels.debug) {
     return;
   }
-  logger.log(message.white);
+  logger.log.apply(null, message);
 };
 
-export function info(message, value) {
+export const info = (message, value) => {
   if (logLevel < logLevels.info) {
     return;
   }
   const outputValue = value || '';
   logger.log(message.blue, outputValue.white);
-}
+};
 
-export function warn(message) {
+export const warn = (...message) => {
   if (logLevel < logLevels.warn) {
     return;
   }
-  logger.warn(message);
-}
+  logger.warn.apply(null, message);
+};
 
-export function error(message) {
+export const error = (...message) => {
   if (logLevel < logLevels.error) {
     return;
   }
-  logger.error(message);
-}
+  logger.error.apply(null, message);
+};
