@@ -1,4 +1,7 @@
+const logger = require('../logger');
+
 const cliResolver = (yargv) => {
+  logger.debug('cliResolver', yargv);
   if (!yargv || typeof yargv !== 'object') {
     return {};
   }
@@ -18,7 +21,7 @@ const cliResolver = (yargv) => {
   if (yargv.pattern) {
     config.pattern = yargv.pattern;
   }
-
+  logger.debug('cliResolver:return', config);
   return config;
 };
 
