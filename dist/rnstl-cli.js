@@ -1347,25 +1347,56 @@ module.exports = require("assert");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.debug = exports.setLogLevel = exports.logLevels = undefined;
 exports.info = info;
 exports.warn = warn;
 exports.error = error;
 
 __webpack_require__(44);
 
+var logLevels = exports.logLevels = {
+  silent: 0,
+  error: 1,
+  warn: 2,
+  info: 3,
+  debug: 4
+};
+
+var logLevel = logLevels.info;
+
+var setLogLevel = exports.setLogLevel = function setLogLevel(level) {
+  logLevel = level;
+};
+
 var logger = console;
 
+var debug = exports.debug = function debug(message) {
+  if (logLevel < logLevels.debug) {
+    return;
+  }
+  logger.log(message.white);
+};
+
 function info(message, value) {
+  if (logLevel < logLevels.info) {
+    return;
+  }
   var outputValue = value || '';
   logger.log(message.blue, outputValue.white);
 }
 
 function warn(message) {
-  logger.log(message.yellow);
+  if (logLevel < logLevels.warn) {
+    return;
+  }
+  logger.warn(message);
 }
 
 function error(message) {
-  logger.log(message.red);
+  if (logLevel < logLevels.error) {
+    return;
+  }
+  logger.error(message);
 }
 
 /***/ }),
