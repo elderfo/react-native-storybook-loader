@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const findup = require('findup');
 const { appName } = require('../constants');
+const logger = require('../logger');
 
 /**
  * Returns the default value for the specified
@@ -74,6 +75,8 @@ function getConfigSettings(packageJsonFile) {
  * @param {string} processDirectory directory of the currently running process
  */
 function resolvePaths(processDirectory, cliConfig) {
+  logger.debug('resolvePaths', processDirectory, cliConfig);
+
   const overrides = cliConfig || {};
   // Locate and read package.json
   const packageJsonFile = path.resolve(findup.sync(processDirectory, 'package.json'), 'package.json');
@@ -87,9 +90,11 @@ function resolvePaths(processDirectory, cliConfig) {
     patterns: config.searchDir.map(dir => path.resolve(baseDir, dir, config.pattern)),
   }];
 
-  return {
+  const returnValue = {
     outputFiles,
   };
+  logger.debug('resolvePaths', returnValue);
+  return returnValue;
 }
 
 module.exports = resolvePaths;

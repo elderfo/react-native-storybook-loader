@@ -3,6 +3,7 @@ const { loadStories } = require('./storyFinder');
 const { writeFile } = require('./writer');
 
 const writeOutStoryLoader = (pathConfig) => {
+  logger.debug('writeOutStoryLoader', pathConfig);
   pathConfig.outputFiles.forEach((outputFileConfig) => {
     logger.info('Output file:      ', outputFileConfig.outputFile);
     logger.info('Patterns:         ', JSON.stringify(outputFileConfig.patterns));
