@@ -19,5 +19,3 @@ module.exports = {
 };
 "
 `;
-
-exports[`writeFile should perform expected work 2`] = `""`;
