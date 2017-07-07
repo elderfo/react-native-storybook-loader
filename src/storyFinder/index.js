@@ -1,6 +1,5 @@
-import glob from 'glob';
+const glob = require('glob');
 
-export function loadStories(pattern) {
-  // Get the files
-  return glob.sync(pattern);
-}
+const loadStories = pattern => glob.sync(pattern);
+
+module.exports = { loadStories };

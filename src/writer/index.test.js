@@ -1,8 +1,8 @@
-import mock from 'mock-fs';
-import path from 'path';
-import fs from 'fs';
-import { writeFile } from './';
-import { encoding } from '../constants';
+const mock = require('mock-fs');
+const path = require('path');
+const fs = require('fs');
+const { writeFile } = require('./');
+const { encoding } = require('../constants');
 
 const baseDir = path.resolve(__dirname, '../../');
 const outputPath = path.resolve(baseDir, 'output.js');
