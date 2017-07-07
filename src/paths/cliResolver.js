@@ -1,4 +1,4 @@
-export default function cliResolver(yargv) {
+const cliResolver = (yargv) => {
   if (!yargv || typeof yargv !== 'object') {
     return {};
   }
@@ -20,4 +20,6 @@ export default function cliResolver(yargv) {
   }
 
   return config;
-}
+};
+
+module.exports = cliResolver;

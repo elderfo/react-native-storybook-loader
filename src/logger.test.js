@@ -5,7 +5,7 @@ global.console = {
   error: jest.fn(),
 };
 
-import faker from 'faker'; // eslint-disable-line import/first
+const faker = require('faker');
 
 // Have to require for the mocking of console to work
 const { debug, setLogLevel, logLevels, error, info, warn } = require('./logger'); // eslint-disable-line import/first

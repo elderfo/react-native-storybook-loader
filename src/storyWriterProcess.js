@@ -1,8 +1,8 @@
-import * as logger from './logger';
-import { loadStories } from './storyFinder';
-import { writeFile } from './writer';
+const logger = require('./logger');
+const { loadStories } = require('./storyFinder');
+const { writeFile } = require('./writer');
 
-export function writeOutStoryLoader(pathConfig) {
+const writeOutStoryLoader = (pathConfig) => {
   pathConfig.outputFiles.forEach((outputFileConfig) => {
     logger.info('Output file:      ', outputFileConfig.outputFile);
     logger.info('Patterns:         ', JSON.stringify(outputFileConfig.patterns));
@@ -22,4 +22,6 @@ export function writeOutStoryLoader(pathConfig) {
       logger.warn('No files were found matching the specified pattern. Story loader was not written.');
     }
   });
-}
+};
+
+module.exports = { writeOutStoryLoader };

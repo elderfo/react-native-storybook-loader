@@ -1,6 +1,6 @@
-import 'colors';
+require('colors');
 
-export const logLevels = {
+const logLevels = {
   silent: 0,
   error: 1,
   warn: 2,
@@ -10,20 +10,20 @@ export const logLevels = {
 
 let logLevel = logLevels.info;
 
-export const setLogLevel = (level) => {
+const setLogLevel = (level) => {
   logLevel = level;
 };
 
 const logger = console;
 
-export const debug = (...message) => {
+const debug = (...message) => {
   if (logLevel < logLevels.debug) {
     return;
   }
   logger.log.apply(null, message);
 };
 
-export const info = (message, value) => {
+const info = (message, value) => {
   if (logLevel < logLevels.info) {
     return;
   }
@@ -31,16 +31,25 @@ export const info = (message, value) => {
   logger.log(message.blue, outputValue.white);
 };
 
-export const warn = (...message) => {
+const warn = (...message) => {
   if (logLevel < logLevels.warn) {
     return;
   }
   logger.warn.apply(null, message);
 };
 
-export const error = (...message) => {
+const error = (...message) => {
   if (logLevel < logLevels.error) {
     return;
   }
   logger.error.apply(null, message);
+};
+
+module.exports = {
+  info,
+  error,
+  warn,
+  debug,
+  setLogLevel,
+  logLevels,
 };

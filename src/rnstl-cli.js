@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import yargs from 'yargs/yargs';
+const yargs = require('yargs/yargs');
 
-import cliResolver from './paths/cliResolver';
-import * as logger from './logger';
-import { writeOutStoryLoader } from './storyWriterProcess';
-import resolvePaths from './paths/multiResolver';
+const cliResolver = require('./paths/cliResolver');
+const logger = require('./logger');
+const { writeOutStoryLoader } = require('./storyWriterProcess');
+const resolvePaths = require('./paths/multiResolver');
 
 logger.setLogLevel(logger.logLevels.info);
 

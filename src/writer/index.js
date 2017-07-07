@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
-import dot from 'dot';
-import { encoding } from '../constants';
+const dot = require('dot');
+const { encoding } = require('../constants');
 
 dot.templateSettings.strip = false;
 
@@ -58,7 +58,7 @@ function ensureFileDirectoryExists(filePath) {
   }
 }
 
-export const templateContents = `
+const templateContents = `
 // template for doT (https://github.com/olado/doT)
 
 function loadStories() {
@@ -72,7 +72,7 @@ module.exports = {
 };
 `;
 
-export function writeFile(files, outputPath) {
+const writeFile = (files, outputPath) => {
   const template = dot.template(templateContents);
   const relativePaths = getRelativePaths(path.dirname(outputPath), files);
 
@@ -81,4 +81,9 @@ export function writeFile(files, outputPath) {
   ensureFileDirectoryExists(outputPath);
 
   fs.writeFileSync(outputPath, output, { encoding });
-}
+};
+
+module.exports = {
+  templateContents,
+  writeFile,
+};

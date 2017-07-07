@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import findup from 'findup';
-import { appName } from '../constants';
+const fs = require('fs');
+const path = require('path');
+const findup = require('findup');
+const { appName } = require('../constants');
 
 /**
  * Returns the default value for the specified
@@ -73,7 +73,7 @@ function getConfigSettings(packageJsonFile) {
  * }
  * @param {string} processDirectory directory of the currently running process
  */
-export default function resolvePaths(processDirectory, cliConfig) {
+function resolvePaths(processDirectory, cliConfig) {
   const overrides = cliConfig || {};
   // Locate and read package.json
   const packageJsonFile = path.resolve(findup.sync(processDirectory, 'package.json'), 'package.json');
@@ -92,3 +92,4 @@ export default function resolvePaths(processDirectory, cliConfig) {
   };
 }
 
+module.exports = resolvePaths;
