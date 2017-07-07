@@ -56,7 +56,7 @@ Add the `rnstl` cli to the scripts tag of the `package.json`
 ```json
 {
   "scripts": {
-    "prestorybook": "node ./node_modules/.bin/rnstl"
+    "prestorybook": "rnstl"
   }
 }
 ```
@@ -84,7 +84,7 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
   ...
   "scripts": {
     ...
-    "prestorybook": "node ./node_modules/.bin/rnstl"
+    "prestorybook": "rnstl"
   },
   "config": {
     "react-native-storybook-loader": {
@@ -99,10 +99,24 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 ##### CLI
 
 **Breaking Change**
+
+CLI can now be accessed from a terminal 
+```bash
+./node_modules/.bin/rnstl <options>
+```
+or in package.json 
+```json
+{
+  "scripts": {
+    "prestorybook": "rnstl <options>"
+  }
+}
+```
+
+_Note:_ When using a glob with `**/*` it is required to be wrapped in quotes
+
 There is no longer a need to use `node ./node_modules/.bin/rnstl
 <options>`.
-CLI should now be accessed from a terminal `./node_modules/.bin/rnstl <options>`
-or package.json as `rnstl <options>`. 
 
 ```bash
 $ ./node_modules/.bin/rnstl --searchDir ./src ./packages --pattern "**/*.stories.js" --outputFile ./storybook/storyLoader.js
