@@ -1,16 +1,55 @@
-import 'colors';
+require('colors');
+
+const logLevels = {
+  silent: 0,
+  error: 1,
+  warn: 2,
+  info: 3,
+  debug: 4,
+};
+
+let logLevel = logLevels.info;
+
+const setLogLevel = (level) => {
+  logLevel = level;
+};
 
 const logger = console;
 
-export function info(message, value) {
+const debug = (...message) => {
+  if (logLevel < logLevels.debug) {
+    return;
+  }
+  logger.log.apply(null, message);
+};
+
+const info = (message, value) => {
+  if (logLevel < logLevels.info) {
+    return;
+  }
   const outputValue = value || '';
   logger.log(message.blue, outputValue.white);
-}
+};
 
-export function warn(message) {
-  logger.log(message.yellow);
-}
+const warn = (...message) => {
+  if (logLevel < logLevels.warn) {
+    return;
+  }
+  logger.warn.apply(null, message);
+};
 
-export function error(message) {
-  logger.log(message.red);
-}
+const error = (...message) => {
+  if (logLevel < logLevels.error) {
+    return;
+  }
+  logger.error.apply(null, message);
+};
+
+module.exports = {
+  info,
+  error,
+  warn,
+  debug,
+  setLogLevel,
+  logLevels,
+};

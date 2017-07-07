@@ -1,4 +1,7 @@
-export default function cliResolver(yargv) {
+const logger = require('../logger');
+
+const cliResolver = (yargv) => {
+  logger.debug('cliResolver', yargv);
   if (!yargv || typeof yargv !== 'object') {
     return {};
   }
@@ -18,6 +21,8 @@ export default function cliResolver(yargv) {
   if (yargv.pattern) {
     config.pattern = yargv.pattern;
   }
-
+  logger.debug('cliResolver:return', config);
   return config;
-}
+};
+
+module.exports = cliResolver;

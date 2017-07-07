@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import yargs from 'yargs/yargs';
+const cliResolver = require('./paths/cliResolver');
+const logger = require('./logger');
+const { writeOutStoryLoader } = require('./storyWriterProcess');
+const resolvePaths = require('./paths/multiResolver');
 
-import cliResolver from './paths/cliResolver';
-import { info } from './logger';
-import { writeOutStoryLoader } from './storyWriterProcess';
-import resolvePaths from './paths/multiResolver';
+logger.setLogLevel(logger.logLevels.info);
 
-const args = yargs()
+const args = require('yargs')
   .usage('$0 [options]')
   .options({
     searchDir: {
@@ -14,19 +14,22 @@ const args = yargs()
       desc: 'The directory or directories, relative to the project root, to search for files in.',
     },
     pattern: {
-      desc: 'The directory or directories, relative to the project root, to search for files in.',
+      desc: "Pattern to search the search directories with. Note: if pattern contains '**/*' it must be escaped with quotes",
       type: 'string',
     },
     outputFile: {
-      desc: 'The directory or directories, relative to the project root, to search for files in.',
+      desc: 'Path to the output file.',
       type: 'string',
     },
   })
   .help()
   .argv;
 
+logger.debug('yargs', args);
+
 const cliConfig = cliResolver(args);
+
 const pathConfig = resolvePaths(process.cwd(), cliConfig);
-info('\nGenerating Dynamic Storybook File List\n');
+logger.info('\nGenerating Dynamic Storybook File List\n');
 
 writeOutStoryLoader(pathConfig);

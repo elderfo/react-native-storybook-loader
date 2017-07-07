@@ -1,6 +1,6 @@
-import faker from 'faker'; // eslint-disable-line import/no-extraneous-dependencies
+const faker = require('faker'); // eslint-disable-line import/no-extraneous-dependencies
 
-export function generateArray(itemGenerator, max) {
+const generateArray = (itemGenerator, max) => {
   const itemCount = faker.random.number(max || 1000);
   const items = [];
   for (let i = 0; i <= itemCount; i += 1) {
@@ -14,5 +14,6 @@ export function generateArray(itemGenerator, max) {
   }
 
   return items;
-}
+};
 
+module.exports = { generateArray };
