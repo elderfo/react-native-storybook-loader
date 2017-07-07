@@ -1,8 +1,8 @@
-import path from 'path';
-import mock from 'mock-fs';
+const path = require('path');
+const mock = require('mock-fs');
 
-import { appName } from '../constants';
-import resolvePaths from './multiResolver';
+const { appName } = require('../constants');
+const resolvePaths = require('./multiResolver');
 
 function generatePackageJson(searchDir, pattern, outputFile) {
   return {

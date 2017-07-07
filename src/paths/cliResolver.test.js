@@ -1,5 +1,5 @@
-import faker from 'faker';
-import cliResolver from './cliResolver';
+const faker = require('faker');
+const cliResolver = require('./cliResolver');
 
 test('cliResolver should return an empty object when invalid params are specified', () => {
   const nullResult = cliResolver(null);

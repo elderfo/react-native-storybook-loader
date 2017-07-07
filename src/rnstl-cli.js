@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import yargs from 'yargs/yargs';
+const yargs = require('yargs/yargs');
 
-import cliResolver from './paths/cliResolver';
-import { info } from './logger';
-import { writeOutStoryLoader } from './storyWriterProcess';
-import resolvePaths from './paths/multiResolver';
+const cliResolver = require('./paths/cliResolver');
+const { info } = require('./logger');
+const { writeOutStoryLoader } = require('./storyWriterProcess');
+const resolvePaths = require('./paths/multiResolver');
 
 const args = yargs()
   .usage('$0 [options]')

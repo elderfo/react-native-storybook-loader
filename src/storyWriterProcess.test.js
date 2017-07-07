@@ -1,8 +1,8 @@
-import faker from 'faker';
-import * as writer from './writer';
-import * as storyFinder from './storyFinder';
-import { generateArray } from './utils/testUtils';
-import { writeOutStoryLoader } from './storyWriterProcess';
+const faker = require('faker');
+const writer = require('./writer');
+const storyFinder = require('./storyFinder');
+const { generateArray } = require('./utils/testUtils');
+const { writeOutStoryLoader } = require('./storyWriterProcess');
 
 jest.mock('./writer/index.js');
 jest.mock('./storyFinder/index.js');

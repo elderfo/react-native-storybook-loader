@@ -1,16 +1,22 @@
-import 'colors';
+require('colors');
 
 const logger = console;
 
-export function info(message, value) {
+const info = (message, value) => {
   const outputValue = value || '';
   logger.log(message.blue, outputValue.white);
-}
+};
 
-export function warn(message) {
+const warn = (message) => {
   logger.log(message.yellow);
-}
+};
 
-export function error(message) {
+const error = (message) => {
   logger.log(message.red);
-}
+};
+
+module.exports = {
+  info,
+  error,
+  warn,
+};

@@ -1,11 +1,11 @@
 // required imports
-import faker from 'faker';
+const faker = require('faker');
 
 // mocked imports
-import glob from 'glob';
+const glob = require('glob');
 
 // test file import
-import { loadStories } from './';
+const { loadStories } = require('./');
 
 jest.mock('glob');
 

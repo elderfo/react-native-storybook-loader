@@ -1,8 +1,8 @@
-import mock from 'mock-fs';
-import path from 'path';
-import fs from 'fs';
-import { writeFile } from './';
-import { encoding } from '../constants';
+const mock = require('mock-fs');
+const path = require('path');
+const fs = require('fs');
+const { writeFile } = require('./');
+const { encoding } = require('../constants');
 
 const baseDir = path.resolve(__dirname, '../../');
 const outputPath = path.resolve(baseDir, 'output.js');
@@ -26,7 +26,7 @@ test('writeFile should perform expected work', () => {
     path.resolve(__dirname, '../sub/file2.js'),
     path.resolve(__dirname, '../../parent/file3.js'),
     path.resolve(__dirname, './sub/file4.js'),
-    path.resolve(__dirname, './sub/sub/file5.js'),
+    path.resolve(__dirname, '.\\sub\\sub\\file5.js'),
   ];
   writeFile(files, outputPath, moduleDir);
 
