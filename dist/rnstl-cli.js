@@ -17098,7 +17098,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-logger.setLogLevel(logger.logLevels.debug);
+logger.setLogLevel(logger.logLevels.info);
 
 var args = (0, _yargs2.default)().usage('$0 [options]').options({
   searchDir: {

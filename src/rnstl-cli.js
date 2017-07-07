@@ -2,9 +2,11 @@
 import yargs from 'yargs/yargs';
 
 import cliResolver from './paths/cliResolver';
-import { info } from './logger';
+import * as logger from './logger';
 import { writeOutStoryLoader } from './storyWriterProcess';
 import resolvePaths from './paths/multiResolver';
+
+logger.setLogLevel(logger.logLevels.info);
 
 const args = yargs()
   .usage('$0 [options]')
@@ -25,8 +27,12 @@ const args = yargs()
   .help()
   .argv;
 
+logger.debug('yargs', args);
+
 const cliConfig = cliResolver(args);
+logger.debug('cliConfig', cliConfig);
+
 const pathConfig = resolvePaths(process.cwd(), cliConfig);
-info('\nGenerating Dynamic Storybook File List\n');
+logger.info('\nGenerating Dynamic Storybook File List\n');
 
 writeOutStoryLoader(pathConfig);
