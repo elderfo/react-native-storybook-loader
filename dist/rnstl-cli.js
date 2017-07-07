@@ -12507,13 +12507,41 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _dot2.default.templateSettings.strip = false;
 
+/**
+ * Determines if the path is prefixed or not
+ *
+ * @param {String} relativePath - Relative path to check for directory prefixes
+ * @returns True if path prefix exists, otherwise false
+ */
+function hasPathPrefix(relativePath) {
+  return relativePath.substr(0, 2) === '..' || relativePath.substr(0, 2) === './' || relativePath.substr(0, 2) === '.\\';
+}
+
+/**
+ * Correctly formats path separators
+ *
+ * @param {String} path - Path to format
+ * @returns Path with the correct separators
+ */
+function formatPath(dir) {
+  var oppositeSep = _path2.default.sep === '/' ? '\\' : '/';
+  return dir.replace(new RegExp('\\' + oppositeSep, 'g'), _path2.default.sep);
+}
+
 function getRelativePaths(fromDir, files) {
-  files.sort();
-  return files.map(function (file) {
+  var workingFiles = files.map(function (file) {
+    return formatPath(file);
+  }).map(function (file) {
+    return _path2.default.resolve(file);
+  });
+
+  workingFiles.sort();
+
+  return workingFiles.map(function (file) {
     var relativePath = _path2.default.relative(fromDir, file);
 
-    if (relativePath.substr(0, 2) !== '..' || relativePath.substr(0, 2) !== './') {
-      relativePath = './' + relativePath;
+    if (!hasPathPrefix(relativePath)) {
+      relativePath = '.' + _path2.default.sep + relativePath;
     }
 
     return {

@@ -26,14 +26,11 @@ test('writeFile should perform expected work', () => {
     path.resolve(__dirname, '../sub/file2.js'),
     path.resolve(__dirname, '../../parent/file3.js'),
     path.resolve(__dirname, './sub/file4.js'),
-    path.resolve(__dirname, './sub/sub/file5.js'),
+    path.resolve(__dirname, '.\\sub\\sub\\file5.js'),
   ];
   writeFile(files, outputPath, moduleDir);
 
   const contents = fs.readFileSync(outputPath, encoding);
 
   expect(contents).toMatchSnapshot();
-
-  const configContents = fs.readFileSync(configFile, encoding);
-  expect(configContents).toMatchSnapshot();
 });
