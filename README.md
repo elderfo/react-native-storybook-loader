@@ -20,9 +20,9 @@ npm install react-native-storybook-loader --save-dev
 
 ## Quick Start
 
-Create a React Native project using [react-native-cli](https://facebook.github.io/react-native/docs/getting-started.html#the-react-native-cli)
+Create a React Native project using [create-react-native-app](https://facebook.github.io/react-native/blog/2017/03/13/introducing-create-react-native-app.html)
 ```bash
-react-native init AwesomeProject
+create-react-native-app AwesomeProject
 ```
 
 Add react-native-storybook to the project using [`getstorybook`](https://getstorybook.io/docs/react-storybook/basics/quick-start-guide)
@@ -37,18 +37,18 @@ Install react-native-storybook-loader
 yarn install react-native-storybook-loader -D
 ```
 
-Update `index.android.js` and `index.ios.js` files in the `./storybook` directory to point to the `storyLoader.js`
+Update `index.js` file in the `./storybook` directory to point to the generated `storyLoader.js`
 
 ```javascript
-import { AppRegistry } from 'react-native';
-import { getStorybookUI, configure } from '@kadira/react-native-storybook';
+import { getStorybookUI, configure } from '@storybook/react-native';
 import { loadStories } from './storyLoader';
 
-// import stories
-configure(loadStories, module);
+configure(() => {
+  loadStories()
+}, module);
 
-const StorybookUI = getStorybookUI({port: 7007, host: 'localhost'});
-AppRegistry.registerComponent('ReactNative', () => StorybookUI);
+const StorybookUI = getStorybookUI({ port: 7007, host: 'localhost' });
+export default StorybookUI;
 ```
 
 Add the `rnstl` cli to the scripts tag of the `package.json`
