@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const dot = require('dot');
 const { encoding } = require('../constants');
@@ -39,7 +40,7 @@ function getRelativePaths(fromDir, files) {
   return workingFiles.map((file) => {
     let relativePath = path.relative(fromDir, file);
 
-    relativePath  = require('os').platform() === 'win32' ? relativePath.replace(/\\/g, '/') : relativePath;
+    relativePath = os.platform() === 'win32' ? relativePath.replace(/\\/g, '/') : relativePath;
 
     if (!hasPathPrefix(relativePath)) {
       relativePath = `.${path.sep}${relativePath}`;
