@@ -38,7 +38,7 @@ test('writeOutStoryLoader should perform expected work', () => {
     .toHaveBeenCalledWith(config.outputFiles[1].patterns[0]);
 
   expect(writer.writeFile)
-    .toHaveBeenCalledWith(firstFiles.concat(secondFiles), config.outputFiles[0].outputFile);
+    .toHaveBeenCalledWith(firstFiles.concat(secondFiles).sort(), config.outputFiles[0].outputFile);
   expect(writer.writeFile)
-    .toHaveBeenCalledWith(thirdFiles, config.outputFiles[1].outputFile);
+    .toHaveBeenCalledWith(thirdFiles.concat().sort(), config.outputFiles[1].outputFile);
 });
