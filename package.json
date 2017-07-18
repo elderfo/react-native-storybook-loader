@@ -9,6 +9,7 @@
     "rnstl": "./src/rnstl-cli.js"
   },
   "devDependencies": {
+    "cz-conventional-changelog": "^2.0.0",
     "eslint": "^3.16.1",
     "eslint-config-elderfo": "^1.1.1",
     "eslint-watch": "^3.0.0",
@@ -44,6 +45,9 @@
       ],
       "pattern": "**/*.js",
       "outputFile": "./output/storyLoader.js"
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
