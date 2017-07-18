@@ -2,6 +2,8 @@ const logger = require('./logger');
 const { loadStories } = require('./storyFinder');
 const { writeFile } = require('./writer');
 
+const sortFiles = files => files.concat().sort();
+
 const writeOutStoryLoader = (pathConfig) => {
   logger.debug('writeOutStoryLoader', pathConfig);
   pathConfig.outputFiles.forEach((outputFileConfig) => {
@@ -17,7 +19,8 @@ const writeOutStoryLoader = (pathConfig) => {
     });
 
     if (storyFiles.length > 0) {
-      writeFile(storyFiles, outputFileConfig.outputFile);
+      const sortedFiles = sortFiles(storyFiles);
+      writeFile(sortedFiles, outputFileConfig.outputFile);
       logger.info(`Compiled story loader for ${storyFiles.length} files:\n`, ` ${storyFiles.join('\n  ')}`);
     } else {
       logger.warn('No files were found matching the specified pattern. Story loader was not written.');
