@@ -1,8 +1,10 @@
 # react-native-storybook-loader
+
+A CLI for dynamically importing stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
+
 [![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader) [![Known Vulnerabilities](https://snyk.io/test/github/elderfo/react-native-storybook-loader/badge.svg)](https://snyk.io/test/github/elderfo/react-native-storybook-loader)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/github/elderfo/react-native-storybook-loader?svg=true)](https://ci.appveyor.com/project/elderfo/react-native-storybook-loader)
 
-
-A CLI for dynamically import stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
 
 ## Purpose
 
@@ -83,9 +85,7 @@ Both examples below will search `src` and `packages` directories recursively for
 ```json
 {
   "name": "AwesomeProject",
-  ...
   "scripts": {
-    ...
     "prestorybook": "rnstl"
   },
   "config": {
