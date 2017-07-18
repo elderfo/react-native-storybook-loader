@@ -32,7 +32,7 @@ describe('getRelativePath()', () => {
       const file = '/users/george/dev/app/src/stuff.js';
       const fromDir = '/users/george/dev/app/stories/';
 
-      const actual = getRelativePath(file, fromDir, '/');
+      const actual = getRelativePath(file, fromDir);
 
       expect(actual).toEqual('../src/stuff.js');
     });
