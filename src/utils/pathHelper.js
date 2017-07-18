@@ -18,7 +18,7 @@ const hasPathPrefix = relativePath =>
  * @param {String} path - Path to format
  * @returns Path with the correct separators
  */
-const formatPath = (dir, separator = path.sep) => {
+const formatPath = (dir, separator = '/') => {
   const oppositeSep = separator === '/' ? '\\' : '/';
   return dir.replace(new RegExp(`\\${oppositeSep}`, 'g'), separator);
 };
@@ -30,20 +30,20 @@ const formatPath = (dir, separator = path.sep) => {
  * @param {String} fromDir - Directory to resolve to
  * @param {String} separator - Path separator character (default: system separator)
  */
-const getRelativePath = (file, fromDir, separator = path.sep) => {
+const getRelativePath = (file, fromDir) => {
   // format paths to the OS specific format
   // (accounting for using the wrong seps)
   let relativePath = path.relative(
-    formatPath(fromDir),
-    formatPath(file),
+    formatPath(fromDir, path.sep),
+    formatPath(file, path.sep),
   );
 
   // Prefix the path if it is not already prefixed
   if (!hasPathPrefix(relativePath)) {
-    relativePath = `.${separator}${relativePath}`;
+    relativePath = `./${relativePath}`;
   }
 
-  return formatPath(relativePath, separator);
+  return formatPath(relativePath);
 };
 
 /**

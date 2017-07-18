@@ -14,18 +14,18 @@ describe('getRelativePath()', () => {
       const file = 'c:\\users\\george\\dev\\app\\src\\stuff.js';
       const fromDir = 'c:\\users\\george\\dev\\app\\stories\\';
 
-      const actual = getRelativePath(file, fromDir, '\\');
+      const actual = getRelativePath(file, fromDir);
 
-      expect(actual).toEqual('..\\src\\stuff.js');
+      expect(actual).toEqual('../src/stuff.js');
     });
 
     it('should resolve windows paths with wrong seps', () => {
       const file = 'c:/users/george/dev/app/src/stuff.js';
       const fromDir = 'c:/users/george/dev/app/stories/';
 
-      const actual = getRelativePath(file, fromDir, '\\');
+      const actual = getRelativePath(file, fromDir);
 
-      expect(actual).toEqual('..\\src\\stuff.js');
+      expect(actual).toEqual('../src/stuff.js');
     });
 
     it('should resolve unix paths with right seps', () => {
@@ -41,34 +41,32 @@ describe('getRelativePath()', () => {
       const file = '\\users\\george\\dev\\app\\src\\stuff.js';
       const fromDir = '\\users\\george\\dev\\app\\stories\\';
 
-      const actual = getRelativePath(file, fromDir, '/');
+      const actual = getRelativePath(file, fromDir);
 
       expect(actual).toEqual('../src/stuff.js');
     });
 
     it('should be added when file is in the same folder', () => {
       const relativePath = 'abc123';
-      const separator = '/';
       const spy = jest.spyOn(path, 'relative');
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName(), separator);
+      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
 
-      expect(actual).toEqual(`.${separator}${relativePath}`);
+      expect(actual).toEqual(`./${relativePath}`);
 
       spy.mockReset();
       spy.mockRestore();
     });
 
     it('should not change a path prefixed with "./"', () => {
-      const separator = '/';
-      const relativePath = `.${separator}abc123`;
+      const relativePath = './abc123';
       const spy = jest.spyOn(path, 'relative');
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName(), separator);
+      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
 
       expect(actual).toEqual(relativePath);
 
@@ -77,13 +75,12 @@ describe('getRelativePath()', () => {
     });
 
     it('should not change a path prefixed with ".."', () => {
-      const separator = '/';
-      const relativePath = `..${separator}abc123`;
+      const relativePath = '../abc123';
       const spy = jest.spyOn(path, 'relative');
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName(), separator);
+      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
 
       expect(actual).toEqual(relativePath);
 
@@ -92,13 +89,12 @@ describe('getRelativePath()', () => {
     });
 
     it('should not change a path prefixed with ".\\"', () => {
-      const separator = '\\';
-      const relativePath = `.${separator}abc123`;
+      const relativePath = './abc123';
       const spy = jest.spyOn(path, 'relative');
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName(), separator);
+      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
 
       expect(actual).toEqual(relativePath);
 
