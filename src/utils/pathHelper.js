@@ -33,10 +33,7 @@ const formatPath = (dir, separator = '/') => {
 const getRelativePath = (file, fromDir) => {
   // format paths to the OS specific format
   // (accounting for using the wrong seps)
-  let relativePath = path.relative(
-    formatPath(fromDir, path.sep),
-    formatPath(file, path.sep),
-  );
+  let relativePath = path.relative(formatPath(fromDir, path.sep), formatPath(file, path.sep));
 
   // Prefix the path if it is not already prefixed
   if (!hasPathPrefix(relativePath)) {
