@@ -83,9 +83,7 @@ Both examples below will search `src` and `packages` directories recursively for
 ```json
 {
   "name": "AwesomeProject",
-  ...
   "scripts": {
-    ...
     "prestorybook": "rnstl"
   },
   "config": {
