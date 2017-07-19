@@ -73,6 +73,7 @@ Story loading is controlled by the `react-native-storybook-loader` section of th
 | **searchDir** | `--searchDir` | `string` or `string[]` | The directory or directories, relative to the project root, to search for files in. | Project root |
 | **outputFile** | `--outputFile` | `string` | The output file that will be written. It is relative to the project directory. | `./storybook/storyLoader.js` | 
 | **pattern** | `--pattern` | `string` | The pattern of files to look at. It can be a specific file, or any valid glob. Note: if using the CLI, globs with `**/*...` must be escaped with quotes | `./storybook/stories/index.js` (The default React Native storybook file) | 
+|  | `--silent` | | Silences output. This option is not supported in the `package.json` file. | 
 
 > Note: When using the CLI, any of option passed will override the values in the `package.json`
 

@@ -8,7 +8,7 @@ global.console = {
 const faker = require('faker');
 
 // Have to require for the mocking of console to work
-const { debug, setLogLevel, logLevels, error, info, warn } = require('./logger'); // eslint-disable-line import/first
+const { debug, setLogLevel, logLevels, error, info, warn, resolveLogLevel } = require('./logger'); // eslint-disable-line import/first
 
 beforeEach(() => jest.resetAllMocks());
 
@@ -19,6 +19,51 @@ const assertTrue = (fn) => {
 const assertFalse = (fn) => {
   expect(fn).not.toHaveBeenCalled();
 };
+
+describe('logger.resolveLogLevel', () => {
+  it('should resolve info when invalid level specified', () => {
+    const level = faker.random.word();
+    const actual = resolveLogLevel(level);
+
+    expect(actual).toEqual(logLevels.info);
+  });
+
+  it('should resolve silent', () => {
+    const level = 'silent';
+    const actual = resolveLogLevel(level);
+
+    expect(actual).toEqual(logLevels[level]);
+  });
+
+  it('should resolve error', () => {
+    const level = 'error';
+    const actual = resolveLogLevel(level);
+
+    expect(actual).toEqual(logLevels[level]);
+  });
+
+  it('should resolve warn', () => {
+    const level = 'warn';
+    const actual = resolveLogLevel(level);
+
+    expect(actual).toEqual(logLevels[level]);
+  });
+
+  it('should resolve info', () => {
+    const level = 'info';
+    const actual = resolveLogLevel(level);
+
+    expect(actual).toEqual(logLevels[level]);
+  });
+
+  it('should resolve debug', () => {
+    const level = 'debug';
+    const actual = resolveLogLevel(level);
+
+    expect(actual).toEqual(logLevels[level]);
+  });
+});
+
 
 describe('logger.debug', () => {
   const fn = global.console.log;

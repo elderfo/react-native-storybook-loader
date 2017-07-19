@@ -4,7 +4,6 @@ const logger = require('./logger');
 const { writeOutStoryLoader } = require('./storyWriterProcess');
 const resolvePaths = require('./paths/multiResolver');
 
-logger.setLogLevel(logger.logLevels.info);
 
 const args = require('yargs')
   .usage('$0 [options]')
@@ -21,9 +20,19 @@ const args = require('yargs')
       desc: 'Path to the output file.',
       type: 'string',
     },
+    silent: {
+      desc: 'Silences all logging',
+      type: 'boolean',
+    },
   })
   .help()
   .argv;
+
+if (args.silent) {
+  logger.setLogLevel(logger.logLevels.silent);
+} else {
+  logger.setLogLevel(logger.logLevels.info);
+}
 
 logger.debug('yargs', args);
 

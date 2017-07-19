@@ -10,6 +10,13 @@ const logLevels = {
 
 let logLevel = logLevels.info;
 
+const resolveLogLevel = (level) => {
+  if (Object.prototype.hasOwnProperty.call(logLevels, level)) {
+    return logLevels[level];
+  }
+  return logLevels.info;
+};
+
 const setLogLevel = (level) => {
   logLevel = level;
 };
@@ -52,4 +59,5 @@ module.exports = {
   debug,
   setLogLevel,
   logLevels,
+  resolveLogLevel,
 };
