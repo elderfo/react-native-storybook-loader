@@ -5,17 +5,18 @@ A CLI for dynamically importing stories into [react-native-storybook](https://gi
 [![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader) [![Known Vulnerabilities](https://snyk.io/test/github/elderfo/react-native-storybook-loader/badge.svg)](https://snyk.io/test/github/elderfo/react-native-storybook-loader)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/elderfo/react-native-storybook-loader?svg=true)](https://ci.appveyor.com/project/elderfo/react-native-storybook-loader)
 
-
 ## Purpose
 
-While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories. So I built an automated way to do it. `react-native-storybook-loader` can be run using configuration in your `package.json` or via the CLI interface.
+While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories. So I built an automated way to do it. `react-native-storybook-loader` can be run using configuration in your `package.json` or via the CLI interface and it generates a file with all the imports for you.
 
 ## Installation
 
 ```bash
 yarn add react-native-storybook-loader -D
 ```
+
 Or
+
 ```bash
 npm install react-native-storybook-loader --save-dev
 ```
@@ -23,11 +24,13 @@ npm install react-native-storybook-loader --save-dev
 ## Quick Start
 
 Create a React Native project using [create-react-native-app](https://facebook.github.io/react-native/blog/2017/03/13/introducing-create-react-native-app.html)
+
 ```bash
 create-react-native-app AwesomeProject
 ```
 
 Add react-native-storybook to the project using [`getstorybook`](https://getstorybook.io/docs/react-storybook/basics/quick-start-guide)
+
 ```bash
 cd AwesomeProject
 getstorybook
@@ -39,7 +42,7 @@ Install react-native-storybook-loader
 yarn install react-native-storybook-loader -D
 ```
 
-Update `index.js` file in the `./storybook` directory to point to the generated `storyLoader.js`
+Update `index.js` file in the `./storybook` directory to point to `storyLoader.js` (this file will be generated before launching Storybook).
 
 ```javascript
 import { getStorybookUI, configure } from '@storybook/react-native';
@@ -63,7 +66,34 @@ Add the `rnstl` cli to the scripts tag of the `package.json`
 }
 ```
 
+Run Storybook
+
+```bash
+yarn storybook
+```
+
+Or
+
+```bash
+npm run storybook
+```
+
+Run react-native on the targeted platform
+
+```bash
+react-native run-android
+```
+
+Or
+
+```bash
+react-native run-ios
+```
+
+_Note: If you have problems connecting from your device to Storybook using Android issue the following command: `adb reverse tcp:7007 tcp:7007`._
+
 ## Configuration
+
 Story loading is controlled by the `react-native-storybook-loader` section of the project's `package.json`. 
 
 ### Options
@@ -126,7 +156,9 @@ $ ./node_modules/.bin/rnstl --searchDir ./src ./packages --pattern "**/*.stories
 ```
 
 ## Support
+
 Please log issues
 
 ## Contributing
+
 Coming Soon
