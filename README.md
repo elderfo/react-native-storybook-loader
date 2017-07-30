@@ -39,7 +39,7 @@ getstorybook
 Install react-native-storybook-loader
 
 ```bash
-yarn install react-native-storybook-loader -D
+yarn add react-native-storybook-loader -D
 ```
 
 Update `index.js` file in the `./storybook` directory to point to `storyLoader.js` (this file will be generated before launching Storybook).
