@@ -15,7 +15,10 @@ function getRelativePaths(fromDir, files) {
 }
 
 const templateContents = `
-// template for doT (https://github.com/olado/doT)
+// Auto-generated file created by react-native-storybook-loader
+// Do not edit.
+//
+// https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
   
