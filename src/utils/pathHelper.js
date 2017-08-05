@@ -8,9 +8,9 @@ const fs = require('fs');
  * @returns True if path prefix exists, otherwise false
  */
 const hasPathPrefix = relativePath =>
-  relativePath.substr(0, 2) === '..'
-  || relativePath.substr(0, 2) === './'
-  || relativePath.substr(0, 2) === '.\\';
+  relativePath.substr(0, 2) === '..' ||
+  relativePath.substr(0, 2) === './' ||
+  relativePath.substr(0, 2) === '.\\';
 
 /**
  * Correctly formats path separators
@@ -33,7 +33,10 @@ const formatPath = (dir, separator = '/') => {
 const getRelativePath = (file, fromDir) => {
   // format paths to the OS specific format
   // (accounting for using the wrong seps)
-  let relativePath = path.relative(formatPath(fromDir, path.sep), formatPath(file, path.sep));
+  let relativePath = path.relative(
+    formatPath(fromDir, path.sep),
+    formatPath(file, path.sep)
+  );
 
   // Prefix the path if it is not already prefixed
   if (!hasPathPrefix(relativePath)) {
@@ -48,7 +51,7 @@ const getRelativePath = (file, fromDir) => {
  *
  * @param {String} filePath - Path to a file
  */
-const ensureFileDirectoryExists = (filePath) => {
+const ensureFileDirectoryExists = filePath => {
   const directory = path.dirname(filePath);
 
   if (!fs.existsSync(directory)) {

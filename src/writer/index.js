@@ -2,16 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const dot = require('dot');
 
-const { getRelativePath, ensureFileDirectoryExists } = require('../utils/pathHelper');
+const {
+  getRelativePath,
+  ensureFileDirectoryExists,
+} = require('../utils/pathHelper');
 const { encoding } = require('../constants');
 
 dot.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
-  return files
-    .map(file => getRelativePath(file, fromDir))
-    .concat()
-    .sort();
+  return files.map(file => getRelativePath(file, fromDir)).concat().sort();
 }
 
 const templateContents = `

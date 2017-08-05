@@ -58,8 +58,10 @@ function getConfigSettings(packageJsonFile) {
   const pkg = JSON.parse(fs.readFileSync(packageJsonFile));
 
   return {
-    searchDir: getConfigSetting(pkg, 'searchDir', true) || getDefaultValue('searchDir'),
-    outputFile: getConfigSetting(pkg, 'outputFile') || getDefaultValue('outputFile'),
+    searchDir:
+      getConfigSetting(pkg, 'searchDir', true) || getDefaultValue('searchDir'),
+    outputFile:
+      getConfigSetting(pkg, 'outputFile') || getDefaultValue('outputFile'),
     pattern: getConfigSetting(pkg, 'pattern') || getDefaultValue('pattern'),
   };
 }
@@ -79,16 +81,27 @@ function resolvePaths(processDirectory, cliConfig) {
 
   const overrides = cliConfig || {};
   // Locate and read package.json
-  const packageJsonFile = path.resolve(findup.sync(processDirectory, 'package.json'), 'package.json');
+  const packageJsonFile = path.resolve(
+    findup.sync(processDirectory, 'package.json'),
+    'package.json'
+  );
   const baseDir = path.dirname(packageJsonFile);
 
-  const config = Object.assign({}, getConfigSettings(packageJsonFile, baseDir), overrides);
+  const config = Object.assign(
+    {},
+    getConfigSettings(packageJsonFile, baseDir),
+    overrides
+  );
   const outputFile = path.resolve(baseDir, config.outputFile);
 
-  const outputFiles = [{
-    outputFile,
-    patterns: config.searchDir.map(dir => path.resolve(baseDir, dir, config.pattern)),
-  }];
+  const outputFiles = [
+    {
+      outputFile,
+      patterns: config.searchDir.map(dir =>
+        path.resolve(baseDir, dir, config.pattern)
+      ),
+    },
+  ];
 
   const returnValue = {
     outputFiles,

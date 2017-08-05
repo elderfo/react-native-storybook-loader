@@ -1,6 +1,6 @@
 const logger = require('../logger');
 
-const cliResolver = (yargv) => {
+const cliResolver = yargv => {
   logger.debug('cliResolver', yargv);
   if (!yargv || typeof yargv !== 'object') {
     return {};

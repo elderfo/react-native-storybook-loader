@@ -4,7 +4,11 @@ const mockfs = require('mock-fs');
 const fs = require('fs');
 
 const { generateArray } = require('../utils/testUtils');
-const { getRelativePath, formatPath, ensureFileDirectoryExists } = require('./pathHelper');
+const {
+  getRelativePath,
+  formatPath,
+  ensureFileDirectoryExists,
+} = require('./pathHelper');
 
 afterEach(() => mockfs.restore());
 
@@ -52,7 +56,10 @@ describe('getRelativePath()', () => {
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
+      const actual = getRelativePath(
+        faker.system.fileName(),
+        faker.system.fileName()
+      );
 
       expect(actual).toEqual(`./${relativePath}`);
 
@@ -66,7 +73,10 @@ describe('getRelativePath()', () => {
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
+      const actual = getRelativePath(
+        faker.system.fileName(),
+        faker.system.fileName()
+      );
 
       expect(actual).toEqual(relativePath);
 
@@ -80,7 +90,10 @@ describe('getRelativePath()', () => {
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
+      const actual = getRelativePath(
+        faker.system.fileName(),
+        faker.system.fileName()
+      );
 
       expect(actual).toEqual(relativePath);
 
@@ -94,7 +107,10 @@ describe('getRelativePath()', () => {
 
       spy.mockImplementation(() => relativePath);
 
-      const actual = getRelativePath(faker.system.fileName(), faker.system.fileName());
+      const actual = getRelativePath(
+        faker.system.fileName(),
+        faker.system.fileName()
+      );
 
       expect(actual).toEqual(relativePath);
 
@@ -166,7 +182,11 @@ describe('ensureFileDirectoryExists()', () => {
     // mock fs defaults to your current working directory, so append paths to there
     const expectedPath = path.join(process.cwd(), sourceFileDir);
 
-    mockfs({ [sourceFileDir]: { /* fake directory */ } });
+    mockfs({
+      [sourceFileDir]: {
+        /* fake directory */
+      },
+    });
 
     ensureFileDirectoryExists(sourceFile);
 

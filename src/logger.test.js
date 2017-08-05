@@ -8,15 +8,23 @@ global.console = {
 const faker = require('faker');
 
 // Have to require for the mocking of console to work
-const { debug, setLogLevel, logLevels, error, info, warn, resolveLogLevel } = require('./logger'); // eslint-disable-line import/first
+const {
+  debug,
+  setLogLevel,
+  logLevels,
+  error,
+  info,
+  warn,
+  resolveLogLevel,
+} = require('./logger'); // eslint-disable-line import/first
 
 beforeEach(() => jest.resetAllMocks());
 
-const assertTrue = (fn) => {
+const assertTrue = fn => {
   expect(fn).toHaveBeenCalled();
 };
 
-const assertFalse = (fn) => {
+const assertFalse = fn => {
   expect(fn).not.toHaveBeenCalled();
 };
 
@@ -63,7 +71,6 @@ describe('logger.resolveLogLevel', () => {
     expect(actual).toEqual(logLevels[level]);
   });
 });
-
 
 describe('logger.debug', () => {
   const fn = global.console.log;

@@ -7,7 +7,8 @@ const resolvePaths = require('./multiResolver');
 function generatePackageJson(searchDir, pattern, outputFile) {
   return {
     config: {
-      [appName]: { // match name of the project
+      [appName]: {
+        // match name of the project
         searchDir,
         pattern,
         outputFile,
@@ -27,10 +28,12 @@ test('should resolve expected defaults', () => {
   const packageJsonContents = {};
   mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
   const expected = {
-    outputFiles: [{
-      patterns: [path.resolve(baseDir, './storybook/stories/index.js')],
-      outputFile: path.resolve(baseDir, './storybook/storyLoader.js'),
-    }],
+    outputFiles: [
+      {
+        patterns: [path.resolve(baseDir, './storybook/stories/index.js')],
+        outputFile: path.resolve(baseDir, './storybook/storyLoader.js'),
+      },
+    ],
   };
 
   const actual = resolvePaths(baseDir);
@@ -39,13 +42,19 @@ test('should resolve expected defaults', () => {
 });
 
 test('should resolve expected paths with single search dir', () => {
-  const packageJsonContents = generatePackageJson('./src/storybook', '**/*.stories.js', './storybook/config.js');
+  const packageJsonContents = generatePackageJson(
+    './src/storybook',
+    '**/*.stories.js',
+    './storybook/config.js'
+  );
   mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
   const expected = {
-    outputFiles: [{
-      patterns: [path.resolve(baseDir, './src/storybook/**/*.stories.js')],
-      outputFile: path.resolve(baseDir, './storybook/config.js'),
-    }],
+    outputFiles: [
+      {
+        patterns: [path.resolve(baseDir, './src/storybook/**/*.stories.js')],
+        outputFile: path.resolve(baseDir, './storybook/config.js'),
+      },
+    ],
   };
 
   const actual = resolvePaths(baseDir);
@@ -57,18 +66,20 @@ test('should resolve expected paths with multiple search dirs', () => {
   const packageJsonContents = generatePackageJson(
     ['./src/storybook', './packages'],
     '**/*.stories.js',
-    './storybook/config.js',
+    './storybook/config.js'
   );
 
   mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
   const expected = {
-    outputFiles: [{
-      patterns: [
-        path.resolve(baseDir, './src/storybook/**/*.stories.js'),
-        path.resolve(baseDir, './packages/**/*.stories.js'),
-      ],
-      outputFile: path.resolve(baseDir, './storybook/config.js'),
-    }],
+    outputFiles: [
+      {
+        patterns: [
+          path.resolve(baseDir, './src/storybook/**/*.stories.js'),
+          path.resolve(baseDir, './packages/**/*.stories.js'),
+        ],
+        outputFile: path.resolve(baseDir, './storybook/config.js'),
+      },
+    ],
   };
 
   const actual = resolvePaths(baseDir);
@@ -80,7 +91,7 @@ test('should resolve expected paths with cli configs', () => {
   const packageJsonContents = generatePackageJson(
     ['./src/storybook', './packages'],
     '**/*.stories.js',
-    './storybook/config.js',
+    './storybook/config.js'
   );
 
   const cliConfig = {
@@ -91,13 +102,15 @@ test('should resolve expected paths with cli configs', () => {
 
   mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
   const expected = {
-    outputFiles: [{
-      patterns: [
-        path.resolve(baseDir, './src/*.js'),
-        path.resolve(baseDir, './package/pkg1/*.js'),
-      ],
-      outputFile: path.resolve(baseDir, './storyLoader.js'),
-    }],
+    outputFiles: [
+      {
+        patterns: [
+          path.resolve(baseDir, './src/*.js'),
+          path.resolve(baseDir, './package/pkg1/*.js'),
+        ],
+        outputFile: path.resolve(baseDir, './storyLoader.js'),
+      },
+    ],
   };
 
   const actual = resolvePaths(baseDir, cliConfig);
