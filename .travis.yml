@@ -9,7 +9,7 @@ node_js:
   - '7'
   - '6'
 script:
-  - yarn run precommit
+  - yarn run ci
 after_success:
    - npm run semantic-release
 branches:

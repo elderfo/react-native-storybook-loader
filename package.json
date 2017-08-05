@@ -18,6 +18,7 @@
     "jest": "^20.0.4",
     "lint-staged": "^4.0.2",
     "mock-fs": "^4.4.1",
+    "npm-run-all": "^4.0.2",
     "prettier": "^1.5.3",
     "semantic-release": "^6.3.2",
     "uuid": "^3.0.1"
@@ -37,7 +38,8 @@
     "start": "node src/rnstl-cli.js",
     "start:help": "node src/rnstl-cli.js --help",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "ci": "npm-run-all test lint start"
   },
   "lint-staged": {
     "*.js": [
