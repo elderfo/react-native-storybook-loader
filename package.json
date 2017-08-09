@@ -9,6 +9,7 @@
     "rnstl": "./src/rnstl-cli.js"
   },
   "devDependencies": {
+    "codecov": "^2.3.0",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "^3.16.1",
     "eslint-config-elderfo": "^1.2.3",
@@ -33,13 +34,14 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:ci": "jest --coverage && codecov",
     "lint": "esw ./",
     "lint:watch": "yarn run lint -- --watch",
     "start": "node src/rnstl-cli.js",
     "start:help": "node src/rnstl-cli.js --help",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "precommit": "lint-staged",
-    "ci": "npm-run-all test lint start"
+    "ci": "npm-run-all test:ci lint start"
   },
   "lint-staged": {
     "*.js": [
@@ -48,6 +50,16 @@
       "git add",
       "jest --bail --findRelatedTests"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/output/**",
+      "!**/coverage/**"
+    ],
+    "coverageDirectory": "./coverage/"
   },
   "config": {
     "react-native-storybook-loader": {
