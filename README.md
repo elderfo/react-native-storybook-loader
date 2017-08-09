@@ -4,7 +4,7 @@ A CLI for dynamically importing stories into [react-native-storybook](https://gi
 
 [![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader) [![Known Vulnerabilities](https://snyk.io/test/github/elderfo/react-native-storybook-loader/badge.svg)](https://snyk.io/test/github/elderfo/react-native-storybook-loader)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/elderfo/react-native-storybook-loader?svg=true)](https://ci.appveyor.com/project/elderfo/react-native-storybook-loader)
-
+[![codecov](https://codecov.io/gh/elderfo/react-native-storybook-loader/branch/master/graph/badge.svg)](https://codecov.io/gh/elderfo/react-native-storybook-loader)
 ## Purpose
 
 While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories. So I built an automated way to do it. `react-native-storybook-loader` can be run using configuration in your `package.json` or via the CLI interface and it generates a file with all the imports for you.
