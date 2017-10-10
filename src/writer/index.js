@@ -21,13 +21,18 @@ const templateContents = `
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
-  
   {{~it.files :value:index}}require('{{=value}}');
   {{~}}
 }
 
+const stories = [
+  {{~it.files :value:index}}'{{=value}}',
+  {{~}}
+];
+
 module.exports = {
   loadStories,
+  stories,
 };
 `;
 
