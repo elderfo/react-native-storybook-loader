@@ -38,7 +38,10 @@ module.exports = {
 
 const writeFile = (files, outputFile) => {
   const template = dot.template(templateContents);
-  const relativePaths = getRelativePaths(path.dirname(outputFile), files);
+  const relativePaths = getRelativePaths(
+    path.dirname(outputFile),
+    files
+  ).map(file => file.substring(0, file.lastIndexOf('.'))); // strip file extensions
 
   const output = template({ files: relativePaths });
 
