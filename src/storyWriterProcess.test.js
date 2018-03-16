@@ -24,12 +24,12 @@ test('writeOutStoryLoader should perform expected work', () => {
   };
   const firstFiles = generateArray(faker.system.fileName);
   const secondFiles = generateArray(faker.system.fileName);
-  const thirdFiles = generateArray(faker.system.fileName);
+  const noFiles = [];
 
   storyFinder.loadStories
     .mockImplementationOnce(() => firstFiles)
     .mockImplementationOnce(() => secondFiles)
-    .mockImplementationOnce(() => thirdFiles);
+    .mockImplementationOnce(() => noFiles);
 
   writeOutStoryLoader(config);
 
@@ -48,7 +48,7 @@ test('writeOutStoryLoader should perform expected work', () => {
     config.outputFiles[0].outputFile
   );
   expect(writer.writeFile).toHaveBeenCalledWith(
-    thirdFiles.concat().sort(),
+    noFiles.concat().sort(),
     config.outputFiles[1].outputFile
   );
 });

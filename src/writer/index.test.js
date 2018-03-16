@@ -20,7 +20,7 @@ afterEach(() => {
   mock.restore();
 });
 
-test('writeFile should perform expected work', () => {
+test('writeFile generate story loader', () => {
   const files = [
     path.resolve(__dirname, '../file1.js'),
     path.resolve(__dirname, '../sub/file2.js'),
@@ -28,6 +28,15 @@ test('writeFile should perform expected work', () => {
     path.resolve(__dirname, './sub/file4.js'),
     path.resolve(__dirname, '.\\sub\\sub\\file5.js'),
   ];
+  writeFile(files, outputPath, moduleDir);
+
+  const contents = fs.readFileSync(outputPath, encoding);
+
+  expect(contents).toMatchSnapshot();
+});
+
+test('writeFile should generate dummy story loader if no stories were found', () => {
+  const files = [];
   writeFile(files, outputPath, moduleDir);
 
   const contents = fs.readFileSync(outputPath, encoding);

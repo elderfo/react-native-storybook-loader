@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`writeFile should perform expected work 1`] = `
+exports[`writeFile generate story loader 1`] = `
 "
 // Auto-generated file created by react-native-storybook-loader
 // Do not edit.
@@ -22,6 +22,28 @@ const stories = [
   './src/sub/file2',
   './src/writer/sub/file4',
   './src/writer/sub/sub/file5',
+  
+];
+
+module.exports = {
+  loadStories,
+  stories,
+};
+"
+`;
+
+exports[`writeFile should generate dummy story loader if no stories were found 1`] = `
+"
+// Auto-generated file created by react-native-storybook-loader
+// Do not edit.
+//
+// https://github.com/elderfo/react-native-storybook-loader.git
+
+function loadStories() {
+  
+}
+
+const stories = [
   
 ];
 
