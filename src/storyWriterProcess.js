@@ -23,18 +23,12 @@ const writeOutStoryLoader = pathConfig => {
       );
     });
 
-    if (storyFiles.length > 0) {
-      const sortedFiles = sortFiles(storyFiles);
-      writeFile(sortedFiles, outputFileConfig.outputFile);
-      logger.info(
-        `Compiled story loader for ${storyFiles.length} files:\n`,
-        ` ${storyFiles.join('\n  ')}`
-      );
-    } else {
-      logger.warn(
-        'No files were found matching the specified pattern. Story loader was not written.'
-      );
-    }
+    const sortedFiles = sortFiles(storyFiles);
+    writeFile(sortedFiles, outputFileConfig.outputFile);
+    logger.info(
+      `Compiled story loader for ${storyFiles.length} files:\n`,
+      ` ${storyFiles.join('\n  ')}`
+    );
   });
 };
 
