@@ -56,6 +56,17 @@ const StorybookUI = getStorybookUI({ port: 7007, host: 'localhost' });
 export default StorybookUI;
 ```
 
+*NOTE:* If you are using EXPO you just need to replace the matchign `configure` function and add the `loadStories` import.
+
+```javascript
+import { loadStories } from './storyLoader';
+
+configure(() => {
+  loadStories()
+}, module);
+
+```
+
 Add the `rnstl` cli to the scripts tag of the `package.json`
 
 ```json
@@ -91,6 +102,14 @@ react-native run-ios
 ```
 
 _Note: If you have problems connecting from your device to Storybook using Android issue the following command: `adb reverse tcp:7007 tcp:7007`._
+
+Or if you are using EXPO: 
+
+```bash
+yarn run start
+```
+and then select your platform
+
 
 ## Configuration
 
