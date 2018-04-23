@@ -14,7 +14,18 @@ function loadStories() {
   require('./src/writer/sub/file4');
   require('./src/writer/sub/sub/file5');
   
-}
+};
+
+function getStoryRequires() {
+  return [
+    require('./parent/file3'),
+    require('./src/file1'),
+    require('./src/sub/file2'),
+    require('./src/writer/sub/file4'),
+    require('./src/writer/sub/sub/file5'),
+    
+  ]
+};
 
 const stories = [
   './parent/file3',
@@ -28,6 +39,7 @@ const stories = [
 module.exports = {
   loadStories,
   stories,
+  getStoryRequires
 };
 "
 `;
@@ -41,7 +53,13 @@ exports[`writeFile should generate dummy story loader if no stories were found 1
 
 function loadStories() {
   
-}
+};
+
+function getStoryRequires() {
+  return [
+    
+  ]
+};
 
 const stories = [
   
@@ -50,6 +68,7 @@ const stories = [
 module.exports = {
   loadStories,
   stories,
+  getStoryRequires
 };
 "
 `;

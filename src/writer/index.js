@@ -11,7 +11,10 @@ const { encoding } = require('../constants');
 dot.templateSettings.strip = false;
 
 function getRelativePaths(fromDir, files) {
-  return files.map(file => getRelativePath(file, fromDir)).concat().sort();
+  return files
+    .map(file => getRelativePath(file, fromDir))
+    .concat()
+    .sort();
 }
 
 const templateContents = `
@@ -20,12 +23,17 @@ const templateContents = `
 //
 // https://github.com/elderfo/react-native-storybook-loader.git
 
-function getStories() {
+function loadStories() {
+  {{~it.files :value:index}}require('{{=value}}');
+  {{~}}
+};
+
+function getStoryRequires() {
   return [
-    {{~it.files :value:index}}require('{{=value}}');
+    {{~it.files :value:index}}require('{{=value}}'),
     {{~}}
   ]
-}
+};
 
 const stories = [
   {{~it.files :value:index}}'{{=value}}',
@@ -33,17 +41,17 @@ const stories = [
 ];
 
 module.exports = {
-  getStories,
+  loadStories,
   stories,
+  getStoryRequires
 };
 `;
 
 const writeFile = (files, outputFile) => {
   const template = dot.template(templateContents);
-  const relativePaths = getRelativePaths(
-    path.dirname(outputFile),
-    files
-  ).map(file => file.substring(0, file.lastIndexOf('.'))); // strip file extensions
+  const relativePaths = getRelativePaths(path.dirname(outputFile), files).map(
+    file => file.substring(0, file.lastIndexOf('.'))
+  ); // strip file extensions
 
   const output = template({ files: relativePaths });
 
