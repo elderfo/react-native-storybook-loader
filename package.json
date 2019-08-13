@@ -11,7 +11,7 @@
   "devDependencies": {
     "codecov": "^2.3.0",
     "cz-conventional-changelog": "^2.0.0",
-    "eslint": "^3.16.1",
+    "eslint": "^4.18.2",
     "eslint-config-elderfo": "^1.2.3",
     "eslint-watch": "^3.0.0",
     "faker": "^4.1.0",
