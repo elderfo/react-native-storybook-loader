@@ -11,7 +11,6 @@
   "devDependencies": {
     "codecov": "^3.5.0",
     "cz-conventional-changelog": "^3.0.2",
-
     "faker": "^4.1.0",
     "husky": "^3.0.5",
     "jest": "^24.9.0",
@@ -19,7 +18,7 @@
     "mock-fs": "^4.4.1",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.5.3",
-    "semantic-release": "^6.3.2",
+    "semantic-release": "^15.13.24",
     "uuid": "^3.0.1"
   },
   "dependencies": {
@@ -35,7 +34,7 @@
     "test:ci": "jest --coverage && codecov",
     "start": "node src/rnstl-cli.js",
     "start:help": "node src/rnstl-cli.js --help",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "precommit": "lint-staged",
     "ci": "npm-run-all test:ci start"
   },
