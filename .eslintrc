@@ -1,6 +1,0 @@
-{
-  "extends": "elderfo",
-  "rules": {
-    "import/prefer-default-export": ["off"]
-  }
-}
