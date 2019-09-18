@@ -9,15 +9,13 @@
     "rnstl": "./src/rnstl-cli.js"
   },
   "devDependencies": {
-    "codecov": "^2.3.0",
-    "cz-conventional-changelog": "^2.0.0",
-    "eslint": "^3.16.1",
-    "eslint-config-elderfo": "^1.2.3",
-    "eslint-watch": "^3.0.0",
+    "codecov": "^3.5.0",
+    "cz-conventional-changelog": "^3.0.2",
+
     "faker": "^4.1.0",
-    "husky": "^0.13.1",
-    "jest": "^20.0.4",
-    "lint-staged": "^4.0.2",
+    "husky": "^3.0.5",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.5",
     "mock-fs": "^4.4.1",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.5.3",
@@ -29,24 +27,21 @@
     "dot": "^1.1.1",
     "findup": "^0.1.5",
     "glob": "^7.1.1",
-    "yargs": "^8.0.2"
+    "yargs": "^14.0.0"
   },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --coverage && codecov",
-    "lint": "esw ./",
-    "lint:watch": "yarn run lint -- --watch",
     "start": "node src/rnstl-cli.js",
     "start:help": "node src/rnstl-cli.js --help",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "precommit": "lint-staged",
-    "ci": "npm-run-all test:ci lint start"
+    "ci": "npm-run-all test:ci start"
   },
   "lint-staged": {
     "*.js": [
       "prettier --single-quote --trailing-comma es5 --write",
-      "eslint --fix",
       "git add",
       "jest --bail --findRelatedTests"
     ]
