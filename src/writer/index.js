@@ -26,17 +26,17 @@ const template = files =>
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
-${formatter(files, file => `\trequire('${file}');`, '\n')}
+${formatter(files, file => `  require('${file}')`, '\n')}
 }
 
 const stories = [
-${formatter(files, file => `\t'${file}'`, ',\n')}
-];
+${formatter(files, file => `  '${file}',`, '\n')}
+]
 
 module.exports = {
   loadStories,
   stories,
-};
+}
 `;
 
 const writeFile = (files, outputFile) => {

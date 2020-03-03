@@ -7,25 +7,25 @@ exports[`writeFile generate story loader 1`] = `
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
-	require('./parent/file3');
-	require('./src/file1');
-	require('./src/sub/file2');
-	require('./src/writer/sub/file4');
-	require('./src/writer/sub/sub/file5');
+  require('./parent/file3')
+  require('./src/file1')
+  require('./src/sub/file2')
+  require('./src/writer/sub/file4')
+  require('./src/writer/sub/sub/file5')
 }
 
 const stories = [
-	'./parent/file3',
-	'./src/file1',
-	'./src/sub/file2',
-	'./src/writer/sub/file4',
-	'./src/writer/sub/sub/file5'
-];
+  './parent/file3',
+  './src/file1',
+  './src/sub/file2',
+  './src/writer/sub/file4',
+  './src/writer/sub/sub/file5',
+]
 
 module.exports = {
   loadStories,
   stories,
-};
+}
 "
 `;
 
@@ -41,11 +41,11 @@ function loadStories() {
 
 const stories = [
 
-];
+]
 
 module.exports = {
   loadStories,
   stories,
-};
+}
 "
 `;
