@@ -11,13 +11,18 @@ export enum LogLevels {
 }
 
 let logLevel = LogLevels.info;
-const setLogLevel = (level: LogLevels) => {
+
+export const setLogLevel = (level: LogLevels) => {
   logLevel = level;
 };
 
 let logger: Logger = new BitBucketLogger();
 
-const useConsoleLogger = () => {
+export const useLogger = (newLogger: Logger) => {
+  logger = newLogger;
+};
+
+export const useConsoleLogger = () => {
   logger = new ConsoleLogger();
 };
 
@@ -25,14 +30,14 @@ const debug = (...message: any[]) => {
   if (logLevel < LogLevels.debug) {
     return;
   }
-  logger.log(message);
+  logger.debug(message);
 };
 
 const info = (...message: any[]) => {
   if (logLevel < LogLevels.info) {
     return;
   }
-  logger.log(message);
+  logger.info(message);
 };
 
 const infoNameValue = (message: string, value: string) => {
@@ -72,5 +77,6 @@ export default {
   setLogLevel,
   debug,
   useConsoleLogger,
-  trace
+  trace,
+  useLogger
 };
