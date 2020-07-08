@@ -1,5 +1,5 @@
-import path from "path";
-import { promises as fs } from "fs";
+import path from 'path';
+import { promises as fs } from 'fs';
 
 /**
  * Determines if the path is prefixed or not
@@ -8,9 +8,9 @@ import { promises as fs } from "fs";
  * @returns True if path prefix exists, otherwise false
  */
 const hasPathPrefix = (relativePath: string) =>
-  relativePath.substr(0, 2) === ".." ||
-  relativePath.substr(0, 2) === "./" ||
-  relativePath.substr(0, 2) === ".\\";
+  relativePath.substr(0, 2) === '..' ||
+  relativePath.substr(0, 2) === './' ||
+  relativePath.substr(0, 2) === '.\\';
 
 /**
  * Correctly formats path separators
@@ -18,9 +18,9 @@ const hasPathPrefix = (relativePath: string) =>
  * @param {String} path - Path to format
  * @returns Path with the correct separators
  */
-export const formatPath = (dir: string, separator = "/") => {
-  const oppositeSep = separator === "/" ? "\\" : "/";
-  return dir.replace(new RegExp(`\\${oppositeSep}`, "g"), separator);
+export const formatPath = (dir: string, separator = '/') => {
+  const oppositeSep = separator === '/' ? '\\' : '/';
+  return dir.replace(new RegExp(`\\${oppositeSep}`, 'g'), separator);
 };
 
 /**
@@ -45,22 +45,9 @@ export const getRelativePath = (file: string, fromDir: string) => {
   return formatPath(relativePath);
 };
 
-/**
- * Ensures the direct for the specified filePath exists
- *
- * @param {String} directory - Path to a file
- */
-export const ensureFileDirectoryExists = async (directory: string) => {
-  if (!(await fsObjectExists(directory))) {
-    await fs.mkdir(directory);
-  }
-};
+export const stripExtension = (file: string): string => {
+  const ext = path.extname(file);
+  const result = file.slice(0, file.length - ext.length);
 
-const fsObjectExists = async (fileOrDirectory: string) => {
-  try {
-    fs.access(fileOrDirectory);
-    return true;
-  } catch {
-    return false;
-  }
+  return result;
 };

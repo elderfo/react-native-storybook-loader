@@ -1,40 +1,38 @@
 #!/usr/bin/env node
-import yargs from "yargs";
+import yargs from 'yargs';
+import { promises as fs } from 'fs';
+import path from 'path';
 
-import logger, { useConsoleLogger } from "./logger";
-import {
-  resolveConfiguration,
-  resolvePackageJsonConfiguration,
-  InputConfiguration,
-  getPackageJsonPath,
-  defaultConfiguration
-} from "./configuration";
-import { writeOutStoryLoader } from "./storyWriterProcess";
-import { generateLoaderDefinition } from "./outputs";
-import { LogLevels } from "./logger";
+import logger, { useConsoleLogger } from './logger';
+import { InputConfiguration, generateConfiguration } from './configuration';
+
+import { LogLevels } from './logger';
+import { generateTemplate } from './template';
+import { generateLoaderDefinition } from './locator';
+import { encoding } from './constants';
 
 const args: InputConfiguration = yargs
-  .usage("$0 [options]")
+  .usage('$0 [options]')
   .options({
     searchDir: {
-      type: "string",
+      type: 'string',
       array: true,
       desc:
-        "The directory or directories, relative to the project root, to search for files in."
+        'The directory or directories, relative to the project root, to search for files in.',
     },
     pattern: {
       desc:
         "Pattern to search the search directories with. Note: if pattern contains '**/*' it must be escaped with quotes",
-      type: "string"
+      type: 'string',
     },
     outputFile: {
-      desc: "Path to the output file.",
-      type: "string"
+      desc: 'Path to the output file.',
+      type: 'string',
     },
     silent: {
-      desc: "Silences all logging",
-      type: "boolean"
-    }
+      desc: 'Silences all logging',
+      type: 'boolean',
+    },
   })
   .help().argv;
 
@@ -46,27 +44,22 @@ if (args.silent) {
   logger.setLogLevel(LogLevels.info);
 }
 
-logger.debug("yargs", args);
+logger.debug('yargs', args);
 
 (async () => {
   try {
     const cwd = process.cwd();
 
-    const cliConfig = resolveConfiguration(args);
-    const packageConfig = resolvePackageJsonConfiguration(cwd);
+    const configuration = await generateConfiguration(args, cwd);
+    const loaderDefinition = await generateLoaderDefinition(configuration);
+    const template = generateTemplate(loaderDefinition);
 
-    const resolvedConfig = {
-      ...defaultConfiguration,
-      ...packageConfig,
-      ...cliConfig
-    };
+    await fs.mkdir(path.dirname(loaderDefinition.outputFile), {
+      recursive: true,
+    });
 
-    const pathConfig = await generateLoaderDefinition(cwd, resolvedConfig);
-
-    logger.info("\nGenerating Dynamic Storybook File List\n");
-
-    await writeOutStoryLoader(pathConfig);
+    await fs.writeFile(loaderDefinition.outputFile, template, { encoding });
   } catch (err) {
-    logger.error("Failed to execute: " + err);
+    logger.error('Failed to execute: ' + err);
   }
 })().catch(e => logger.error(e));

@@ -15,7 +15,7 @@ export type Configuration = {
   searchDir: Array<string>;
   outputFile: string;
   pattern: string;
-  silent: boolean;
+  rootDirectory: string;
 };
 
 type PackageJsonFile = {
@@ -24,16 +24,11 @@ type PackageJsonFile = {
   };
 };
 
-export type RnstlPackageJsonSupportedOptions =
-  | "searchDir"
-  | "outputFile"
-  | "pattern";
-
 export const defaultConfiguration: Configuration = {
   pattern: "./storybook/stories/index.js",
   outputFile: "./storybook/storyLoader.js",
   searchDir: ["./"],
-  silent: false
+  rootDirectory: process.cwd(),
 };
 
 export const resolveConfiguration = (
@@ -48,7 +43,6 @@ export const resolveConfiguration = (
     searchDir,
     outputFile,
     pattern,
-    silent = defaultConfiguration.silent
   } = input;
 
   let config: Configuration = Object.assign({}, defaultConfiguration);
@@ -68,15 +62,11 @@ export const resolveConfiguration = (
     config = { ...config, pattern };
   }
 
-  if (silent !== undefined) {
-    config = Object.assign({ ...config, silent });
-  }
-
   logger.debug("resolveConfiguration:return", config);
   return config;
 };
 
-export const resolvePackageJsonConfiguration = async (
+const resolvePackageJsonConfiguration = async (
   processDirectory: string
 ): Promise<Configuration | undefined> => {
   const packageJsonFile = await getPackageJsonPath(processDirectory);
@@ -98,10 +88,25 @@ export const resolvePackageJsonConfiguration = async (
   return resolveConfiguration(pkg.config[appName]);
 };
 
-export const getPackageJsonPath = async (processDirectory: string) => {
+const getPackageJsonPath = async (processDirectory: string) => {
   const packageJsonFile = await findup("package.json", {
     cwd: processDirectory
   });
 
   return packageJsonFile;
+};
+
+export const generateConfiguration = async (
+  cliArgs: InputConfiguration,
+  processDirectory: string
+): Promise<Configuration> => {
+  const cliConfig = resolveConfiguration(cliArgs);
+  const packageConfig = await resolvePackageJsonConfiguration(processDirectory);
+
+  return {
+    ...defaultConfiguration,
+    ...packageConfig,
+    ...cliConfig,
+    rootDirectory: processDirectory
+  };
 };

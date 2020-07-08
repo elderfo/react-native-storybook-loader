@@ -5,9 +5,7 @@ import fs from "fs";
 
 import {
   getRelativePath,
-  formatPath,
-  ensureFileDirectoryExists
-} from "./paths";
+  formatPath} from "./paths";
 
 afterEach(() => mockfs.restore());
 
@@ -156,40 +154,5 @@ describe("formatPath()", () => {
     const actual = formatPath(expected, "/");
 
     expect(actual).toEqual(expected);
-  });
-});
-
-describe("ensureFileDirectoryExists()", () => {
-  it("should create directory when it does not exist", async () => {
-    const sourceFileDir = faker.random.word();
-    const sourceFile = [sourceFileDir, faker.system.fileName()].join(path.sep);
-    // mock fs defaults to your current working directory, so append paths to there
-    const expectedPath = path.join(process.cwd(), sourceFileDir);
-
-    mockfs.restore();
-
-    // confirm the dir doesn't already exist
-    expect(fs.existsSync(expectedPath)).toBe(false);
-
-    await ensureFileDirectoryExists(sourceFile);
-
-    expect(fs.existsSync(expectedPath)).toBe(true);
-  });
-
-  it("should not create directory when already exist", async () => {
-    const sourceFileDir = faker.random.word();
-    const sourceFile = [sourceFileDir, faker.system.fileName()].join(path.sep);
-    // mock fs defaults to your current working directory, so append paths to there
-    const expectedPath = path.join(process.cwd(), sourceFileDir);
-
-    mockfs({
-      [sourceFileDir]: {
-        /* fake directory */
-      }
-    });
-
-    await ensureFileDirectoryExists(sourceFile);
-
-    expect(fs.existsSync(expectedPath)).toBe(true);
   });
 });
