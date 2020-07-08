@@ -25,6 +25,7 @@
     "npm-run-all": "^4.1.2",
     "prettier": "^1.5.3",
     "semantic-release": "^15.13.24",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
     "uuid": "^3.0.1"
   },
@@ -39,8 +40,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --coverage && codecov",
-    "start": "node src/rnstl-cli.js",
-    "start:help": "node src/rnstl-cli.js --help",
+    "start": "ts-node src/rnstl-cli.ts",
+    "start:help": "ts-node src/rnstl-cli.ts --help",
     "semantic-release": "semantic-release",
     "ci": "npm-run-all test:ci start"
   },
