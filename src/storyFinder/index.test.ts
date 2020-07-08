@@ -1,15 +1,17 @@
+jest.mock('../utils/pathHelper.ts');
+jest.mock('glob');
+
 // required imports
-const faker = require('faker');
+import * as faker from 'faker';
 
 // mocked imports
-const glob = require('glob');
+import  glob from 'glob';
 
 // test file import
-const { formatPath } = require('../utils/pathHelper');
-const { loadStories } = require('./');
+import { formatPath } from '../utils/pathHelper';
+import { loadStories } from './';
 
-jest.mock('../utils/pathHelper.js');
-jest.mock('glob');
+const formatPathMock = formatPath as jest.Mock;
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -19,12 +21,12 @@ const files = [faker.system.fileName(), faker.system.fileName()];
 
 function setupMocks() {
   glob.sync = jest.fn(() => files);
-  formatPath.mockImplementation(f => f);
+  formatPathMock.mockImplementation((dir: string) => dir);
 }
 
 test('loadStories should locate stories', () => {
   setupMocks();
-  const actual = loadStories();
+  const actual = loadStories("");
   expect(actual).toEqual(files);
   expect(formatPath).toHaveBeenCalledWith(files[0]);
   expect(formatPath).toHaveBeenCalledWith(files[1]);
