@@ -1,10 +1,10 @@
-const logger = require('./logger');
-const { loadStories } = require('./storyFinder');
-const { writeFile } = require('./writer');
+import  logger from  './logger';
+import  { loadStories } from  './storyFinder';
+import  { writeFile } from  './writer';
 
-const sortFiles = files => files.concat().sort();
+const sortFiles = (files: Array<string>) => files.concat().sort();
 
-const writeOutStoryLoader = pathConfig => {
+export const writeOutStoryLoader = (pathConfig) => {
   logger.debug('writeOutStoryLoader', pathConfig);
   pathConfig.outputFiles.forEach(outputFileConfig => {
     logger.info('Output file:      ', outputFileConfig.outputFile);

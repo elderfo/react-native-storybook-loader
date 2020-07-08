@@ -2,7 +2,7 @@ import * as faker from "faker";
 import {
   resolveCliArguments,
   defaultConfiguration,
-  CliConfig} from ".";
+  InputConfiguration} from ".";
 
 describe("resolveCliArguments", () => {
   test("should return default when invalid params are specified", () => {
@@ -14,7 +14,7 @@ describe("resolveCliArguments", () => {
   });
 
   test("should return searchDir when array specified", () => {
-    const cliArgs: CliConfig = {
+    const cliArgs: InputConfiguration = {
       searchDir: [
         faker.system.fileName(),
         faker.system.fileName(),
@@ -30,7 +30,7 @@ describe("resolveCliArguments", () => {
 
   test("should return searchDir when string specified", () => {
     const filename = faker.system.fileName();
-    const cliArgs: CliConfig = {
+    const cliArgs: InputConfiguration = {
       searchDir: filename
     };
     const expected = {...defaultConfiguration, searchDir: [filename]    };
@@ -42,7 +42,7 @@ describe("resolveCliArguments", () => {
 
   test("should return outputFile when specified", () => {
     const filename = faker.system.fileName();
-    const cliArgs: CliConfig = {
+    const cliArgs: InputConfiguration = {
       outputFile: filename
     };
 
@@ -55,7 +55,7 @@ describe("resolveCliArguments", () => {
 
   test("should return pattern when specified", () => {
     const filename = faker.system.fileName();
-    const cliArgs: CliConfig = {
+    const cliArgs: InputConfiguration = {
       pattern: filename
     };
     const expected = {...defaultConfiguration, ...cliArgs};
@@ -65,7 +65,7 @@ describe("resolveCliArguments", () => {
   });
 
   test("should return pattern, searchDir (array), and outputFile when specified", () => {
-    const cliArgs: CliConfig = {
+    const cliArgs: InputConfiguration = {
       pattern: faker.system.fileName(),
       searchDir: [
         faker.system.fileName(),
@@ -83,7 +83,7 @@ describe("resolveCliArguments", () => {
   });
 
   test("should pattern, outputFile and searchDir (string) when specified", () => {
-    const cliArgs: CliConfig = {
+    const cliArgs: InputConfiguration = {
       pattern: faker.system.fileName(),
       searchDir: faker.system.fileName(),
       outputFile: faker.system.fileName(),

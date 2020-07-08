@@ -2,12 +2,12 @@
 import yargs from "yargs";
 
 import logger from "./logger";
-import { resolveCliArguments, CliConfig } from "./configuration";
+import { resolveCliArguments, InputConfiguration } from "./configuration";
 import { writeOutStoryLoader } from "./storyWriterProcess";
 import { resolvePaths } from "./paths/multiResolver";
 import { LogLevels } from "./logger";
 
-const args: CliConfig = yargs
+const args: InputConfiguration = yargs
   .usage("$0 [options]")
   .options({
     searchDir: {
@@ -40,9 +40,11 @@ if (args.silent) {
 
 logger.debug("yargs", args);
 
-const cliConfig = resolveCliArguments(args);
-
-const pathConfig = resolvePaths(process.cwd(), cliConfig);
-logger.info("\nGenerating Dynamic Storybook File List\n");
-
-writeOutStoryLoader(pathConfig);
+(async () => {
+  const cliConfig = resolveCliArguments(args);
+  
+  const pathConfig = await resolvePaths(process.cwd(), cliConfig);
+  logger.info("\nGenerating Dynamic Storybook File List\n");
+  
+  writeOutStoryLoader(pathConfig);
+})();

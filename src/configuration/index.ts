@@ -1,6 +1,6 @@
 import logger from "../logger";
 
-export type CliConfig = {
+export type InputConfiguration = {
   searchDir?: Array<string> | string;
   outputFile?: string;
   pattern?: string;
@@ -12,12 +12,6 @@ export type Configuration = {
   outputFile: string;
   pattern: string;
   silent: boolean;
-};
-
-export type RnstlPackageJsonConfig = {
-  searchDir?: Array<string>;
-  outputFile?: string;
-  pattern?: string;
 };
 
 export type RnstlPackageJsonSupportedOptions =
@@ -33,7 +27,7 @@ export const defaultConfiguration: Configuration = {
 };
 
 export const resolveCliArguments = (
-  args: CliConfig | undefined
+  args: InputConfiguration | undefined
 ): Configuration | undefined => {
   logger.debug("cliResolver", args);
   if (!args || typeof args !== "object") {
