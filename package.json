@@ -9,7 +9,7 @@
     "rnstl": "./src/rnstl-cli.js"
   },
   "devDependencies": {
-    "codecov": "^3.5.0",
+    "codecov": "^3.6.5",
     "faker": "^4.1.0",
     "husky": "^3.0.5",
     "jest": "^24.9.0",
