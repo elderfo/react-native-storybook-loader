@@ -9,6 +9,12 @@
     "rnstl": "./src/rnstl-cli.js"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/faker": "^4.1.12",
+    "@types/find-up": "^4.0.0",
+    "@types/jest": "^26.0.4",
+    "@types/yargs": "^15.0.5",
     "codecov": "^3.6.5",
     "faker": "^4.1.0",
     "husky": "^3.0.5",
@@ -18,22 +24,23 @@
     "npm-run-all": "^4.1.2",
     "prettier": "^1.5.3",
     "semantic-release": "^15.13.24",
+    "typescript": "^3.9.6",
     "uuid": "^3.0.1"
   },
   "dependencies": {
     "colors": "^1.1.2",
-    "findup": "^0.1.5",
+    "find-up": "^4.1.0",
     "glob": "^7.1.1",
     "yargs": "^14.0.0"
   },
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --coverage && codecov",
     "start": "node src/rnstl-cli.js",
     "start:help": "node src/rnstl-cli.js --help",
     "semantic-release": "semantic-release",
-    "precommit": "lint-staged",
     "ci": "npm-run-all test:ci start"
   },
   "lint-staged": {
@@ -46,6 +53,7 @@
   "jest": {
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
+      "**/*.{ts,tsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/output/**",

@@ -16,7 +16,7 @@ const {
   info,
   warn,
   resolveLogLevel,
-} = require('./logger'); // eslint-disable-line import/first
+} = require('.'); // eslint-disable-line import/first
 
 beforeEach(() => jest.resetAllMocks());
 

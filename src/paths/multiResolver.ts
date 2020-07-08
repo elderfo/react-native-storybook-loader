@@ -1,23 +1,36 @@
-const fs = require('fs');
-const path = require('path');
-const findup = require('findup');
-const { appName } = require('../constants');
-const logger = require('../logger');
+import { promises as fs } from "fs";
+import path from "path";
+import findup from "find-up";
+
+import { appName, encoding } from "../constants";
+import logger from "../logger";
+import {
+  Configuration,
+  RnstlPackageJsonConfig,
+  RnstlPackageJsonSupportedOptions,
+  defaultConfiguration
+} from "../configuration";
+
+type PackageJsonFile = {
+  config: {
+    [appName]: RnstlPackageJsonConfig;
+  };
+};
 
 /**
  * Returns the default value for the specified
  * @param {string} setting Name of the setting
  */
-function getDefaultValue(setting) {
+function getDefaultValue(setting: RnstlPackageJsonSupportedOptions) {
   switch (setting) {
-    case 'pattern':
-      return './storybook/stories/index.js';
-    case 'outputFile':
-      return './storybook/storyLoader.js';
-    case 'searchDir':
-      return ['./'];
+    case "pattern":
+      return "./storybook/stories/index.js";
+    case "outputFile":
+      return "./storybook/storyLoader.js";
+    case "searchDir":
+      return ["./"];
     default:
-      return './';
+      return "./";
   }
 }
 
@@ -26,7 +39,7 @@ function getDefaultValue(setting) {
  * @param {object} pkg the contents of the package.json in object form.
  * @param {string} setting Name of the setting to look for
  */
-function hasConfigSetting(pkg, setting) {
+function hasConfigSetting(pkg: PackageJsonFile, setting: RnstlPackageJsonSupportedOptions) {
   return pkg.config && pkg.config[appName] && pkg.config[appName][setting];
 }
 
@@ -36,7 +49,11 @@ function hasConfigSetting(pkg, setting) {
  * @param {string} setting setting Name of the setting to look for
  * @param {bool} ensureArray flag denoting whether to ensure the setting is an array
  */
-function getConfigSetting(pkg, setting, ensureArray) {
+function getConfigSetting(
+  pkg: PackageJsonFile,
+  setting: RnstlPackageJsonSupportedOptions,
+  ensureArray: boolean = false
+) {
   if (!hasConfigSetting(pkg, setting)) {
     return null;
   }
@@ -53,18 +70,22 @@ function getConfigSetting(pkg, setting, ensureArray) {
  * Parses the package.json file and returns a config object
  * @param {string} packageJsonFile Path to the package.json file
  */
-function getConfigSettings(packageJsonFile) {
+const getConfigSettings = async (packageJsonFile: string) => {
   // Locate and read package.json
-  const pkg = JSON.parse(fs.readFileSync(packageJsonFile));
+  const packageJsonContents = await fs.readFile(packageJsonFile, {
+    encoding: encoding
+  });
+
+  const pkg = JSON.parse(packageJsonContents) as PackageJsonFile;
 
   return {
     searchDir:
-      getConfigSetting(pkg, 'searchDir', true) || getDefaultValue('searchDir'),
+      getConfigSetting(pkg, "searchDir", true) || getDefaultValue("searchDir"),
     outputFile:
-      getConfigSetting(pkg, 'outputFile') || getDefaultValue('outputFile'),
-    pattern: getConfigSetting(pkg, 'pattern') || getDefaultValue('pattern'),
+      getConfigSetting(pkg, "outputFile") || getDefaultValue("outputFile"),
+    pattern: getConfigSetting(pkg, "pattern") || getDefaultValue("pattern")
   };
-}
+};
 
 /**
  * Resolves paths and returns the following schema:
@@ -76,20 +97,27 @@ function getConfigSettings(packageJsonFile) {
  * }
  * @param {string} processDirectory directory of the currently running process
  */
-function resolvePaths(processDirectory, cliConfig) {
-  logger.debug('resolvePaths', processDirectory, cliConfig);
+export const resolvePaths = async (
+  processDirectory: string,
+  cliConfig: Configuration = defaultConfiguration
+) => {
+  logger.debug("resolvePaths", processDirectory, cliConfig);
 
   const overrides = cliConfig || {};
+  const lookupLocation = await findup("package.json", {
+    cwd: processDirectory
+  });
+
   // Locate and read package.json
   const packageJsonFile = path.resolve(
-    findup.sync(processDirectory, 'package.json'),
-    'package.json'
+    lookupLocation as string,
+    "package.json"
   );
   const baseDir = path.dirname(packageJsonFile);
 
-  const config = Object.assign(
+  const config: Configuration = Object.assign(
     {},
-    getConfigSettings(packageJsonFile, baseDir),
+    getConfigSettings(packageJsonFile),
     overrides
   );
   const outputFile = path.resolve(baseDir, config.outputFile);
@@ -99,15 +127,15 @@ function resolvePaths(processDirectory, cliConfig) {
       outputFile,
       patterns: config.searchDir.map(dir =>
         path.resolve(baseDir, dir, config.pattern)
-      ),
-    },
+      )
+    }
   ];
 
   const returnValue = {
-    outputFiles,
+    outputFiles
   };
-  logger.debug('resolvePaths', returnValue);
+  logger.debug("resolvePaths", returnValue);
   return returnValue;
-}
+};
 
 module.exports = resolvePaths;

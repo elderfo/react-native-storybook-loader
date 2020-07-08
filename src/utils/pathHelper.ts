@@ -1,5 +1,5 @@
-const path = require('path');
-const fs = require('fs');
+import path from "path";
+import { promises as fs } from "fs";
 
 /**
  * Determines if the path is prefixed or not
@@ -7,10 +7,10 @@ const fs = require('fs');
  * @param {String} relativePath - Relative path to check for directory prefixes
  * @returns True if path prefix exists, otherwise false
  */
-const hasPathPrefix = relativePath =>
-  relativePath.substr(0, 2) === '..' ||
-  relativePath.substr(0, 2) === './' ||
-  relativePath.substr(0, 2) === '.\\';
+const hasPathPrefix = (relativePath: string) =>
+  relativePath.substr(0, 2) === ".." ||
+  relativePath.substr(0, 2) === "./" ||
+  relativePath.substr(0, 2) === ".\\";
 
 /**
  * Correctly formats path separators
@@ -18,9 +18,9 @@ const hasPathPrefix = relativePath =>
  * @param {String} path - Path to format
  * @returns Path with the correct separators
  */
-const formatPath = (dir, separator = '/') => {
-  const oppositeSep = separator === '/' ? '\\' : '/';
-  return dir.replace(new RegExp(`\\${oppositeSep}`, 'g'), separator);
+export const formatPath = (dir: string, separator = "/") => {
+  const oppositeSep = separator === "/" ? "\\" : "/";
+  return dir.replace(new RegExp(`\\${oppositeSep}`, "g"), separator);
 };
 
 /**
@@ -28,9 +28,8 @@ const formatPath = (dir, separator = '/') => {
  *
  * @param {String} file - File to convert to a relative path
  * @param {String} fromDir - Directory to resolve to
- * @param {String} separator - Path separator character (default: system separator)
  */
-const getRelativePath = (file, fromDir) => {
+export const getRelativePath = (file: string, fromDir: string) => {
   // format paths to the OS specific format
   // (accounting for using the wrong seps)
   let relativePath = path.relative(
@@ -51,16 +50,21 @@ const getRelativePath = (file, fromDir) => {
  *
  * @param {String} filePath - Path to a file
  */
-const ensureFileDirectoryExists = filePath => {
+export const ensureFileDirectoryExists = async (filePath: string) => {
   const directory = path.dirname(filePath);
 
-  if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory);
+  const stat = await fs.stat(directory);
+
+  if (!(await fsObjectExists(filePath))) {
+    await fs.mkdir(filePath);
   }
 };
 
-module.exports = {
-  getRelativePath,
-  ensureFileDirectoryExists,
-  formatPath,
+const fsObjectExists = async (fileOrDirectory: string) => {
+  try {
+    fs.access(fileOrDirectory);
+    return true;
+  } catch {
+    return false;
+  }
 };
