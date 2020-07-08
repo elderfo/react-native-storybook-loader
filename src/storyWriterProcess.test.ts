@@ -1,12 +1,12 @@
-const faker = require('faker');
-const writer = require('./writer');
-const storyFinder = require('./storyFinder');
-const { generateArray } = require('./utils/testUtils');
-const { writeOutStoryLoader } = require('./storyWriterProcess');
+import faker  from 'faker';
+import * as writer  from './writer';
+import * as storyFinder  from './storyFinder';
+import { generateArray }  from './utils/testUtils';
+import { writeOutStoryLoader }  from './storyWriterProcess';
 
-jest.mock('./writer/index.js');
-jest.mock('./storyFinder/index.js');
-jest.mock('./paths/multiResolver.js');
+jest.mock('./writer/index.ts');
+jest.mock('./storyFinder/index.ts');
+jest.mock('./paths/multiResolver.ts');
 jest.mock('./logger');
 
 test('writeOutStoryLoader should perform expected work', () => {
@@ -24,9 +24,10 @@ test('writeOutStoryLoader should perform expected work', () => {
   };
   const firstFiles = generateArray(faker.system.fileName);
   const secondFiles = generateArray(faker.system.fileName);
-  const noFiles = [];
+  const noFiles :string[] = [];
 
-  storyFinder.loadStories
+  const loadStoriesMock = storyFinder.loadStories as jest.Mock;
+  loadStoriesMock
     .mockImplementationOnce(() => firstFiles)
     .mockImplementationOnce(() => secondFiles)
     .mockImplementationOnce(() => noFiles);
