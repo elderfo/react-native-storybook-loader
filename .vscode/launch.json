@@ -33,9 +33,16 @@
             "env": {
                 "NODE_ENV": "development"
             },
-            "externalConsole": false,
             "sourceMaps": false,
             "outDir": null
+        },
+        {
+          "type": "node",
+          "request": "launch",
+          "name": "Debug CLI",
+          "program": "${workspaceFolder}/src/rnstl-cli.ts",
+          "preLaunchTask": "tsc: build - tsconfig.json",
+          "outFiles": ["${workspaceFolder}/out/**/*.js"]
         }
     ]
 }

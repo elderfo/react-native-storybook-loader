@@ -1,30 +1,28 @@
-import faker  from 'faker';
-import * as writer  from './writer';
-import * as storyFinder  from './storyFinder';
-import { generateArray }  from './utils/testUtils';
-import { writeOutStoryLoader }  from './storyWriterProcess';
+import faker from "faker";
+import * as writer from "./writer";
+import * as storyFinder from "./locator";
+import { writeOutStoryLoader } from "./storyWriterProcess";
 
-jest.mock('./writer/index.ts');
-jest.mock('./storyFinder/index.ts');
-jest.mock('./paths/multiResolver.ts');
-jest.mock('./logger');
+jest.mock("./writer");
+jest.mock("./locator");
+jest.mock("./logger");
 
-test('writeOutStoryLoader should perform expected work', () => {
+test("writeOutStoryLoader should perform expected work", () => {
   const config = {
-    outputFiles: [
+    outputs: [
       {
         outputFile: faker.system.fileName(),
-        patterns: [faker.system.fileName(), faker.system.fileName()],
+        patterns: [faker.system.fileName(), faker.system.fileName()]
       },
       {
         outputFile: faker.system.fileName(),
-        patterns: [faker.system.fileName()],
-      },
-    ],
+        patterns: [faker.system.fileName()]
+      }
+    ]
   };
-  const firstFiles = generateArray(faker.system.fileName);
-  const secondFiles = generateArray(faker.system.fileName);
-  const noFiles :string[] = [];
+  const firstFiles = Array(10).map(_ => faker.system.fileName());
+  const secondFiles = Array(10).map(_ => faker.system.fileName());
+  const noFiles: string[] = [];
 
   const loadStoriesMock = storyFinder.loadStories as jest.Mock;
   loadStoriesMock
@@ -35,21 +33,21 @@ test('writeOutStoryLoader should perform expected work', () => {
   writeOutStoryLoader(config);
 
   expect(storyFinder.loadStories).toHaveBeenCalledWith(
-    config.outputFiles[0].patterns[0]
+    config.outputs[0].patterns[0]
   );
   expect(storyFinder.loadStories).toHaveBeenCalledWith(
-    config.outputFiles[0].patterns[1]
+    config.outputs[0].patterns[1]
   );
   expect(storyFinder.loadStories).toHaveBeenCalledWith(
-    config.outputFiles[1].patterns[0]
+    config.outputs[1].patterns[0]
   );
 
   expect(writer.writeFile).toHaveBeenCalledWith(
     firstFiles.concat(secondFiles).sort(),
-    config.outputFiles[0].outputFile
+    config.outputs[0].outputFile
   );
   expect(writer.writeFile).toHaveBeenCalledWith(
     noFiles.concat().sort(),
-    config.outputFiles[1].outputFile
+    config.outputs[1].outputFile
   );
 });

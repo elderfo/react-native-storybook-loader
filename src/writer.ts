@@ -4,8 +4,8 @@ import path from "path";
 import {
   getRelativePath,
   ensureFileDirectoryExists
-} from "../utils/pathHelper";
-import { encoding } from "../constants";
+} from "./paths";
+import { encoding } from "./constants";
 
 const getRelativePaths = (fromDir: string, files: string[]) => {
   return files

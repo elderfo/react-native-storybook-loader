@@ -1,10 +1,16 @@
 #!/usr/bin/env node
 import yargs from "yargs";
 
-import logger from "./logger";
-import { resolveCliArguments, InputConfiguration } from "./configuration";
+import logger, { useConsoleLogger } from "./logger";
+import {
+  resolveConfiguration,
+  resolvePackageJsonConfiguration,
+  InputConfiguration,
+  getPackageJsonPath,
+  defaultConfiguration
+} from "./configuration";
 import { writeOutStoryLoader } from "./storyWriterProcess";
-import { resolvePaths } from "./paths/multiResolver";
+import { generateLoaderDefinition } from "./outputs";
 import { LogLevels } from "./logger";
 
 const args: InputConfiguration = yargs
@@ -32,6 +38,8 @@ const args: InputConfiguration = yargs
   })
   .help().argv;
 
+useConsoleLogger();
+
 if (args.silent) {
   logger.setLogLevel(LogLevels.silent);
 } else {
@@ -41,10 +49,24 @@ if (args.silent) {
 logger.debug("yargs", args);
 
 (async () => {
-  const cliConfig = resolveCliArguments(args);
-  
-  const pathConfig = await resolvePaths(process.cwd(), cliConfig);
-  logger.info("\nGenerating Dynamic Storybook File List\n");
-  
-  writeOutStoryLoader(pathConfig);
-})();
+  try {
+    const cwd = process.cwd();
+
+    const cliConfig = resolveConfiguration(args);
+    const packageConfig = resolvePackageJsonConfiguration(cwd);
+
+    const resolvedConfig = {
+      ...defaultConfiguration,
+      ...packageConfig,
+      ...cliConfig
+    };
+
+    const pathConfig = await generateLoaderDefinition(cwd, resolvedConfig);
+
+    logger.info("\nGenerating Dynamic Storybook File List\n");
+
+    await writeOutStoryLoader(pathConfig);
+  } catch (err) {
+    logger.error("Failed to execute: " + err);
+  }
+})().catch(e => logger.error(e));

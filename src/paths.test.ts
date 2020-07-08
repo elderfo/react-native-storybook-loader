@@ -3,12 +3,11 @@ import path from "path";
 import faker from "faker";
 import fs from "fs";
 
-import { generateArray } from "../utils/testUtils";
 import {
   getRelativePath,
   formatPath,
   ensureFileDirectoryExists
-} from "./pathHelper";
+} from "./paths";
 
 afterEach(() => mockfs.restore());
 
@@ -122,7 +121,7 @@ describe("getRelativePath()", () => {
 
 describe("formatPath()", () => {
   it("should convert unix style paths to windows style", () => {
-    const pathSegments = generateArray(() => faker.system.fileName(), 10);
+    const pathSegments = Array(10).map(_ => faker.system.fileName());
     const sourceDir = pathSegments.join("/");
     const expected = pathSegments.join("\\");
 
@@ -132,7 +131,7 @@ describe("formatPath()", () => {
   });
 
   it("should convert windows style paths to unix style", () => {
-    const pathSegments = generateArray(() => faker.system.fileName(), 10);
+    const pathSegments = Array(10).map(_ => faker.system.fileName());
     const sourceDir = pathSegments.join("\\");
     const expected = pathSegments.join("/");
 
@@ -142,7 +141,7 @@ describe("formatPath()", () => {
   });
 
   it("should preserve windows style paths", () => {
-    const pathSegments = generateArray(() => faker.system.fileName(), 10);
+    const pathSegments = Array(10).map(_ => faker.system.fileName());
     const expected = pathSegments.join("\\");
 
     const actual = formatPath(expected, "\\");
@@ -151,7 +150,7 @@ describe("formatPath()", () => {
   });
 
   it("should preservce unix style paths", () => {
-    const pathSegments = generateArray(() => faker.system.fileName(), 10);
+    const pathSegments = Array(10).map(_ => faker.system.fileName());
     const expected = pathSegments.join("/");
 
     const actual = formatPath(expected, "/");
@@ -161,7 +160,7 @@ describe("formatPath()", () => {
 });
 
 describe("ensureFileDirectoryExists()", () => {
-  it("should create directory when it does not exist", () => {
+  it("should create directory when it does not exist", async () => {
     const sourceFileDir = faker.random.word();
     const sourceFile = [sourceFileDir, faker.system.fileName()].join(path.sep);
     // mock fs defaults to your current working directory, so append paths to there
@@ -172,12 +171,12 @@ describe("ensureFileDirectoryExists()", () => {
     // confirm the dir doesn't already exist
     expect(fs.existsSync(expectedPath)).toBe(false);
 
-    ensureFileDirectoryExists(sourceFile);
+    await ensureFileDirectoryExists(sourceFile);
 
     expect(fs.existsSync(expectedPath)).toBe(true);
   });
 
-  it("should not create directory when already exist", () => {
+  it("should not create directory when already exist", async () => {
     const sourceFileDir = faker.random.word();
     const sourceFile = [sourceFileDir, faker.system.fileName()].join(path.sep);
     // mock fs defaults to your current working directory, so append paths to there
@@ -189,7 +188,7 @@ describe("ensureFileDirectoryExists()", () => {
       }
     });
 
-    ensureFileDirectoryExists(sourceFile);
+    await ensureFileDirectoryExists(sourceFile);
 
     expect(fs.existsSync(expectedPath)).toBe(true);
   });

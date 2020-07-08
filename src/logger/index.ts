@@ -30,14 +30,14 @@ const debug = (...message: any[]) => {
   if (logLevel < LogLevels.debug) {
     return;
   }
-  logger.debug(message);
+  logger.debug(...message);
 };
 
 const info = (...message: any[]) => {
   if (logLevel < LogLevels.info) {
     return;
   }
-  logger.info(message);
+  logger.info(...message);
 };
 
 const infoNameValue = (message: string, value: string) => {
@@ -52,21 +52,21 @@ const warn = (...message: any[]) => {
   if (logLevel < LogLevels.warn) {
     return;
   }
-  logger.warn(message);
+  logger.warn(...message);
 };
 
 const error = (...message: any[]) => {
   if (logLevel < LogLevels.error) {
     return;
   }
-  logger.error(message);
+  logger.error(...message);
 };
 
 const trace = (...message: any[]) => {
   if (logLevel < LogLevels.trace) {
     return;
   }
-  logger.trace(message);
+  logger.trace(...message);
 };
 
 export default {

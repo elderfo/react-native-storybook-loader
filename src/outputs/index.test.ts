@@ -1,41 +1,24 @@
-import mock from "mock-fs";
 import path from "path";
 
-import { appName } from "../constants";
-import { resolvePaths } from "./multiResolver";
-import { InputConfiguration, Configuration } from "../configuration";
+import { generateLoaderDefinition } from ".";
+import {
+  InputConfiguration,
+  Configuration,
+  resolveConfiguration,
+  defaultConfiguration
+} from "../configuration";
 
-const generatePackageJson = ({
-  searchDir,
-  pattern,
-  outputFile,
-  silent
-}: InputConfiguration) => {
-  return {
-    config: {
-      [appName]: {
-        searchDir,
-        pattern,
-        outputFile,
-        silent
-      }
-    }
-  };
+const generatePackageJson = (input: InputConfiguration) => {
+  return resolveConfiguration(input) as Configuration;
 };
 
 const baseDir = path.resolve(process.cwd());
 const packageJsonFilePath = path.resolve(baseDir, "package.json");
 
-
 describe("resolvePaths", () => {
-  afterEach(() => {
-    mock.restore();
-  });
   test("should resolve expected defaults", async () => {
-    const packageJsonContents = {};
-    mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
     const expected = {
-      outputFiles: [
+      outputs: [
         {
           patterns: [path.resolve(baseDir, "./storybook/stories/index.js")],
           outputFile: path.resolve(baseDir, "./storybook/storyLoader.js")
@@ -43,45 +26,41 @@ describe("resolvePaths", () => {
       ]
     };
 
-    const actual = await resolvePaths(baseDir);
-
-    expect(actual).toEqual(expected);
+    await expect(generateLoaderDefinition(baseDir, defaultConfiguration)).resolves.toEqual(
+      expected
+    );
   });
 
   test("should resolve expected paths with single search dir", async () => {
-    const packageJsonContents = generatePackageJson({
+    const configuration = generatePackageJson({
       searchDir: "./src/storybook",
       pattern: "**/*.stories.js",
       outputFile: "./storybook/config.js"
     });
 
-    
-    mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
     const expected = {
-      outputFiles: [
+      outputs: [
         {
           patterns: [path.resolve(baseDir, "./src/storybook/**/*.stories.js")],
           outputFile: path.resolve(baseDir, "./storybook/config.js")
         }
       ]
     };
-    
-    const actual = await resolvePaths(baseDir);
-    
-    expect(actual).toEqual(expected);
+
+    await expect(generateLoaderDefinition(baseDir, configuration)).resolves.toEqual(
+      expected
+    );
   });
-  
+
   test("should resolve expected paths with multiple search dirs", async () => {
-    const packageJsonContents = generatePackageJson({
+    const configuration = generatePackageJson({
       searchDir: ["./src/storybook", "./packages"],
       pattern: "**/*.stories.js",
       outputFile: "./storybook/config.js"
     });
 
-    mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
-
     const expected = {
-      outputFiles: [
+      outputs: [
         {
           patterns: [
             path.resolve(baseDir, "./src/storybook/**/*.stories.js"),
@@ -92,18 +71,12 @@ describe("resolvePaths", () => {
       ]
     };
 
-    const actual = await resolvePaths(baseDir);
-
-    expect(actual).toEqual(expected);
+    await expect(generateLoaderDefinition(baseDir, configuration)).resolves.toEqual(
+      expected
+    );
   });
 
   test("should resolve expected paths with cli configs", async () => {
-    const packageJsonContents = generatePackageJson({
-      searchDir: ["./src/storybook", "./packages"],
-      pattern: "**/*.stories.js",
-      outputFile: "./storybook/config.js"
-    });
-
     const cliConfig: Configuration = {
       searchDir: ["./src", "./package/pkg1"],
       pattern: "*.js",
@@ -111,9 +84,8 @@ describe("resolvePaths", () => {
       silent: false
     };
 
-    mock({ [packageJsonFilePath]: JSON.stringify(packageJsonContents) });
     const expected = {
-      outputFiles: [
+      outputs: [
         {
           patterns: [
             path.resolve(baseDir, "./src/*.js"),
@@ -124,8 +96,6 @@ describe("resolvePaths", () => {
       ]
     };
 
-    const actual = await resolvePaths(baseDir, cliConfig);
-
-    expect(actual).toEqual(expected);
+    await expect(generateLoaderDefinition(baseDir, cliConfig)).resolves.toEqual(expected);
   });
 });

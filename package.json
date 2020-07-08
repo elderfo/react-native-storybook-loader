@@ -69,7 +69,7 @@
         "./src/paths",
         "./src/writer"
       ],
-      "pattern": "**/*.js",
+      "pattern": "**/*.ts",
       "outputFile": "./output/storyLoader.js"
     }
   }

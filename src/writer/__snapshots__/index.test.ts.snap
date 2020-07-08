@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`writeFile generate story loader 1`] = `""`;
-
-exports[`writeFile should generate dummy story loader if no stories were found 1`] = `""`;

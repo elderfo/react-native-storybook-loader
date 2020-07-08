@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`writeFile generate story loader 1`] = `
+"// Auto-generated file created by react-native-storybook-loader
+// Do not edit.
+//
+// https://github.com/elderfo/react-native-storybook-loader.git
+
+function loadStories() {
+	require('./parent/file3');
+	require('./react-native-storybook-loader/file1');
+	require('./react-native-storybook-loader/src/sub/file4');
+	require('./react-native-storybook-loader/src/sub/sub/file5');
+	require('./react-native-storybook-loader/sub/file2');
+}
+
+const stories = [
+	'./parent/file3',
+	'./react-native-storybook-loader/file1',
+	'./react-native-storybook-loader/src/sub/file4',
+	'./react-native-storybook-loader/src/sub/sub/file5',
+	'./react-native-storybook-loader/sub/file2'
+];
+
+module.exports = {
+  loadStories,
+  stories,
+};
+"
+`;
+
+exports[`writeFile should generate dummy story loader if no stories were found 1`] = `
+"// Auto-generated file created by react-native-storybook-loader
+// Do not edit.
+//
+// https://github.com/elderfo/react-native-storybook-loader.git
+
+function loadStories() {
+
+}
+
+const stories = [
+
+];
+
+module.exports = {
+  loadStories,
+  stories,
+};
+"
+`;

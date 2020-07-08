@@ -1,4 +1,4 @@
-jest.mock('../utils/pathHelper.ts');
+jest.mock('./paths');
 jest.mock('glob');
 
 // required imports
@@ -8,8 +8,8 @@ import * as faker from 'faker';
 import  glob from 'glob';
 
 // test file import
-import { formatPath } from '../utils/pathHelper';
-import { loadStories } from './';
+import { formatPath } from './paths';
+import { loadStories } from './locator';
 
 const formatPathMock = formatPath as jest.Mock;
 

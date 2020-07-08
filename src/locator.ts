@@ -1,6 +1,6 @@
 import glob from "glob";
 
-import { formatPath } from "../utils/pathHelper";
+import { formatPath } from "./paths";
 
 /**
  * Locates files matching the specified pattern

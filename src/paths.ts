@@ -48,15 +48,11 @@ export const getRelativePath = (file: string, fromDir: string) => {
 /**
  * Ensures the direct for the specified filePath exists
  *
- * @param {String} filePath - Path to a file
+ * @param {String} directory - Path to a file
  */
-export const ensureFileDirectoryExists = async (filePath: string) => {
-  const directory = path.dirname(filePath);
-
-  const stat = await fs.stat(directory);
-
-  if (!(await fsObjectExists(filePath))) {
-    await fs.mkdir(filePath);
+export const ensureFileDirectoryExists = async (directory: string) => {
+  if (!(await fsObjectExists(directory))) {
+    await fs.mkdir(directory);
   }
 };
 

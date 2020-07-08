@@ -1,19 +1,27 @@
-import  logger from  './logger';
-import  { loadStories } from  './storyFinder';
-import  { writeFile } from  './writer';
+import path from "path";
+import fs from "fs";
+
+import logger from "./logger";
+import { loadStories } from "./locator";
+import { writeFile } from "./writer";
+import { LoaderDefinition } from "./outputs";
+import { ensureFileDirectoryExists } from "./paths";
 
 const sortFiles = (files: Array<string>) => files.concat().sort();
 
-export const writeOutStoryLoader = (pathConfig) => {
-  logger.debug('writeOutStoryLoader', pathConfig);
-  pathConfig.outputFiles.forEach(outputFileConfig => {
-    logger.info('Output file:      ', outputFileConfig.outputFile);
+
+export const writeOutStoryLoader = async (loader: LoaderDefinition) => {
+  logger.debug("writeOutStoryLoader", loader);
+  const outputProcessess = loader.outputs.map(async outputFileConfig => {
+    logger.info("Output file:      ", outputFileConfig.outputFile);
     logger.info(
-      'Patterns:         ',
+      "Patterns:         ",
       JSON.stringify(outputFileConfig.patterns)
     );
 
-    const storyFiles = [];
+    await ensureFileDirectoryExists(outputFileConfig.outputFile);
+
+    const storyFiles: string[] = [];
 
     outputFileConfig.patterns.forEach(pattern => {
       const patternStories = loadStories(pattern);
@@ -27,9 +35,9 @@ export const writeOutStoryLoader = (pathConfig) => {
     writeFile(sortedFiles, outputFileConfig.outputFile);
     logger.info(
       `Compiled story loader for ${storyFiles.length} files:\n`,
-      ` ${storyFiles.join('\n  ')}`
+      ` ${storyFiles.join("\n  ")}`
     );
   });
-};
 
-module.exports = { writeOutStoryLoader };
+  await Promise.all(outputProcessess);
+};
