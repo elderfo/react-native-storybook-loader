@@ -7,10 +7,10 @@ import {
 
 describe('resolveConfiguration', () => {
   test('should return default when invalid params are specified', () => {
-    const undefinedResult = resolveConfiguration(undefined);
+    const undefinedResult = resolveConfiguration(undefined, defaultConfiguration);
     expect(undefinedResult).toEqual(defaultConfiguration);
 
-    const emptyResult = resolveConfiguration({});
+    const emptyResult = resolveConfiguration({}, defaultConfiguration);
     expect(emptyResult).toEqual(defaultConfiguration);
   });
 
@@ -24,7 +24,7 @@ describe('resolveConfiguration', () => {
     };
     const expected = { ...defaultConfiguration, ...cliArgs };
 
-    const actual = resolveConfiguration(cliArgs);
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
     expect(actual).toEqual(expected);
   });
@@ -36,7 +36,7 @@ describe('resolveConfiguration', () => {
     };
     const expected = { ...defaultConfiguration, searchDir: [filename] };
 
-    const actual = resolveConfiguration(cliArgs);
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
     expect(actual).toEqual(expected);
   });
@@ -49,7 +49,7 @@ describe('resolveConfiguration', () => {
 
     const expected = { ...defaultConfiguration, ...cliArgs };
 
-    const actual = resolveConfiguration(cliArgs);
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
     expect(actual).toEqual(expected);
   });
@@ -60,7 +60,7 @@ describe('resolveConfiguration', () => {
       pattern: filename,
     };
     const expected = { ...defaultConfiguration, ...cliArgs };
-    const actual = resolveConfiguration(cliArgs);
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
     expect(actual).toEqual(expected);
   });
@@ -78,7 +78,7 @@ describe('resolveConfiguration', () => {
 
     const expected = { ...defaultConfiguration, ...cliArgs };
 
-    const actual = resolveConfiguration(cliArgs);
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
     expect(actual).toEqual(expected);
   });
@@ -95,7 +95,7 @@ describe('resolveConfiguration', () => {
       searchDir: [cliArgs.searchDir],
     };
 
-    const actual = resolveConfiguration(cliArgs);
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
     expect(actual).toEqual(expected);
   });

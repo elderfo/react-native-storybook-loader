@@ -6,7 +6,7 @@
   "author": "Chris Gestred <cgetsfred@gmail.com>",
   "license": "MIT",
   "bin": {
-    "rnstl": "./src/rnstl-cli.js"
+    "rnstl": "./out/rnstl-cli.js"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
@@ -17,7 +17,6 @@
     "@types/mock-fs": "^4.10.0",
     "@types/prettier": "^2.0.2",
     "@types/yargs": "^15.0.5",
-    "codecov": "^3.6.5",
     "faker": "^4.1.0",
     "husky": "^3.0.5",
     "jest": "^24.9.0",
@@ -25,7 +24,6 @@
     "mock-fs": "^4.4.1",
     "npm-run-all": "^4.1.2",
     "prettier": "^2.0.5",
-    "semantic-release": "^15.13.24",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
     "uuid": "^3.0.1"
@@ -38,12 +36,12 @@
   },
   "scripts": {
     "build": "tsc",
+    "prepare": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ci": "jest --coverage && codecov",
+    "test:ci": "jest --coverage",
     "start": "ts-node src/rnstl-cli.ts",
     "start:help": "ts-node src/rnstl-cli.ts --help",
-    "semantic-release": "semantic-release",
     "ci": "npm-run-all test:ci start"
   },
   "lint-staged": {
@@ -67,11 +65,11 @@
   "config": {
     "react-native-storybook-loader": {
       "searchDir": [
-        "./src/paths",
-        "./src/writer"
+        "./src",
+        "./src/logger"
       ],
       "pattern": "**/*.ts",
-      "outputFile": "./output/storyLoader.js"
+      "outputFile": "./storybook/storyLoader.js"
     }
   }
 }

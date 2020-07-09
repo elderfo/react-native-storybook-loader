@@ -1,8 +1,8 @@
-import { promises as fs } from "fs";
-import findup from "find-up";
+import { promises as fs } from 'fs';
+import findup from 'find-up';
 
-import logger from "./logger";
-import { encoding, appName } from "./constants";
+import logger from './logger';
+import { encoding, appName } from './constants';
 
 export type InputConfiguration = {
   searchDir?: Array<string> | string;
@@ -25,32 +25,28 @@ type PackageJsonFile = {
 };
 
 export const defaultConfiguration: Configuration = {
-  pattern: "./storybook/stories/index.js",
-  outputFile: "./storybook/storyLoader.js",
-  searchDir: ["./"],
+  pattern: './storybook/stories/index.js',
+  outputFile: './storybook/storyLoader.js',
+  searchDir: ['./'],
   rootDirectory: process.cwd(),
 };
 
 export const resolveConfiguration = (
-  input: InputConfiguration | undefined
-): Configuration | undefined => {
-  logger.debug("resolveConfiguration", input);
-  if (!input || typeof input !== "object") {
-    return defaultConfiguration;
+  input: InputConfiguration | undefined,
+  prevConfig: Configuration
+): Configuration  => {
+  if (!input || typeof input !== 'object') {
+    return prevConfig;
   }
 
-  const {
-    searchDir,
-    outputFile,
-    pattern,
-  } = input;
+  const { searchDir, outputFile, pattern } = input;
 
-  let config: Configuration = Object.assign({}, defaultConfiguration);
+  let config = {...prevConfig};
 
   if (searchDir !== undefined) {
     config = {
       ...config,
-      searchDir: Array.isArray(searchDir) ? searchDir : [searchDir]
+      searchDir: Array.isArray(searchDir) ? searchDir : [searchDir],
     };
   }
 
@@ -62,35 +58,41 @@ export const resolveConfiguration = (
     config = { ...config, pattern };
   }
 
-  logger.debug("resolveConfiguration:return", config);
   return config;
 };
 
 const resolvePackageJsonConfiguration = async (
-  processDirectory: string
-): Promise<Configuration | undefined> => {
+  processDirectory: string,
+  prevConfig : Configuration
+): Promise<Configuration > => {
   const packageJsonFile = await getPackageJsonPath(processDirectory);
 
   if (packageJsonFile === undefined) {
-    return undefined;
+    return prevConfig;
   }
 
+  logger.debug('package.json located at ' + packageJsonFile);
+
   const packageJsonContents = await fs.readFile(packageJsonFile, {
-    encoding
+    encoding,
   });
 
   const pkg = JSON.parse(packageJsonContents) as PackageJsonFile;
 
   if (pkg.config === undefined || pkg.config[appName] === undefined) {
-    return undefined;
+    logger.debug('package.json does not have rnstl configuration');
+    return prevConfig;
   }
 
-  return resolveConfiguration(pkg.config[appName]);
+  const config = resolveConfiguration(pkg.config[appName], prevConfig);
+  logger.debug('package.json configuration: ', config);
+
+  return config;
 };
 
 const getPackageJsonPath = async (processDirectory: string) => {
-  const packageJsonFile = await findup("package.json", {
-    cwd: processDirectory
+  const packageJsonFile = await findup('package.json', {
+    cwd: processDirectory,
   });
 
   return packageJsonFile;
@@ -100,13 +102,20 @@ export const generateConfiguration = async (
   cliArgs: InputConfiguration,
   processDirectory: string
 ): Promise<Configuration> => {
-  const cliConfig = resolveConfiguration(cliArgs);
-  const packageConfig = await resolvePackageJsonConfiguration(processDirectory);
+  
+  const packageConfig = await resolvePackageJsonConfiguration(processDirectory, defaultConfiguration);
+  const cliConfig = resolveConfiguration(cliArgs, packageConfig);
+  
+  logger.debug('cli configuration: ', cliConfig);
 
-  return {
+  const configuration = {
     ...defaultConfiguration,
     ...packageConfig,
     ...cliConfig,
-    rootDirectory: processDirectory
+    rootDirectory: processDirectory,
   };
+
+  logger.debug('Using configuration: ', configuration);
+
+  return configuration;
 };

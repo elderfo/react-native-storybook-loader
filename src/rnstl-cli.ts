@@ -52,11 +52,13 @@ logger.debug('yargs', args);
 
     const configuration = await generateConfiguration(args, cwd);
     const loaderDefinition = await generateLoaderDefinition(configuration);
-    const template = generateTemplate(loaderDefinition);
+    const template = await generateTemplate(loaderDefinition);
 
     await fs.mkdir(path.dirname(loaderDefinition.outputFile), {
       recursive: true,
     });
+
+    logger.info("Writing to " + loaderDefinition.outputFile)
 
     await fs.writeFile(loaderDefinition.outputFile, template, { encoding });
   } catch (err) {

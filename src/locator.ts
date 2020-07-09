@@ -16,6 +16,7 @@ export const generateLoaderDefinition = async ({
   pattern,
 }: Configuration): Promise<LoaderDefinition> => {
   const fullOutputFile = path.resolve(rootDirectory, outputFile);
+  const outputFileDir = path.dirname(fullOutputFile);
 
   const lookupPatterns = searchDir.map(dir =>
     path.resolve(rootDirectory, dir, pattern)
@@ -27,10 +28,12 @@ export const generateLoaderDefinition = async ({
     // Applying a format again to ensure paths are using '/'
     .map(file => formatPath(file));
 
+  const uniqueFiles = Array.from(new Set(lookupFiles));
+
   return {
     outputFile: fullOutputFile,
-    storyFiles: lookupFiles
-      .map(f => getRelativePath(f, rootDirectory))
+    storyFiles: uniqueFiles
+      .map(f => getRelativePath(f, outputFileDir))
       .map(f => stripExtension(f))
       .map(f => formatPath(f)),
   };
