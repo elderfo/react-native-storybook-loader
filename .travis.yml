@@ -5,15 +5,12 @@ cache:
 notifications:
   email: false
 node_js:
+  - "14"
   - '12'
   - '10'
-  - '8'
 
 jobs:
   include:
     - stage: test
       script:
         yarn run ci
-    # Define the release stage that runs semantic-release
-    - stage: release
-      node_js: lts/*
