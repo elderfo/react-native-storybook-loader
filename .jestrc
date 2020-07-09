@@ -1,0 +1,8 @@
+{
+  "collectCoverageFrom": [
+    "./src/*.{ts,tsx}",
+    "!**/node_modules/**",
+    "!**/src/logger/**"
+  ],
+  "coverageDirectory": "./coverage/"
+}
