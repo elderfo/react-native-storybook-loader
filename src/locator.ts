@@ -24,7 +24,7 @@ export const generateLoaderDefinition = async ({
 
   const lookupFiles = lookupPatterns
     .map(f => formatPath(f))
-    .flatMap(p => glob.sync(p))
+    .reduce((acc: string[], p: string) => [...acc, ...glob.sync(p)], [])
     // Applying a format again to ensure paths are using '/'
     .map(file => formatPath(file));
 
