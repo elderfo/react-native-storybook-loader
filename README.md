@@ -16,7 +16,7 @@ While using storybook for React Native, I repeatedly found myself manually creat
 * [Configuration](#configuration)
 * [Story Loader API](#story-loader-api)
 * [Story Loader Formatting](#story-loader-formatting) (Prettier support)
-* [Support](issues)
+* [Support](https://github.com/elderfo/react-native-storybook-loader/issues)
 
 
 ## Installation
