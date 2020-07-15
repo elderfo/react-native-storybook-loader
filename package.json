@@ -1,6 +1,6 @@
 {
   "name": "react-native-storybook-loader",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "repository": "https://github.com/elderfo/react-native-storybook-loader.git",
   "bugs": "https://github.com/elderfo/react-native-storybook-loader/issues",
   "author": "Chris Gestred <cgetsfred@gmail.com>",
@@ -8,6 +8,9 @@
   "bin": {
     "rnstl": "./out/rnstl-cli.js"
   },
+  "files": [
+    "out/**/*"
+  ],
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
