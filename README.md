@@ -7,7 +7,17 @@ A CLI for dynamically importing stories into [react-native-storybook](https://gi
 [![codecov](https://codecov.io/gh/elderfo/react-native-storybook-loader/branch/master/graph/badge.svg)](https://codecov.io/gh/elderfo/react-native-storybook-loader)
 ## Purpose
 
-While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories. So I built an automated way to do it. `react-native-storybook-loader` can be run using configuration in your `package.json` or via the CLI interface and it generates a file with all the imports for you.
+While using storybook for React Native, I repeatedly found myself manually creating a file with imports for all my stories.
+
+`react native storybook-loader` solves this by searching directories, matching files to patterns and generating a story loader that Storybook can use to load all of your stories.
+
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Configuration](#configuration)
+* [Story Loader API](#story-loader-api)
+* [Story Loader Formatting](#story-loader-formatting) (Prettier support)
+* [Support](issues)
+
 
 ## Installation
 
@@ -15,82 +25,82 @@ While using storybook for React Native, I repeatedly found myself manually creat
 yarn add react-native-storybook-loader -D
 ```
 
-Or
-
-```bash
-npm install react-native-storybook-loader --save-dev
-```
-
 ## Quick Start
 
-Create a React Native project using [create-react-native-app](https://facebook.github.io/react-native/blog/2017/03/13/introducing-create-react-native-app.html)
+1. Create a React Native project using [create-react-native-app](https://github.com/expo/create-react-native-app)
 
-```bash
-create-react-native-app AwesomeProject
-```
+    ```bash
+    yarn create react-native-app
+    ```
 
-Add react-native-storybook to the project using [`getstorybook`](https://getstorybook.io/docs/react-storybook/basics/quick-start-guide)
+2. Add [Storybook for React Native](https://storybook.js.org/docs/guides/guide-react-native/) to the project and follow instructions to finalize setup.
 
-```bash
-cd AwesomeProject
-getstorybook
-```
+    ```bash
+    cd <project name>
+    npx -p @storybook/cli sb init --type react_native
+    ```
 
-Install react-native-storybook-loader
+3. Install react-native-storybook-loader
 
-```bash
-yarn add react-native-storybook-loader -D
-```
+    ```bash
+    yarn add react-native-storybook-loader -D
+    ```
 
-Update `index.js` file in the `./storybook` directory to point to `storyLoader.js` (this file will be generated before launching Storybook).
+4. Add the `rnstl` cli to the scripts tag of the `package.json`
 
-```javascript
-import { getStorybookUI, configure } from '@storybook/react-native';
-import { loadStories } from './storyLoader';
+    ```json
+    {
+      "scripts": {
+        "prestorybook": "rnstl"
+      }
+    }
+    ```
 
-configure(() => {
-  loadStories()
-}, module);
+5. Update `index.js` file in the `./storybook` directory to point to `storyLoader.js`
 
-const StorybookUI = getStorybookUI({ port: 7007, host: 'localhost' });
-export default StorybookUI;
-```
+    ```javascript
+    import { AppRegistry } from 'react-native';
+    import { getStorybookUI, configure } from '@storybook/react-native';
 
-Add the `rnstl` cli to the scripts tag of the `package.json`
+    import { loadStories } from './storyLoader';
 
-```json
-{
-  "scripts": {
-    "prestorybook": "rnstl"
-  }
-}
-```
+    import './rn-addons';
 
-Run Storybook
+    // import stories
+    configure(() => {
+      loadStories();
+    }, module);
 
-```bash
-yarn storybook
-```
+    // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
+    // To find allowed options for getStorybookUI
+    const StorybookUIRoot = getStorybookUI({});
 
-Or
+    // If you are using React Native vanilla and after installation you don't see your app name here, write it manually.
+    // If you use Expo you can safely remove this line.
+    AppRegistry.registerComponent('%APP_NAME%', () => StorybookUIRoot);
 
-```bash
-npm run storybook
-```
+    export default StorybookUIRoot;
+    ```
+    _Note:_ Step 4 ensures `storyLoader.js` will be created
+6. Start Storybook
 
-Run react-native on the targeted platform
+    ```bash
+    yarn storybook
+    ```
 
-```bash
-react-native run-android
-```
+7. Run react native app in targeted platform
 
-Or
+    ```bash
+    yarn android
+    ```
 
-```bash
-react-native run-ios
-```
+    Or
 
-_Note: If you have problems connecting from your device to Storybook using Android issue the following command: `adb reverse tcp:7007 tcp:7007`._
+    ```bash
+    yarn ios
+    ```
+    _Note: If you have problems connecting from your device to Storybook using Android issue the following command: `adb reverse tcp:7007 tcp:7007`._
+
 
 ## Configuration
 
@@ -115,7 +125,7 @@ Both examples below will search `src` and `packages` directories recursively for
 
 ```json
 {
-  "name": "AwesomeProject",
+  "name": "awesome-project",
   "scripts": {
     "prestorybook": "rnstl"
   },
@@ -129,36 +139,22 @@ Both examples below will search `src` and `packages` directories recursively for
 }
 ```
 
-#### CLI
+## Story Loader API
 
-**Breaking Change**
+A story loader is the file generated by `rnstl` used to load story files from your project in to Storybook. 
 
-CLI can now be accessed from a terminal 
-```bash
-./node_modules/.bin/rnstl <options>
-```
-or in package.json 
-```json
-{
-  "scripts": {
-    "prestorybook": "rnstl <options>"
-  }
-}
-```
+### storyLoader.loadStores()
 
-_Note:_ When using a glob with `**/*` it is required to be wrapped in quotes
+Loads the located stories
 
-There is no longer a need to use `node ./node_modules/.bin/rnstl
-<options>`.
+Returns: `void`
 
-```bash
-$ ./node_modules/.bin/rnstl --searchDir ./src ./packages --pattern "**/*.stories.js" --outputFile ./storybook/storyLoader.js
-```
+### storyLoader.stories
 
-## Support
+An array of the stories that are loaded.
 
-Please log issues
+Returns: `string[]`
 
-## Contributing
+## Story Loader Formatting
 
-Coming Soon
+To ensure the formatting of your story loader is on par with the rest of your code base, `rnstl` uses [Prettier](https://prettier.io/) to format the generated story loaders. It will travese up the tree looking for a [Prettier configuration file](https://prettier.io/docs/en/configuration.html). If none is found, the defaul Prettier settings will be used.
