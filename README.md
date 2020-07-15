@@ -1,6 +1,6 @@
-# react-native-storybook-loader
+# React Native Storybook Loader
 
-A CLI for dynamically importing stories into [react-native-storybook](https://github.com/storybooks/react-native-storybook).
+A CLI for dynamically importing stories into [Storybook for React Native](https://storybook.js.org/docs/guides/guide-react-native/).
 
 [![Build Status](https://travis-ci.org/elderfo/react-native-storybook-loader.svg?branch=master)](https://travis-ci.org/elderfo/react-native-storybook-loader) [![Known Vulnerabilities](https://snyk.io/test/github/elderfo/react-native-storybook-loader/badge.svg)](https://snyk.io/test/github/elderfo/react-native-storybook-loader)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/elderfo/react-native-storybook-loader?svg=true)](https://ci.appveyor.com/project/elderfo/react-native-storybook-loader)
