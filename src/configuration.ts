@@ -7,14 +7,14 @@ import { encoding, appName } from './constants';
 export type InputConfiguration = {
   searchDir?: Array<string> | string;
   outputFile?: string;
-  pattern?: string;
+  pattern?: Array<string> | string;
   silent?: boolean;
 };
 
 export type Configuration = {
   searchDir: Array<string>;
   outputFile: string;
-  pattern: string;
+  pattern: Array<string>;
   rootDirectory: string;
 };
 
@@ -25,7 +25,7 @@ type PackageJsonFile = {
 };
 
 export const defaultConfiguration: Configuration = {
-  pattern: './storybook/stories/index.js',
+  pattern: ['./storybook/stories/index.js'],
   outputFile: './storybook/storyLoader.js',
   searchDir: ['./'],
   rootDirectory: process.cwd(),
@@ -55,7 +55,10 @@ export const resolveConfiguration = (
   }
 
   if (pattern) {
-    config = { ...config, pattern };
+    config = {
+      ...config,
+      pattern: Array.isArray(pattern) ? pattern : [pattern],
+    };
   }
 
   return config;

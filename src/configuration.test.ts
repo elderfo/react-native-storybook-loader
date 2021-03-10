@@ -3,6 +3,7 @@ import {
   resolveConfiguration,
   defaultConfiguration,
   InputConfiguration,
+  Configuration,
 } from './configuration';
 
 describe('resolveConfiguration', () => {
@@ -59,7 +60,7 @@ describe('resolveConfiguration', () => {
     const cliArgs: InputConfiguration = {
       pattern: filename,
     };
-    const expected = { ...defaultConfiguration, ...cliArgs };
+    const expected = { ...defaultConfiguration, pattern: [cliArgs.pattern] };
     const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
     expect(actual).toEqual(expected);
@@ -76,7 +77,7 @@ describe('resolveConfiguration', () => {
       outputFile: faker.system.fileName(),
     };
 
-    const expected = { ...defaultConfiguration, ...cliArgs };
+    const expected = { ...defaultConfiguration, ...cliArgs, pattern: [cliArgs.pattern] };
 
     const actual = resolveConfiguration(cliArgs, defaultConfiguration);
 
@@ -92,6 +93,7 @@ describe('resolveConfiguration', () => {
     const expected = {
       ...defaultConfiguration,
       ...cliArgs,
+      pattern: [cliArgs.pattern],
       searchDir: [cliArgs.searchDir],
     };
 
@@ -99,4 +101,35 @@ describe('resolveConfiguration', () => {
 
     expect(actual).toEqual(expected);
   });
+
+  test('should return patterns, when multiple pattern provided', () => {
+    const cliArgs: InputConfiguration = {
+      pattern: [faker.system.fileName(), faker.system.fileName()],
+      searchDir: faker.system.fileName(),
+      outputFile: faker.system.fileName()
+    }
+    const expected = {
+      ...defaultConfiguration,
+      ...cliArgs,
+      searchDir: [cliArgs.searchDir]
+    }
+
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration)
+    expect(actual).toEqual(expected)
+  })
+  
+  test('should return patterns, when multiple pattern and searchDir provided', () => {
+    const cliArgs: InputConfiguration = {
+      pattern: [faker.system.fileName(), faker.system.fileName()],
+      searchDir: [faker.system.fileName(), faker.system.fileName()],
+      outputFile: faker.system.fileName()
+    }
+    const expected = {
+      ...defaultConfiguration,
+      ...cliArgs,
+    }
+
+    const actual = resolveConfiguration(cliArgs, defaultConfiguration)
+    expect(actual).toEqual(expected)
+  })
 });

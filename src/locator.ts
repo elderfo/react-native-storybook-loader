@@ -18,10 +18,13 @@ export const generateLoaderDefinition = async ({
   const fullOutputFile = path.resolve(rootDirectory, outputFile);
   const outputFileDir = path.dirname(fullOutputFile);
 
-  const lookupPatterns = searchDir.map(dir =>
-    path.resolve(rootDirectory, dir, pattern)
-  );
-
+  const lookupPatterns: string[] = []
+  searchDir.forEach(dir =>
+    pattern.forEach(p =>
+      lookupPatterns.push(path.resolve(rootDirectory, dir, p))
+    )
+  )
+  
   const lookupFiles = lookupPatterns
     .map(f => formatPath(f))
     .reduce((acc: string[], p: string) => [...acc, ...glob.sync(p)], [])

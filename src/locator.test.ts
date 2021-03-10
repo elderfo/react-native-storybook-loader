@@ -33,7 +33,7 @@ describe('generateLoaderDefinition', () => {
     const config: Configuration = {
       rootDirectory: 'c:\\look-at-me-im-on-windows\\',
       outputFile: faker.system.fileName(),
-      pattern: '**/*.ts',
+      pattern: ['**/*.ts'],
       searchDir: ['.'],
     };
 
@@ -55,7 +55,7 @@ describe('generateLoaderDefinition', () => {
     const config: Configuration = {
       rootDirectory: '/home/user/nix-rules',
       outputFile: faker.system.fileName(),
-      pattern: '**/*.ts',
+      pattern: ['**/*.ts'],
       searchDir: ['.'],
     };
 
