@@ -65,7 +65,14 @@ const makePrettier = async (template: string): Promise<string> => {
       return prettier.format(template, defaultPrettierOptions);
     }
 
-    return prettier.format(template, prettierConfig);
+    // Since many prettier configs don't include the `parser` option (the
+    // Prettier docs recommend against setting it and letting Prettier infer
+    // based on the file-name), we include `...defaultPrettierOptions` here
+    // before `...prettierConfig`.
+    return prettier.format(template, {
+      ...defaultPrettierOptions,
+      ...prettierConfig,
+    });
   } catch (err) {
     logger.warn(
       `Something went awry while trying to get the prettier config, falling back to default formatting [${err}]`
