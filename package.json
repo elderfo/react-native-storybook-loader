@@ -1,6 +1,6 @@
 {
   "name": "react-native-storybook-loader",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "repository": "https://github.com/elderfo/react-native-storybook-loader.git",
   "bugs": "https://github.com/elderfo/react-native-storybook-loader/issues",
   "author": "Chris Gestred <cgetsfred@gmail.com>",
