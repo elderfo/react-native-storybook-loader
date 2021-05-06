@@ -34,14 +34,14 @@ export const defaultConfiguration: Configuration = {
 export const resolveConfiguration = (
   input: InputConfiguration | undefined,
   prevConfig: Configuration
-): Configuration  => {
+): Configuration => {
   if (!input || typeof input !== 'object') {
     return prevConfig;
   }
 
   const { searchDir, outputFile, pattern } = input;
 
-  let config = {...prevConfig};
+  let config = { ...prevConfig };
 
   if (searchDir !== undefined) {
     config = {
@@ -63,8 +63,8 @@ export const resolveConfiguration = (
 
 const resolvePackageJsonConfiguration = async (
   processDirectory: string,
-  prevConfig : Configuration
-): Promise<Configuration > => {
+  prevConfig: Configuration
+): Promise<Configuration> => {
   const packageJsonFile = await getPackageJsonPath(processDirectory);
 
   if (packageJsonFile === undefined) {
@@ -102,10 +102,12 @@ export const generateConfiguration = async (
   cliArgs: InputConfiguration,
   processDirectory: string
 ): Promise<Configuration> => {
-  
-  const packageConfig = await resolvePackageJsonConfiguration(processDirectory, defaultConfiguration);
+  const packageConfig = await resolvePackageJsonConfiguration(
+    processDirectory,
+    defaultConfiguration
+  );
   const cliConfig = resolveConfiguration(cliArgs, packageConfig);
-  
+
   logger.debug('cli configuration: ', cliConfig);
 
   const configuration = {

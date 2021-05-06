@@ -10,7 +10,8 @@
     "sourceMap": true,
     "lib": [
       "esnext"
-    ]
+    ],
+    "newLine": "lf"
   },
   "include": [
     "src/**/*"

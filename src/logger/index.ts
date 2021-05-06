@@ -1,5 +1,5 @@
-import "colors";
-import { Logger, BitBucketLogger, ConsoleLogger } from "./logger";
+import 'colors';
+import { Logger, BitBucketLogger, ConsoleLogger } from './logger';
 
 export enum LogLevels {
   silent = 0,
@@ -7,7 +7,7 @@ export enum LogLevels {
   warn = 2,
   info = 3,
   debug = 4,
-  trace = 5
+  trace = 5,
 }
 
 let logLevel = LogLevels.info;
@@ -44,7 +44,7 @@ const infoNameValue = (message: string, value: string) => {
   if (logLevel < LogLevels.info) {
     return;
   }
-  const outputValue = value || "";
+  const outputValue = value || '';
   logger.log(message.blue, outputValue.white);
 };
 
@@ -78,5 +78,5 @@ export default {
   debug,
   useConsoleLogger,
   trace,
-  useLogger
+  useLogger,
 };

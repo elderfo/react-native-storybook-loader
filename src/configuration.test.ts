@@ -7,7 +7,10 @@ import {
 
 describe('resolveConfiguration', () => {
   test('should return default when invalid params are specified', () => {
-    const undefinedResult = resolveConfiguration(undefined, defaultConfiguration);
+    const undefinedResult = resolveConfiguration(
+      undefined,
+      defaultConfiguration
+    );
     expect(undefinedResult).toEqual(defaultConfiguration);
 
     const emptyResult = resolveConfiguration({}, defaultConfiguration);

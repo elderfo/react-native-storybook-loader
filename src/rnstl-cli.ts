@@ -58,7 +58,7 @@ logger.debug('yargs', args);
       recursive: true,
     });
 
-    logger.info("Writing to " + loaderDefinition.outputFile)
+    logger.info('Writing to ' + loaderDefinition.outputFile);
 
     await fs.writeFile(loaderDefinition.outputFile, template, { encoding });
   } catch (err) {
