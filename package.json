@@ -1,6 +1,6 @@
 {
   "name": "react-native-storybook-loader",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "repository": "https://github.com/elderfo/react-native-storybook-loader.git",
   "bugs": "https://github.com/elderfo/react-native-storybook-loader/issues",
   "author": "Chris Gestred <cgetsfred@gmail.com>",
@@ -52,6 +52,11 @@
   },
   "lint-staged": {
     "*.js": [
+      "prettier --single-quote --trailing-comma es5 --write",
+      "git add",
+      "jest --bail --findRelatedTests"
+    ],
+    "*.ts": [
       "prettier --single-quote --trailing-comma es5 --write",
       "git add",
       "jest --bail --findRelatedTests"
