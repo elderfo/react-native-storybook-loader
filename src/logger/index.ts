@@ -44,7 +44,7 @@ const infoNameValue = (message: string, value: string) => {
     return;
   }
   const outputValue = value || '';
-  logger.log(message.blue, outputValue.white);
+  logger.log('\x1b[34m%s\x1b[0m', message, outputValue);
 };
 
 const warn = (...message: any[]) => {
