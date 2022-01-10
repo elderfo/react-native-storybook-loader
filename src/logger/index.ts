@@ -1,4 +1,3 @@
-import 'colors';
 import { Logger, BitBucketLogger, ConsoleLogger } from './logger';
 
 export enum LogLevels {
