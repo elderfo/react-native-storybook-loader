@@ -71,7 +71,7 @@ yarn add react-native-storybook-loader -D
       loadStories();
     }, module);
 
-    // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
+    // Refer to https://github.com/storybookjs/react-native#getstorybookui-options
     // To find allowed options for getStorybookUI
     const StorybookUIRoot = getStorybookUI({});
 
