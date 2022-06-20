@@ -155,6 +155,12 @@ An array of the stories that are loaded.
 
 Returns: `string[]`
 
+### storyLoader.modules
+
+An array of the modules to load.
+
+Returns: `NodeRequire[]`
+
 ## Story Loader Formatting
 
 To ensure the formatting of your story loader is on par with the rest of your code base, `rnstl` uses [Prettier](https://prettier.io/) to format the generated story loaders. It will travese up the tree looking for a [Prettier configuration file](https://prettier.io/docs/en/configuration.html). If none is found, the defaul Prettier settings will be used.
