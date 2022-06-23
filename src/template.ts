@@ -33,7 +33,7 @@ export const generateTemplate = async (
   ];
   
   const modules = [
-  ${formatter(loader.modules, file => `require('${file}')`, ',\n')}
+  ${formatter(loader.storyFiles, file => `require('${file}')`, ',\n')}
   ];
   
   module.exports = {
