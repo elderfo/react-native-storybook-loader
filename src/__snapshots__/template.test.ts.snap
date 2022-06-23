@@ -33,7 +33,7 @@ const modules = [
 module.exports = {
   loadStories,
   stories,
-  modules
+  modules,
 };
 "
 `;
