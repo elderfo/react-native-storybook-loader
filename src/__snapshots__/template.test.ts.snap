@@ -23,11 +23,11 @@ const stories = [
 ];
 
 const modules = [
-  '../file1.tsx',
-  '../sub/file2.tsx',
-  '../../parent/file3.tsx',
-  './sub/file4.tsx',
-  './sub/sub/file5.tsx',
+  require('../file1.tsx'),
+  require('../sub/file2.tsx'),
+  require('../../parent/file3.tsx'),
+  require('./sub/file4.tsx'),
+  require('./sub/sub/file5.tsx'),
 ];
 
 module.exports = {
