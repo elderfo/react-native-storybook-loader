@@ -22,9 +22,18 @@ const stories = [
   './sub/sub/file5',
 ];
 
+const modules = [
+  require('../file1'),
+  require('../sub/file2'),
+  require('../../parent/file3'),
+  require('./sub/file4'),
+  require('./sub/sub/file5'),
+];
+
 module.exports = {
   loadStories,
   stories,
+  modules,
 };
 "
 `;

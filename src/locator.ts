@@ -7,6 +7,7 @@ import { Configuration } from './configuration';
 export type LoaderDefinition = {
   outputFile: string;
   storyFiles: string[];
+  modules: string[];
 };
 
 export const generateLoaderDefinition = async ({
@@ -35,6 +36,9 @@ export const generateLoaderDefinition = async ({
     storyFiles: uniqueFiles
       .map(f => getRelativePath(f, outputFileDir))
       .map(f => stripExtension(f))
+      .map(f => formatPath(f)),
+    modules: uniqueFiles
+      .map(f => getRelativePath(f, outputFileDir))
       .map(f => formatPath(f)),
   };
 };

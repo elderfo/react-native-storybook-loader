@@ -32,9 +32,14 @@ export const generateTemplate = async (
   ${formatter(loader.storyFiles, file => `'${file}'`, ',\n')}
   ];
   
+  const modules = [
+  ${formatter(loader.storyFiles, file => `require('${file}')`, ',\n')}
+  ];
+  
   module.exports = {
     loadStories,
     stories,
+    modules,
   };
   `;
 
