@@ -1,6 +1,6 @@
 import mockfs from 'mock-fs';
 import path from 'path';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import fs from 'fs';
 
 import { getRelativePath, formatPath } from './paths';
