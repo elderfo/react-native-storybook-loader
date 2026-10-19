@@ -12,25 +12,23 @@
     "out/**/*"
   ],
   "devDependencies": {
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-typescript": "^7.10.4",
-    "@types/faker": "^4.1.12",
-    "@types/find-up": "^4.0.0",
-    "@types/glob": "^7.1.3",
-    "@types/jest": "^26.0.4",
-    "@types/mock-fs": "^4.10.0",
-    "@types/prettier": "^2.0.2",
-    "@types/yargs": "^15.0.5",
-    "codecov": "^3.7.1",
-    "faker": "^4.1.0",
-    "husky": "^4.2.5",
-    "jest": "^26.1.0",
-    "lint-staged": "^10.2.11",
-    "mock-fs": "^4.4.1",
-    "npm-run-all": "^4.1.2",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.6",
-    "uuid": "^8.2.0"
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
+    "@faker-js/faker": "^10.6.0",
+    "@types/glob": "^7.2.0",
+    "@types/jest": "^30.0.0",
+    "@types/mock-fs": "^4.13.4",
+    "@types/prettier": "^2.7.3",
+    "@types/yargs": "^15.0.20",
+    "husky": "^9.1.7",
+    "jest": "^30.5.2",
+    "lint-staged": "^17.6.0",
+    "mock-fs": "^5.5.0",
+    "npm-run-all2": "^9.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
+    "uuid": "^14.0.3"
   },
   "dependencies": {
     "find-up": "^4.1.0",
@@ -49,15 +47,18 @@
     "start:help": "ts-node src/rnstl-cli.ts --help",
     "ci": "npm-run-all test:ci start"
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@faker-js/faker/)"
+    ]
+  },
   "lint-staged": {
     "*.js": [
       "prettier --single-quote --trailing-comma es5 --write",
-      "git add",
       "jest --bail --findRelatedTests"
     ],
     "*.ts": [
       "prettier --single-quote --trailing-comma es5 --write",
-      "git add",
       "jest --bail --findRelatedTests"
     ]
   },

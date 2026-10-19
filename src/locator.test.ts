@@ -1,7 +1,7 @@
 jest.mock('glob');
 
 // required imports
-import * as faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 // mocked imports
 import glob from 'glob';
